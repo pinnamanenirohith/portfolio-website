@@ -37,7 +37,7 @@ export function EngineeringIdentity() {
 
       {/* Orbit ring 1 — clockwise */}
       <motion.div
-        className="absolute w-[280px] h-[280px] rounded-full border border-[rgba(59,130,246,0.15)]"
+        className="absolute w-[280px] h-[280px] rounded-full border border-[rgba(59,130,246,0.25)]"
         animate={reduced ? {} : { rotate: 360 }}
         transition={linearTransition(16)}
         style={{ transformOrigin: "center" }}
@@ -47,7 +47,7 @@ export function EngineeringIdentity() {
 
       {/* Orbit ring 2 — counter-clockwise */}
       <motion.div
-        className="absolute w-[220px] h-[220px] rounded-full border border-[rgba(139,92,246,0.15)]"
+        className="absolute w-[220px] h-[220px] rounded-full border border-[rgba(139,92,246,0.25)]"
         animate={reduced ? {} : { rotate: -360 }}
         transition={linearTransition(20)}
         style={{ transformOrigin: "center" }}
@@ -57,7 +57,7 @@ export function EngineeringIdentity() {
 
       {/* Orbit ring 3 — clockwise slower */}
       <motion.div
-        className="absolute w-[160px] h-[160px] rounded-full border border-[rgba(34,211,238,0.12)]"
+        className="absolute w-[160px] h-[160px] rounded-full border border-[rgba(34,211,238,0.22)]"
         animate={reduced ? {} : { rotate: 360 }}
         transition={linearTransition(24)}
         style={{ transformOrigin: "center" }}
@@ -70,8 +70,9 @@ export function EngineeringIdentity() {
         className="relative w-[100px] h-[100px] rounded-2xl flex items-center justify-center"
         style={{
           background:
-            "linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(139,92,246,0.15) 100%)",
-          border: "1px solid rgba(255,255,255,0.1)",
+            "linear-gradient(135deg, rgba(59,130,246,0.22) 0%, rgba(139,92,246,0.22) 100%)",
+          border: "1px solid rgba(255,255,255,0.18)",
+          boxShadow: "0 0 40px rgba(59,130,246,0.15), inset 0 1px 0 rgba(255,255,255,0.15)",
         }}
         animate={reduced ? {} : {
           boxShadow: [

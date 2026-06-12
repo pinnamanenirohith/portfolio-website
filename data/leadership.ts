@@ -3,67 +3,118 @@ import type { LeadershipRole, CurrentlyBuilding } from "@/types";
 export const leadershipRoles: LeadershipRole[] = [
   {
     id: "president-internal-affairs",
-    title: "President of Internal Affairs & Student Engagements",
+    title: "President — Internal Affairs & Student Engagements",
     org: "Student Activity Centre",
-    period: "2024 – Present",
+    period: "Jun 2026 – Present",
     description:
       "Elected to lead internal governance and student engagement operations across the campus student body. Serve as the primary liaison between student representatives and institutional administration.",
     highlights: [
-      "Overseeing internal operations, policy implementation, and governance workflows for 2,000+ students",
-      "Leading cross-functional teams across multiple student clubs and committees",
-      "Establishing structured communication channels between students and administration",
+      "Overseeing governance and operations for 2,000+ students",
+      "Leading cross-functional teams across student clubs and committees",
+      "Coordinated Surabhi 2026 — a flagship cultural event with 5,000+ attendees",
       "Driving policy reforms for club registration, event approvals, and student welfare",
     ],
-    impact: "2,000+ students impacted",
+    impact: "2,000+ students",
     type: "president",
   },
   {
-    id: "surabhi-2026",
-    title: "Core Organizer — Surabhi 2026",
-    org: "Annual Cultural Fest",
-    period: "2025 – 2026",
+    id: "vice-president-sac",
+    title: "Vice President — Student Activity Centre",
+    org: "Student Activity Centre",
+    period: "Sep 2025 – Jun 2026",
     description:
-      "Key organizer for the college's flagship annual cultural festival. Responsible for operational coordination, vendor management, volunteer logistics, and cross-team execution across a multi-day event.",
+      "Served as Vice President of the SAC, supporting the President in governance, managing inter-club relations, and overseeing student engagement initiatives across campus.",
     highlights: [
-      "Coordinating 50+ volunteers across event verticals",
-      "Managing logistics, schedules, and inter-department coordination",
-      "Driving sponsor outreach and budget planning pipelines",
-      "Ensuring seamless execution across cultural, technical, and social event tracks",
+      "Coordinated activities across all registered student clubs",
+      "Managed event approval pipelines and resource allocation",
+      "Bridged communication between club leads and SAC leadership",
     ],
-    impact: "3,000+ attendees",
+    impact: "All campus clubs",
+    type: "president",
+  },
+  {
+    id: "kl-yuva-tourism-lead",
+    title: "Lead — KL Yuva Tourism Club",
+    org: "KL University",
+    period: "Sep 2025 – Dec 2025",
+    description:
+      "Led the KL Yuva Tourism Club, organising cultural trips, outreach events, and student engagement activities that promoted travel awareness and experiential learning.",
+    highlights: [
+      "Planned and executed student travel and cultural exposure events",
+      "Managed club logistics, member coordination, and scheduling",
+    ],
+    impact: "Club leadership",
+    type: "lead",
+  },
+  {
+    id: "sac-admin-lead",
+    title: "SAC Administrative Lead",
+    org: "Student Activity Centre",
+    period: "Jul 2025 – Sep 2025",
+    description:
+      "Managed day-to-day administrative operations of the Student Activity Centre, streamlining workflows and student request handling during a high-activity transition period.",
+    highlights: [
+      "Streamlined event approval and resource allocation workflows",
+      "Piloted digital-first approach to SAC record management",
+    ],
+    impact: "30+ events",
+    type: "lead",
+  },
+  {
+    id: "safelife-lead",
+    title: "Lead — SafeLife Initiative",
+    org: "Campus Social Impact Programme",
+    period: "Jun 2024 – Dec 2025",
+    description:
+      "Promoted to Lead after co-leading, taking full ownership of the SafeLife campus safety and health awareness initiative. Scaled outreach programs and built partnerships with faculty and external organisations.",
+    highlights: [
+      "Designed peer-to-peer safety awareness workshops",
+      "Scaled program reach across three academic departments",
+      "Built resource distribution networks for student health outreach",
+    ],
+    impact: "500+ students",
+    type: "lead",
+  },
+  {
+    id: "vyuha-health-outreach",
+    title: "Health & Outreach Manager — VYUHA",
+    org: "VYUHA Student Organisation",
+    period: "Aug 2023 – Mar 2025",
+    description:
+      "Managed health and outreach programmes for VYUHA, organising health camps, awareness drives, and events focused on holistic student development.",
+    highlights: [
+      "Organised health camps, awareness drives, and outreach events",
+      "Managed volunteer teams and event logistics",
+    ],
+    impact: "Community outreach",
     type: "organizer",
   },
   {
-    id: "safelife",
-    title: "Leadership — SafeLife Initiative",
+    id: "safelife-colead",
+    title: "Co Lead — SafeLife Initiative",
     org: "Campus Social Impact Programme",
-    period: "2024 – Present",
+    period: "Oct 2023 – Jan 2025",
     description:
-      "Student leader for a campus safety and health awareness initiative focused on peer education, crisis support frameworks, and community well-being programs.",
+      "Co-led the SafeLife campus health and safety awareness programme, building the team and establishing the operational framework that later scaled under full leadership.",
     highlights: [
-      "Designed and ran peer-to-peer safety awareness workshops",
-      "Built resource distribution networks for student health outreach",
-      "Coordinated with faculty advisors and external NGO partners",
-      "Scaled program reach across three academic departments",
+      "Built the initial SafeLife team and operational structure",
+      "Ran the first peer safety education workshops",
     ],
-    impact: "500+ students reached",
+    impact: "Foundation built",
     type: "lead",
   },
   {
-    id: "sac-operations",
-    title: "Operational Lead — Student Activity Centre",
+    id: "sac-member",
+    title: "Member — Student Activity Centre",
     org: "Student Activity Centre",
-    period: "2023 – Present",
+    period: "Sep 2023 – Jun 2024",
     description:
-      "Hands-on operational role managing day-to-day SAC activities, event workflows, and student request pipelines. Focused on process efficiency and reducing friction in student-administration interactions.",
+      "Joined the SAC as a general member, contributing to event execution, student coordination, and day-to-day operations — the starting point of a leadership progression.",
     highlights: [
-      "Streamlined event approval and resource allocation workflows",
-      "Maintained activity logs, meeting minutes, and governance documentation",
-      "Mentored junior council members on operations and communication",
-      "Piloted digital-first approach to SAC record management",
+      "Supported event planning and on-ground execution",
+      "Built foundational understanding of SAC governance structures",
     ],
-    impact: "30+ events executed",
-    type: "lead",
+    type: "member",
   },
 ];
 
@@ -95,8 +146,8 @@ export const currentlyBuilding: CurrentlyBuilding[] = [
 ];
 
 export const impactStats = [
+  { value: 5000, suffix: "+", label: "Event Attendees" },
+  { value: 30,   suffix: "+", label: "Events Executed" },
+  { value: 8,    suffix: "",  label: "Leadership Roles" },
   { value: 2000, suffix: "+", label: "Students Impacted" },
-  { value: 30, suffix: "+", label: "Events Executed" },
-  { value: 3, suffix: "", label: "Leadership Roles" },
-  { value: 500, suffix: "+", label: "Outreach Reach" },
 ];

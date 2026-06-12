@@ -1,36 +1,39 @@
 @import "tailwindcss";
 
-/* ── Design Tokens ─────────────────────────────────────────────────────── */
+/* ── Design Tokens — Light Premium ─────────────────────────────────────── */
 :root {
   /* Backgrounds */
-  --bg-950: #030712;
-  --bg-900: #0a0f1e;
-  --bg-800: #0d1117;
-  --surface: #111827;
-  --surface-elevated: #1a2235;
+  --bg-primary: #F8F8F5;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #FAFAFA;
+  --bg-subtle: #F3F4F6;
 
   /* Text */
-  --foreground: #f0f6fc;
-  --muted: #6b7280;
-  --subtle: #374151;
+  --foreground: #111111;
+  --foreground-secondary: #374151;
+  --muted: #6B7280;
+  --subtle: #9CA3AF;
 
   /* Brand */
-  --blue: #3b82f6;
-  --violet: #8b5cf6;
-  --cyan: #22d3ee;
-  --green: #22c55e;
+  --blue: #2563EB;
+  --blue-light: #EFF6FF;
+  --blue-mid: #DBEAFE;
+  --indigo: #4F46E5;
+  --green: #16A34A;
+  --green-light: #F0FDF4;
+  --amber: #D97706;
 
   /* Borders */
-  --border: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 255, 0.16);
+  --border: #E5E7EB;
+  --border-subtle: #F3F4F6;
+  --border-strong: #D1D5DB;
 
-  /* Glow */
-  --glow-blue: rgba(59, 130, 246, 0.15);
-  --glow-violet: rgba(139, 92, 246, 0.15);
-
-  /* Glass */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.04);
+  --shadow-xl: 0 20px 60px rgba(0,0,0,0.10), 0 8px 20px rgba(0,0,0,0.06);
 
   /* Fonts */
   --font-sans: var(--font-geist);
@@ -39,20 +42,17 @@
 
 /* ── Tailwind v4 Theme Extension ───────────────────────────────────────── */
 @theme inline {
-  --color-background: var(--bg-950);
+  --color-background: var(--bg-primary);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist);
   --font-mono: var(--font-geist-mono);
 
-  /* Custom colors accessible as bg-brand-blue etc */
   --color-brand-blue: var(--blue);
-  --color-brand-violet: var(--violet);
-  --color-brand-cyan: var(--cyan);
+  --color-brand-indigo: var(--indigo);
   --color-brand-green: var(--green);
-  --color-surface: var(--surface);
-  --color-surface-elevated: var(--surface-elevated);
+  --color-surface: var(--bg-surface);
+  --color-elevated: var(--bg-elevated);
   --color-muted: var(--muted);
-  --color-subtle: var(--subtle);
 }
 
 /* ── Base Reset ────────────────────────────────────────────────────────── */
@@ -68,7 +68,7 @@ html {
 }
 
 body {
-  background-color: var(--bg-950);
+  background-color: var(--bg-primary);
   color: var(--foreground);
   font-family: var(--font-geist), system-ui, -apple-system, sans-serif;
   line-height: 1.7;
@@ -77,8 +77,8 @@ body {
 
 /* ── Selection ──────────────────────────────────────────────────────────── */
 ::selection {
-  background: rgba(139, 92, 246, 0.3);
-  color: var(--foreground);
+  background: #DBEAFE;
+  color: var(--blue);
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────────────────── */
@@ -86,10 +86,10 @@ body {
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-950);
+  background: var(--bg-primary);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--subtle);
+  background: var(--border-strong);
   border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -98,117 +98,96 @@ body {
 
 /* ── Typography Scale ───────────────────────────────────────────────────── */
 .text-display {
-  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-size: clamp(2.25rem, 5vw, 4rem);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.05;
 }
 
 .text-h1 {
-  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.15;
 }
 
 .text-h2 {
-  font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+  font-size: clamp(1.2rem, 2.2vw, 1.75rem);
   font-weight: 600;
   letter-spacing: -0.02em;
 }
 
 .text-label {
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--blue);
 }
 
-/* ── Gradient Text ──────────────────────────────────────────────────────── */
+/* ── Accent Text ────────────────────────────────────────────────────────── */
+.accent-text {
+  color: var(--blue);
+}
+
 .gradient-text {
-  background: linear-gradient(135deg, var(--blue) 0%, var(--violet) 50%, var(--cyan) 100%);
+  background: linear-gradient(135deg, var(--blue) 0%, var(--indigo) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.gradient-text-subtle {
-  background: linear-gradient(135deg, var(--foreground) 0%, rgba(240, 246, 252, 0.6) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* ── Card System ────────────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
 }
 
-/* ── Glass Morphism ─────────────────────────────────────────────────────── */
-.glass {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+.card-hover {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
-.glass-hover {
-  transition: background 0.2s ease, border-color 0.2s ease;
+.card-hover:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
 }
 
-.glass-hover:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--border-hover);
-}
-
-/* Inner top edge glow */
-.glass-inner-glow {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
-/* ── Gradient Borders ───────────────────────────────────────────────────── */
-.gradient-border {
-  position: relative;
-  border-radius: inherit;
-}
-
-.gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, var(--blue), var(--violet), var(--cyan));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
+.card-elevated {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
 }
 
 /* ── Section Layout ─────────────────────────────────────────────────────── */
 .section-padding {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-}
-
-@media (min-width: 768px) {
-  .section-padding {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
-  }
+  padding-top: clamp(4rem, 8vw, 6rem);
+  padding-bottom: clamp(4rem, 8vw, 6rem);
 }
 
 .container-tight {
-  max-width: 1100px;
+  max-width: clamp(900px, 88vw, 1400px);
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
 }
 
-@media (min-width: 768px) {
-  .container-tight {
-    padding-inline: 2rem;
-  }
+/* ── Narrow container for text-heavy centered content (forms, contact) ──── */
+.container-narrow {
+  max-width: clamp(520px, 60vw, 720px);
+  margin-inline: auto;
+}
+
+/* ── Divider ─────────────────────────────────────────────────────────────── */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
 }
 
 /* ── Focus Visible ──────────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid var(--violet);
+  outline: 2px solid var(--blue);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -220,23 +199,4 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-/* ── Noise Texture Overlay ──────────────────────────────────────────────── */
-.noise-overlay::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  border-radius: inherit;
-  opacity: 0.4;
-}
-
-/* ── Animated Gradient Background ──────────────────────────────────────── */
-.hero-gradient {
-  background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-    var(--bg-950);
 }

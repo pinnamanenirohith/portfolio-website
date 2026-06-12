@@ -2,9 +2,8 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { staggerContainer, fadeUp, slideInLeft, slideInRight } from "@/lib/animations";
+import { staggerContainer, fadeUp } from "@/lib/animations";
 import { GlassCard } from "@/components/effects/GlassCard";
-import { GradientText } from "@/components/effects/GradientText";
 import { about } from "@/data/personal";
 import { SITE } from "@/lib/constants";
 
@@ -14,108 +13,85 @@ export function About() {
 
   return (
     <section id="about" ref={ref} className="section-padding container-tight">
-      <motion.p
-        className="text-label mb-4"
+      <motion.div
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
-        variants={fadeUp}
+        variants={staggerContainer}
       >
-        About
-      </motion.p>
+        <motion.p className="text-label mb-3" variants={fadeUp}>About</motion.p>
+        <motion.h2 className="text-h1 mb-10 max-w-2xl" variants={fadeUp}>
+          Engineer by craft,{" "}
+          <span className="gradient-text">leader by choice.</span>
+        </motion.h2>
 
-      <div className="grid lg:grid-cols-5 gap-10 lg:gap-16 items-start">
-        {/* Text column */}
-        <motion.div
-          className="lg:col-span-3 flex flex-col gap-5"
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={staggerContainer}
-        >
-          <motion.h2 variants={fadeUp} className="text-h1">
-            Engineer by craft,{" "}
-            <GradientText>leader by choice.</GradientText>
-          </motion.h2>
-
-          {about.bio.map((para, i) => (
-            <motion.p
-              key={i}
-              variants={fadeUp}
-              className="text-[var(--muted)] leading-relaxed"
-            >
-              {para}
-            </motion.p>
-          ))}
-
-          <motion.p variants={fadeUp} className="text-sm font-mono text-[var(--muted)] border-l-2 border-[var(--violet)] pl-4 mt-2">
-            Currently: {about.currently}
-          </motion.p>
-
-          {/* Interests */}
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-2 mt-2">
-            {about.interests.map((interest) => (
-              <span
-                key={interest}
-                className="px-3 py-1 text-xs font-mono rounded-full border border-[var(--border)] text-[var(--muted)]"
-              >
-                {interest}
-              </span>
+        <div className="grid lg:grid-cols-5 gap-10 lg:gap-14 items-start">
+          {/* Text */}
+          <motion.div className="lg:col-span-3 flex flex-col gap-5" variants={staggerContainer}>
+            {about.bio.map((para, i) => (
+              <motion.p key={i} variants={fadeUp} className="text-[var(--foreground-secondary)] leading-relaxed">
+                {para}
+              </motion.p>
             ))}
+
+            <motion.p variants={fadeUp} className="text-sm font-mono text-[var(--blue)] border-l-2 border-[var(--blue)] pl-4 mt-1">
+              Currently: {about.currently}
+            </motion.p>
+
+            <motion.div variants={fadeUp} className="flex flex-wrap gap-2 mt-1">
+              {about.interests.map((interest) => (
+                <span
+                  key={interest}
+                  className="px-3 py-1 text-xs font-mono rounded-full border border-[var(--border)] text-[var(--muted)] bg-[var(--bg-surface)]"
+                >
+                  {interest}
+                </span>
+              ))}
+            </motion.div>
           </motion.div>
-        </motion.div>
 
-        {/* Card column */}
-        <motion.div
-          className="lg:col-span-2"
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={slideInRight}
-        >
-          <GlassCard glow className="p-6 flex flex-col gap-5">
-            {/* Quick facts */}
-            <div>
-              <p className="text-label mb-3">Quick Facts</p>
-              <ul className="flex flex-col gap-2.5 text-sm">
-                {[
-                  { label: "Role", value: SITE.role },
-                  { label: "Location", value: SITE.location },
-                  { label: "Focus", value: "Cloud Native + Leadership" },
-                  { label: "Status", value: "Open to Work", highlight: true },
-                ].map(({ label, value, highlight }) => (
-                  <li key={label} className="flex justify-between items-center">
-                    <span className="text-[var(--muted)]">{label}</span>
-                    <span className={highlight ? "text-[var(--green)] font-medium" : "text-[var(--foreground)]"}>
-                      {value}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="h-px bg-[var(--border)]" />
-
-            {/* Contact mini */}
-            <div>
-              <p className="text-label mb-3">Connect</p>
-              <div className="flex flex-col gap-1.5">
-                <a
-                  href={`mailto:${SITE.email}`}
-                  className="text-sm text-[var(--muted)] hover:text-[var(--blue)] transition-colors font-mono truncate"
-                >
-                  {SITE.email}
-                </a>
-                <a
-                  href={SITE.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors font-mono"
-                >
-                  github.com/rohithpinnamaneni
-                </a>
+          {/* Quick facts card */}
+          <motion.div className="lg:col-span-2" variants={fadeUp}>
+            <GlassCard className="p-6 flex flex-col gap-5">
+              <div>
+                <p className="text-label mb-4">Quick Facts</p>
+                <ul className="flex flex-col gap-3 text-sm">
+                  {[
+                    { label: "University", value: "KL University, Vijayawada" },
+                    { label: "Degree", value: "B.Tech, Computer Science" },
+                    { label: "Location", value: SITE.location },
+                    { label: "Focus", value: "Cloud · Full Stack · DevOps" },
+                    { label: "Status", value: "Open to Work", highlight: true },
+                  ].map(({ label, value, highlight }) => (
+                    <li key={label} className="flex justify-between items-start gap-4">
+                      <span className="text-[var(--muted)] shrink-0">{label}</span>
+                      <span className={`text-right ${highlight ? "text-[var(--green)] font-semibold" : "text-[var(--foreground-secondary)] font-medium"}`}>
+                        {value}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-          </GlassCard>
-        </motion.div>
-      </div>
+
+              <div className="h-px bg-[var(--border)]" />
+
+              <div>
+                <p className="text-label mb-3">Connect</p>
+                <div className="flex flex-col gap-2">
+                  <a href={`mailto:${SITE.email}`} className="text-sm text-[var(--blue)] hover:underline font-mono truncate">
+                    {SITE.email}
+                  </a>
+                  <a href={SITE.github} target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors font-mono">
+                    github.com/pinnamanenirohith
+                  </a>
+                  <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors font-mono truncate">
+                    linkedin.com/in/rohith-venkata-sai-pinnamaneni
+                  </a>
+                </div>
+              </div>
+            </GlassCard>
+          </motion.div>
+        </div>
+      </motion.div>
     </section>
   );
 }
