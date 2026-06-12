@@ -38,7 +38,7 @@ export function CurrentlyBuilding() {
       >
         {currentlyBuilding.map((item) => (
           <motion.div key={item.title} variants={fadeUp}>
-            <GlassCard hover className="p-4 h-full">
+            <GlassCard hover glow className="p-4 h-full">
               <div className="flex items-start gap-3">
                 <div className="mt-0.5 text-[var(--blue)] shrink-0">
                   {iconMap[item.icon] ?? <Sparkles size={16} />}

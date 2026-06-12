@@ -43,6 +43,18 @@ export interface CurrentlyBuilding {
   icon: string;
 }
 
+export interface Internship {
+  id: string;
+  title: string;
+  org: string;
+  partners: string[];
+  duration: string;
+  period: string;
+  focus: string[];
+  description: string;
+  type: "ai-cloud" | "fullstack" | "research";
+}
+
 export interface SocialLink {
   platform: string;
   href: string;

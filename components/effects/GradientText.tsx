@@ -14,7 +14,7 @@ export function GradientText({
   as: Tag = "span",
 }: GradientTextProps) {
   return (
-    <Tag className={cn(subtle ? "gradient-text-subtle" : "gradient-text", className)}>
+    <Tag className={cn("gradient-text", className)}>
       {children}
     </Tag>
   );
