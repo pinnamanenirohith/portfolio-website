@@ -1,34 +1,40 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500&display=swap");
 @import "tailwindcss";
 
 :root {
-  --accent: #2563eb;
-  --accent-light: #dbeafe;
-  --foreground: #0a0a0a;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --surface: #f9fafb;
+  --bg: #09090b;
+  --bg-elevated: #111114;
+  --bg-subtle: #18181b;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-mid: rgba(255, 255, 255, 0.12);
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #52525b;
+  --accent: #3b82f6;
+  --accent-glow: rgba(59, 130, 246, 0.12);
+  --accent-indigo: #6366f1;
+  --accent-green: #10b981;
+  --mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
 }
 
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background: #ffffff;
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--text-primary);
   font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+::-webkit-scrollbar-thumb { background: #27272a; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
 
-/* Selection */
-::selection { background: var(--accent-light); color: var(--foreground); }
-
-/* Focus ring */
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+::selection { background: rgba(59, 130, 246, 0.25); color: #fafafa; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }

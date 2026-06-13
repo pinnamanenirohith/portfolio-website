@@ -6,118 +6,141 @@ import FarmingCard from "@/components/graphics/FarmingCard";
 
 export default function Work() {
   return (
-    <section id="work" className="py-32 px-6 md:px-8 bg-white">
+    <section id="work" className="py-28 px-6 md:px-8 border-t border-white/[0.06]">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <FadeIn>
-          <p className="text-xs font-semibold text-blue-600 tracking-widest uppercase mb-4">
+          <p
+            className="text-xs tracking-[0.18em] uppercase text-blue-400 mb-3"
+            style={{ fontFamily: "var(--mono)" }}
+          >
             Selected Work
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 max-w-xl">
-            Things I&apos;ve built
+          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+            Engineering projects
           </h2>
         </FadeIn>
 
-        {/* Projects */}
-        <div className="mt-20 space-y-28">
-          {/* ERP Project */}
-          <FadeIn delay={0.1}>
-            <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-              {/* Graphic */}
-              <div className="order-2 md:order-1">
-                <ERPDiagram />
-              </div>
+        {/* ── ERP Project ────────────────────────────────── */}
+        <div className="mt-20">
+          <FadeIn>
+            {/* Project label */}
+            <div className="flex items-center gap-4 mb-10">
+              <span
+                className="text-[10px] px-2.5 py-1 rounded-full text-blue-400 border border-blue-500/30 bg-blue-500/[0.08]"
+                style={{ fontFamily: "var(--mono)" }}
+              >
+                {projects[0].badge}
+              </span>
+              <div className="flex-1 h-px bg-white/[0.05]" />
+            </div>
+          </FadeIn>
 
-              {/* Content */}
-              <div className="order-1 md:order-2">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-xs font-semibold px-2.5 py-1 bg-blue-50 text-blue-600 rounded-full">
-                    {projects[0].badge}
-                  </span>
-                </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+            {/* Diagram */}
+            <FadeIn delay={0.05}>
+              <ERPDiagram />
+            </FadeIn>
+
+            {/* Narrative */}
+            <FadeIn delay={0.15}>
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
                   {projects[0].title}
                 </h3>
-                <p className="text-gray-400 font-medium mt-1">
+                <p className="text-sm text-zinc-500 mb-6">
                   {projects[0].subtitle}
                 </p>
-                <p className="mt-5 text-gray-600 leading-relaxed">
+                <p className="text-zinc-400 leading-relaxed mb-8">
                   {projects[0].description}
                 </p>
 
-                <ul className="mt-6 space-y-2">
+                {/* Highlights */}
+                <div className="space-y-3 mb-8">
                   {projects[0].highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-2 text-sm text-gray-600">
-                      <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-blue-500" />
-                      {h}
-                    </li>
+                    <div key={h} className="flex items-start gap-3">
+                      <div className="mt-2 w-1 h-1 rounded-full bg-blue-500 flex-shrink-0" />
+                      <p className="text-sm text-zinc-400 leading-relaxed">{h}</p>
+                    </div>
                   ))}
-                </ul>
+                </div>
 
-                <div className="mt-6 flex flex-wrap gap-2">
+                {/* Stack pills */}
+                <div className="flex flex-wrap gap-2">
                   {projects[0].stack.map((s) => (
                     <span
                       key={s}
-                      className="text-xs px-2.5 py-1 bg-gray-100 text-gray-600 rounded-md font-medium"
+                      className="text-xs px-2.5 py-1.5 rounded-md bg-white/[0.05] text-zinc-400 border border-white/[0.07]"
+                      style={{ fontFamily: "var(--mono)" }}
                     >
                       {s}
                     </span>
                   ))}
                 </div>
               </div>
+            </FadeIn>
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="my-24 h-px bg-white/[0.05]" />
+
+        {/* ── Farming Project ─────────────────────────────── */}
+        <div>
+          <FadeIn>
+            <div className="flex items-center gap-4 mb-10">
+              <span
+                className="text-[10px] px-2.5 py-1 rounded-full text-emerald-400 border border-emerald-500/30 bg-emerald-500/[0.08]"
+                style={{ fontFamily: "var(--mono)" }}
+              >
+                {projects[1].badge}
+              </span>
+              <div className="flex-1 h-px bg-white/[0.05]" />
             </div>
           </FadeIn>
 
-          {/* Divider */}
-          <div className="w-full h-px bg-gray-100" />
-
-          {/* Farming Project */}
-          <FadeIn delay={0.1}>
-            <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-              {/* Content */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+            {/* Narrative */}
+            <FadeIn delay={0.05}>
               <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-xs font-semibold px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-full">
-                    {projects[1].badge}
-                  </span>
-                </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
                   {projects[1].title}
                 </h3>
-                <p className="text-gray-400 font-medium mt-1">
+                <p className="text-sm text-zinc-500 mb-6">
                   {projects[1].subtitle}
                 </p>
-                <p className="mt-5 text-gray-600 leading-relaxed">
+                <p className="text-zinc-400 leading-relaxed mb-8">
                   {projects[1].description}
                 </p>
 
-                <ul className="mt-6 space-y-2">
+                <div className="space-y-3 mb-8">
                   {projects[1].highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-2 text-sm text-gray-600">
-                      <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                      {h}
-                    </li>
+                    <div key={h} className="flex items-start gap-3">
+                      <div className="mt-2 w-1 h-1 rounded-full bg-emerald-500 flex-shrink-0" />
+                      <p className="text-sm text-zinc-400 leading-relaxed">{h}</p>
+                    </div>
                   ))}
-                </ul>
+                </div>
 
-                <div className="mt-6 flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2">
                   {projects[1].stack.map((s) => (
                     <span
                       key={s}
-                      className="text-xs px-2.5 py-1 bg-gray-100 text-gray-600 rounded-md font-medium"
+                      className="text-xs px-2.5 py-1.5 rounded-md bg-white/[0.05] text-zinc-400 border border-white/[0.07]"
+                      style={{ fontFamily: "var(--mono)" }}
                     >
                       {s}
                     </span>
                   ))}
                 </div>
               </div>
+            </FadeIn>
 
-              {/* Graphic */}
-              <div>
-                <FarmingCard />
-              </div>
-            </div>
-          </FadeIn>
+            {/* Card */}
+            <FadeIn delay={0.15}>
+              <FarmingCard />
+            </FadeIn>
+          </div>
         </div>
       </div>
     </section>
