@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rohith Pinnamaneni — Portfolio
 
-## Getting Started
+Personal developer portfolio built with Next.js, Tailwind CSS, and Framer Motion.
 
-First, run the development server:
+## Stack
+
+- **Next.js 15** (App Router, static export)
+- **TypeScript**
+- **Tailwind CSS v4**
+- **Framer Motion** — scroll reveal + hover animations
+
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+Output goes to `out/` (static export — ready for any static host).
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy to Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Option A — Vercel CLI
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm i -g vercel
+vercel
+```
 
-## Deploy on Vercel
+Follow the prompts. Vercel auto-detects Next.js and sets the correct build settings.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Option B — GitHub integration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push this repo to GitHub.
+2. Go to [vercel.com/new](https://vercel.com/new), import the repo.
+3. Leave all build settings as auto-detected defaults.
+4. Click **Deploy**.
+
+## Before going live
+
+- Replace `github.com/YOUR_GITHUB_USERNAME` in [`data/content.ts`](data/content.ts) with your actual GitHub URL once the repo is public.
+- Add a real `public/og-image.png` (1200×630) for social previews.
+- Update `metadataBase` in [`app/layout.tsx`](app/layout.tsx) with your final domain.
