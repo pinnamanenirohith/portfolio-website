@@ -44,7 +44,7 @@ export default function HomeCTA() {
             <MagneticButton href="mailto:pinnamanenirohith@gmail.com" variant="primary">
               pinnamanenirohith@gmail.com
             </MagneticButton>
-            <MagneticButton href="https://linkedin.com/in/rohith-pinnamaneni" variant="ghost">
+            <MagneticButton href="https://www.linkedin.com/in/rohith-venkata-sai-pinnamaneni-38807a2b2" variant="ghost">
               LinkedIn ↗
             </MagneticButton>
           </div>
