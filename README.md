@@ -12,7 +12,7 @@
 
 ## Live Demo
 
-🔗 **[rohith.vercel.app](https://rohith.vercel.app)** *(replace with your Vercel URL once deployed)*
+🔗 **[portfolio-website-seven-silk-89.vercel.app](https://portfolio-website-seven-silk-89.vercel.app)**
 
 ---
 
