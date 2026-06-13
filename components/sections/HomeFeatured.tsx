@@ -3,21 +3,36 @@ import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { projects } from "@/data/content";
+import { useSpotlight } from "@/hooks/useSpotlight";
 
 const sac = projects[0];
 
 export default function HomeFeatured() {
   const ref = useRef<HTMLElement>(null);
+  const spotlightRef = useSpotlight<HTMLElement>();
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const titleY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
+  const setRef = (el: HTMLElement | null) => {
+    (ref as React.MutableRefObject<HTMLElement | null>).current = el;
+    (spotlightRef as React.MutableRefObject<HTMLElement | null>).current = el;
+  };
+
   return (
     <section
-      ref={ref}
-      className="py-32 md:py-44 px-6 md:px-14 border-t overflow-hidden"
+      ref={setRef}
+      className="relative py-32 md:py-44 px-6 md:px-14 border-t overflow-hidden"
       style={{ borderColor: "var(--border)" }}
     >
+      {/* Spotlight */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(400px circle at var(--sx, 30%) var(--sy, 50%), rgba(91,124,247,0.04) 0%, transparent 60%)",
+        }}
+      />
       <div className="max-w-[1180px] mx-auto">
 
         <motion.p
@@ -30,7 +45,7 @@ export default function HomeFeatured() {
           Flagship System
         </motion.p>
 
-        <Link href="/work/sac-platform" className="group block" data-hover>
+        <Link href="/work/sac-platform" className="group block">
           <div className="grid md:grid-cols-[1fr_auto] gap-8 items-end">
 
             {/* Title with parallax */}

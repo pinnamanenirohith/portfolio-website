@@ -22,8 +22,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       <Link
         href={`/work/${project.id}/`}
         className="group block"
-        data-hover
-      >
+             >
         <div
           className={`relative transition-all duration-500 ${isHero ? "py-16 md:py-20" : "py-10 md:py-14"} border-b`}
           style={{ borderColor: "var(--border)" }}

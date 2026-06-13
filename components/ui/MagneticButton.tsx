@@ -1,6 +1,5 @@
 "use client";
-import { useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 
 type Variant = "primary" | "ghost";
 
@@ -12,6 +11,9 @@ interface Props {
   className?: string;
 }
 
+/* Spring config that feels immediate — no perceivable lag */
+const tapSpring = { type: "spring" as const, stiffness: 900, damping: 30, mass: 0.5 };
+
 export default function MagneticButton({
   children,
   onClick,
@@ -19,57 +21,53 @@ export default function MagneticButton({
   variant = "primary",
   className = "",
 }: Props) {
-  const ref = useRef<HTMLAnchorElement & HTMLButtonElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const xS = useSpring(x, { stiffness: 260, damping: 20 });
-  const yS = useSpring(y, { stiffness: 260, damping: 20 });
-
-  const onMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
-    const r = ref.current.getBoundingClientRect();
-    x.set((e.clientX - r.left - r.width / 2) * 0.38);
-    y.set((e.clientY - r.top - r.height / 2) * 0.38);
-  };
-
-  const onLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
   const base =
-    "relative inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-full transition-colors duration-200 whitespace-nowrap select-none";
+    "relative inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-full whitespace-nowrap select-none outline-none focus-visible:ring-2 focus-visible:ring-[--accent] focus-visible:ring-offset-2 focus-visible:ring-offset-[--bg]";
 
   const styles: Record<Variant, string> = {
-    primary: "bg-white text-zinc-950 hover:bg-zinc-100",
+    primary:
+      "bg-white text-zinc-950 transition-colors duration-150 hover:bg-zinc-100 active:bg-zinc-200",
     ghost:
-      "border border-white/[0.15] text-[--text-mid] hover:border-white/30 hover:text-white",
+      "border text-[--text-mid] transition-colors duration-150 hover:border-white/30 hover:text-white active:bg-white/[0.04]",
   };
+
+  const ghostBorder =
+    variant === "ghost"
+      ? { borderColor: "rgba(255,255,255,0.13)" }
+      : {};
 
   const combined = `${base} ${styles[variant]} ${className}`;
 
-  const shared = {
-    ref,
-    onMouseMove: onMove,
-    onMouseLeave: onLeave,
-    onClick,
-    className: combined,
+  const motionProps = {
+    whileHover: { y: -1.5, transition: { duration: 0.14, ease: [0.25, 0.46, 0.45, 0.94] as [number,number,number,number] } },
+    whileTap: { scale: 0.96, y: 0, transition: tapSpring },
   };
 
+  if (href) {
+    const isExternal = href.startsWith("http") || href.startsWith("mailto");
+    return (
+      <motion.a
+        href={href}
+        target={isExternal && !href.startsWith("mailto") ? "_blank" : undefined}
+        rel={isExternal && !href.startsWith("mailto") ? "noopener noreferrer" : undefined}
+        onClick={onClick}
+        className={combined}
+        style={ghostBorder}
+        {...motionProps}
+      >
+        {children}
+      </motion.a>
+    );
+  }
+
   return (
-    <motion.div style={{ x: xS, y: yS }} className="inline-block">
-      {href ? (
-        <a
-          {...shared}
-          href={href}
-          target={href.startsWith("http") ? "_blank" : undefined}
-          rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-        >
-          {children}
-        </a>
-      ) : (
-        <button {...shared}>{children}</button>
-      )}
-    </motion.div>
+    <motion.button
+      onClick={onClick}
+      className={combined}
+      style={ghostBorder}
+      {...motionProps}
+    >
+      {children}
+    </motion.button>
   );
 }
