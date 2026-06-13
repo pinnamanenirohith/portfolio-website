@@ -1,71 +1,109 @@
-import FadeIn from "@/components/ui/FadeIn";
+"use client";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 const capabilities = [
   {
     num: "01",
     title: "Full-Stack Web Systems",
-    desc: "End-to-end MERN stack architecture with TypeScript, REST API design, JWT authentication, multi-tier RBAC, and MongoDB schema engineering.",
+    desc: "End-to-end MERN stack architecture with TypeScript, REST API design, multi-tier RBAC, JWT authentication, and MongoDB schema engineering.",
     tags: ["Next.js", "Node.js", "MongoDB", "TypeScript", "Express"],
   },
   {
     num: "02",
     title: "DevOps & Infrastructure",
-    desc: "Self-hosted Linux deployments with Nginx reverse proxy, PM2 process management, API hardening, and zero-touch GitHub Actions CI/CD pipelines.",
+    desc: "Self-hosted Linux deployments with Nginx reverse proxy, PM2 process management, API security hardening, and zero-touch GitHub Actions CI/CD.",
     tags: ["GitHub Actions", "Nginx", "Linux", "PM2", "Docker"],
   },
   {
     num: "03",
-    title: "Institutional Scale Execution",
-    desc: "Systems and leadership operating at institutional scale — production ERPs supporting 20–40 campus clubs, city-wide campaigns, and cross-functional teams.",
+    title: "Institutional Scale",
+    desc: "Systems and leadership at institutional scale — ERP platforms serving 20–40 clubs, city-wide campaigns, cross-functional team coordination.",
     tags: ["ERP", "RBAC", "Multi-tenant", "Org Design"],
   },
 ];
 
+function Card({ c, i }: { c: typeof capabilities[0]; i: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 28 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay: i * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+      className="group p-8 md:p-10 rounded-2xl border hover:border-white/[0.13] transition-colors duration-300"
+      style={{ background: "var(--bg-elevated)", borderColor: "var(--border)" }}
+    >
+      <p
+        className="text-[10px] tracking-[0.2em] uppercase mb-8"
+        style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
+      >
+        {c.num}
+      </p>
+      <h3
+        className="text-lg font-semibold mb-4 leading-snug"
+        style={{ color: "var(--text)", fontFamily: "var(--display)" }}
+      >
+        {c.title}
+      </h3>
+      <p className="text-sm leading-[1.8] mb-7" style={{ color: "var(--text-mid)" }}>
+        {c.desc}
+      </p>
+      <div className="flex flex-wrap gap-1.5">
+        {c.tags.map((t) => (
+          <span
+            key={t}
+            className="text-[10px] px-2.5 py-1 rounded-md border"
+            style={{
+              fontFamily: "var(--mono)",
+              color: "var(--text-dim)",
+              background: "rgba(255,255,255,0.03)",
+              borderColor: "var(--border)",
+            }}
+          >
+            {t}
+          </span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Systems() {
   return (
-    <section id="systems" className="py-28 px-6 md:px-8 border-t border-white/[0.06]">
-      <div className="max-w-6xl mx-auto">
-        <FadeIn>
-          <p
-            className="text-xs tracking-[0.18em] uppercase text-blue-400 mb-3"
-            style={{ fontFamily: "var(--mono)" }}
+    <section id="systems" className="py-32 md:py-40 px-6 md:px-14 border-t" style={{ borderColor: "var(--border)" }}>
+      <div className="max-w-[1180px] mx-auto">
+        <div className="overflow-hidden mb-16">
+          <motion.div
+            initial={{ y: "100%", opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           >
-            Capabilities
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-            Systems I build
-          </h2>
-        </FadeIn>
+            <p
+              className="text-[11px] tracking-[0.22em] uppercase mb-4"
+              style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
+            >
+              Capabilities
+            </p>
+            <h2
+              className="font-bold tracking-tight"
+              style={{
+                fontFamily: "var(--display)",
+                fontSize: "clamp(2rem, 4vw, 3.5rem)",
+                color: "var(--text)",
+              }}
+            >
+              Systems I build
+            </h2>
+          </motion.div>
+        </div>
 
-        <div className="mt-16 grid md:grid-cols-3 gap-px bg-white/[0.06] rounded-2xl overflow-hidden border border-white/[0.06]">
+        <div className="grid md:grid-cols-3 gap-4">
           {capabilities.map((c, i) => (
-            <FadeIn key={c.num} delay={i * 0.1} blur={false}>
-              <div className="bg-zinc-950 p-8 md:p-10 h-full hover:bg-zinc-900/40 transition-colors duration-300 group">
-                <p
-                  className="text-xs text-zinc-600 mb-7 group-hover:text-zinc-500 transition-colors"
-                  style={{ fontFamily: "var(--mono)" }}
-                >
-                  {c.num}
-                </p>
-                <h3 className="text-base font-semibold text-white mb-4 leading-snug">
-                  {c.title}
-                </h3>
-                <p className="text-sm text-zinc-400 leading-relaxed mb-7">
-                  {c.desc}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {c.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="text-xs px-2.5 py-1 rounded-md bg-white/[0.05] text-zinc-500 border border-white/[0.06]"
-                      style={{ fontFamily: "var(--mono)" }}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </FadeIn>
+            <Card key={c.num} c={c} i={i} />
           ))}
         </div>
       </div>

@@ -1,111 +1,121 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import MagneticButton from "@/components/ui/MagneticButton";
 
 const links = [
-  { label: "Work", href: "#work" },
-  { label: "Leadership", href: "#leadership" },
-  { label: "Stack", href: "#stack" },
-  { label: "Contact", href: "#contact" },
+  { label: "Work",       href: "#work"       },
+  { label: "Leadership", href: "#leadership"  },
+  { label: "Stack",      href: "#stack"       },
+  { label: "Contact",    href: "#contact"     },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled]   = useState(false);
+  const [menuOpen, setMenuOpen]   = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const fn = () => setScrolled(window.scrollY > 48);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  const handleLink = (href: string) => {
+  const go = (href: string) => {
     setMenuOpen(false);
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <motion.header
-      initial={{ y: -16, opacity: 0 }}
+      initial={{ y: -14, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-zinc-950/80 backdrop-blur-xl border-b border-white/[0.06] shadow-2xl shadow-black/30"
-          : "bg-transparent"
-      }`}
+      transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+      className="fixed top-0 inset-x-0 z-50 transition-all duration-500"
+      style={{
+        background: scrolled ? "rgba(9,9,12,0.82)" : "transparent",
+        backdropFilter: scrolled ? "blur(18px)" : "none",
+        borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
+      }}
     >
-      <nav className="max-w-6xl mx-auto px-6 md:px-8 h-16 flex items-center justify-between">
+      <nav className="max-w-[1180px] mx-auto px-6 md:px-14 h-16 flex items-center justify-between">
+
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="text-sm font-semibold tracking-tight text-white/90 hover:text-white transition-colors duration-200"
+          className="text-sm font-semibold tracking-tight transition-opacity duration-200 hover:opacity-60"
+          style={{ color: "var(--text)", fontFamily: "var(--display)" }}
         >
-          Rohith<span className="text-zinc-500">.</span>
+          Rohith<span style={{ color: "var(--text-dim)" }}>.</span>
         </button>
 
+        {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
           {links.map((l) => (
             <button
               key={l.href}
-              onClick={() => handleLink(l.href)}
-              className="text-sm text-zinc-400 hover:text-white transition-colors duration-200 font-medium"
+              onClick={() => go(l.href)}
+              className="text-sm font-medium transition-colors duration-200 hover:text-[--text]"
+              style={{ color: "var(--text-mid)" }}
             >
               {l.label}
             </button>
           ))}
-          <a
-            href="mailto:pinnamanenirohith@gmail.com"
-            className="text-sm font-medium px-4 py-1.5 bg-white text-zinc-950 rounded-full hover:bg-zinc-100 transition-colors duration-200"
-          >
+          <MagneticButton href="mailto:pinnamanenirohith@gmail.com" variant="primary">
             Get in touch
-          </a>
+          </MagneticButton>
         </div>
 
+        {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2 -mr-2"
+          className="md:hidden flex flex-col gap-[5px] p-2 -mr-2"
           onClick={() => setMenuOpen((v) => !v)}
           aria-label="Toggle menu"
         >
-          <span
-            className={`block w-5 h-px bg-white transition-all duration-300 ${
-              menuOpen ? "translate-y-[7px] rotate-45" : ""
-            }`}
+          <motion.span
+            animate={menuOpen ? { y: 7, rotate: 45 } : { y: 0, rotate: 0 }}
+            className="block w-5 h-px bg-white transition-colors"
+            style={{ originX: 0.5, originY: 0.5 }}
           />
-          <span
-            className={`block w-5 h-px bg-white transition-opacity duration-300 ${
-              menuOpen ? "opacity-0" : ""
-            }`}
+          <motion.span
+            animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+            className="block w-5 h-px bg-white"
           />
-          <span
-            className={`block w-5 h-px bg-white transition-all duration-300 ${
-              menuOpen ? "-translate-y-[7px] -rotate-45" : ""
-            }`}
+          <motion.span
+            animate={menuOpen ? { y: -7, rotate: -45 } : { y: 0, rotate: 0 }}
+            className="block w-5 h-px bg-white"
+            style={{ originX: 0.5, originY: 0.5 }}
           />
         </button>
       </nav>
 
+      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden bg-zinc-950/95 backdrop-blur-xl border-b border-white/[0.06]"
+            transition={{ duration: 0.22 }}
+            className="md:hidden overflow-hidden border-b"
+            style={{
+              background: "rgba(9,9,12,0.96)",
+              backdropFilter: "blur(18px)",
+              borderColor: "var(--border)",
+            }}
           >
-            <div className="px-6 py-5 flex flex-col gap-4">
+            <div className="px-6 py-6 flex flex-col gap-5">
               {links.map((l) => (
                 <button
                   key={l.href}
-                  onClick={() => handleLink(l.href)}
-                  className="text-left text-base font-medium text-zinc-300 hover:text-white transition-colors"
+                  onClick={() => go(l.href)}
+                  className="text-left text-base font-medium transition-colors hover:text-[--text]"
+                  style={{ color: "var(--text-mid)" }}
                 >
                   {l.label}
                 </button>
               ))}
               <a
                 href="mailto:pinnamanenirohith@gmail.com"
-                className="text-sm font-medium px-4 py-2.5 bg-white text-zinc-950 rounded-full text-center hover:bg-zinc-100 transition-colors"
+                className="inline-block text-center text-sm font-semibold px-5 py-2.5 bg-white text-zinc-950 rounded-full hover:bg-zinc-100 transition-colors"
               >
                 Get in touch
               </a>
