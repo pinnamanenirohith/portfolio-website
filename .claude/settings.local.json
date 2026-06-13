@@ -33,7 +33,16 @@
       "Bash(npx uipro-cli *)",
       "Bash(Get-ChildItem -Recurse \"D:\\\\Career\\\\Resume\\\\portfolio-website\\\\.claude\\\\skills\")",
       "Bash(Select-Object FullName)",
-      "Bash(claude mcp *)"
+      "Bash(claude mcp *)",
+      "WebFetch(domain:spencergabor.work)",
+      "Bash(Get-Content components/layout/Navbar.tsx)",
+      "Bash(Select-Object -Last 3)",
+      "Bash(Remove-Item -Recurse -Force \"D:\\\\Career\\\\Resume\\\\portfolio-website\\\\.next\" -ErrorAction SilentlyContinue)",
+      "Read(//d/Career/Resume/**)",
+      "Bash(python3 -c ' *)",
+      "Bash(pip install *)",
+      "Bash(git reset *)",
+      "Bash(git rm *)"
     ]
   }
 }
