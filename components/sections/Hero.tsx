@@ -1,281 +1,98 @@
 "use client";
-
 import { motion } from "framer-motion";
-import type { Transition } from "framer-motion";
 
-const ease = [0.16, 1, 0.3, 1] as const;
+const container = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12 } },
+};
 
-function t(delay: number): Transition {
-  return { duration: 0.9, ease, delay };
-}
+const item = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: "easeOut" as const } },
+};
 
-const stats = [
-  { value: "8",      label: "Leadership Roles"  },
-  { value: "5,000+", label: "Event Attendees"   },
-  { value: "2",      label: "Internships"       },
-  { value: "4",      label: "Projects Shipped"  },
-];
+export default function Hero() {
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
 
-export function Hero() {
   return (
     <section
-      id="hero"
-      className="min-h-screen flex flex-col"
-      style={{ background: "var(--bg)" }}
+      id="home"
+      className="min-h-screen flex flex-col justify-center pt-20 pb-16 px-6 md:px-8"
+      aria-label="Introduction"
     >
-      {/* ── Browser mockup wrapper ── */}
-      <div
-        className="container flex-1 flex flex-col"
-        style={{ paddingTop: "clamp(5rem, 12vh, 8rem)", paddingBottom: "clamp(2rem, 5vh, 4rem)" }}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease, delay: 0.1 } as Transition}
-          className="flex-1 flex flex-col rounded-2xl overflow-hidden"
-          style={{
-            background: "var(--surface)",
-            border: "1px solid var(--border)",
-            minHeight: "min(560px, 70vh)",
-          }}
-        >
-          {/* Browser chrome bar */}
-          <div
-            className="flex items-center gap-4 shrink-0"
-            style={{
-              padding: "12px 16px",
-              borderBottom: "1px solid var(--border)",
-              background: "var(--surface-2)",
-            }}
+      <div className="max-w-6xl mx-auto w-full">
+        <motion.div variants={container} initial="hidden" animate="show">
+          {/* Eyebrow */}
+          <motion.p
+            variants={item}
+            className="text-sm font-medium text-blue-600 tracking-widest uppercase mb-6"
           >
-            {/* Traffic lights */}
-            <div className="flex items-center gap-1.5">
-              <div className="w-3 h-3 rounded-full" style={{ background: "#ff5f57" }} />
-              <div className="w-3 h-3 rounded-full" style={{ background: "#ffbd2e" }} />
-              <div className="w-3 h-3 rounded-full" style={{ background: "#28c840" }} />
-            </div>
-            {/* Fake URL bar */}
-            <div
-              className="flex-1 max-w-sm flex items-center gap-2 rounded-md px-3 py-1"
-              style={{
-                background: "var(--surface-3)",
-                border: "1px solid var(--border)",
-                fontSize: "0.6875rem",
-                color: "var(--subtle)",
-                fontFamily: "monospace",
-              }}
-            >
-              <span style={{ color: "var(--green)", fontSize: "0.625rem" }}>●</span>
-              rohith.dev
-            </div>
-          </div>
+            Full-Stack Developer
+          </motion.p>
 
-          {/* Browser content */}
-          <div
-            className="flex-1 flex flex-col lg:flex-row"
-            style={{ padding: "clamp(2rem, 5vw, 4rem)" }}
+          {/* Headline */}
+          <motion.h1
+            variants={item}
+            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-gray-900 leading-[1.05] max-w-4xl"
           >
-            {/* Left: headline + meta */}
-            <div className="flex-1 flex flex-col justify-center">
-              {/* Open to work badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={t(0.3)}
-                style={{ marginBottom: "1.75rem" }}
-              >
-                <span
-                  className="inline-flex items-center gap-2 text-xs font-medium rounded-full px-3 py-1.5"
-                  style={{
-                    color: "var(--green)",
-                    background: "var(--green-dim)",
-                    border: "1px solid rgba(52,211,153,0.2)",
-                  }}
-                >
-                  <span
-                    className="w-1.5 h-1.5 rounded-full animate-pulse"
-                    style={{ background: "var(--green)" }}
-                  />
-                  Open to opportunities
-                </span>
-              </motion.div>
+            Rohith
+            <br />
+            <span className="text-blue-600">Pinnamaneni</span>
+          </motion.h1>
 
-              {/* Headline — clipped per-line */}
-              <div style={{ marginBottom: "1.75rem" }}>
-                {/* Line 1: "Building systems," */}
-                <div style={{ overflow: "hidden", lineHeight: 1.0 }}>
-                  <motion.div
-                    className="text-display block"
-                    initial={{ y: "105%" }}
-                    animate={{ y: "0%" }}
-                    transition={t(0.35)}
-                  >
-                    Building systems,
-                  </motion.div>
-                </div>
-                {/* Line 2: "governing" (serif italic) + " people." */}
-                <div style={{ overflow: "hidden", lineHeight: 1.05 }}>
-                  <motion.div
-                    className="text-display block"
-                    initial={{ y: "105%" }}
-                    animate={{ y: "0%" }}
-                    transition={t(0.45)}
-                  >
-                    <em
-                      style={{
-                        fontFamily: "'Playfair Display', Georgia, serif",
-                        fontStyle: "italic",
-                        fontWeight: 700,
-                        color: "var(--accent)",
-                      }}
-                    >
-                      governing
-                    </em>{" "}
-                    people.
-                  </motion.div>
-                </div>
-              </div>
+          {/* Role */}
+          <motion.p
+            variants={item}
+            className="mt-6 text-xl md:text-2xl text-gray-500 font-light max-w-xl leading-relaxed"
+          >
+            Cloud Native Engineering Student at KL University
+          </motion.p>
 
-              {/* Subtext */}
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={t(0.58) as Transition}
-                style={{
-                  color: "var(--muted)",
-                  fontSize: "clamp(0.9375rem, 1.1vw, 1.0625rem)",
-                  lineHeight: 1.7,
-                  maxWidth: "44ch",
-                  marginBottom: "2.5rem",
-                }}
-              >
-                Final-year CS Engineering student at KL University. Cloud-native
-                infrastructure + student governance at scale.
-              </motion.p>
+          {/* Tagline */}
+          <motion.p
+            variants={item}
+            className="mt-5 text-base md:text-lg text-gray-600 max-w-2xl leading-relaxed"
+          >
+            I build scalable, production-grade web apps across the MERN stack —
+            from role-based ERPs to automated CI/CD on self-hosted infrastructure.
+          </motion.p>
 
-              {/* CTAs */}
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={t(0.68) as Transition}
-                className="flex flex-wrap gap-3"
-              >
-                <a
-                  href="#projects"
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 hover:opacity-85 hover:-translate-y-px"
-                  style={{ background: "var(--fg)", color: "#0c0c0c" }}
-                >
-                  View Work ↗
-                </a>
-                <a
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 hover:-translate-y-px"
-                  style={{
-                    border: "1px solid var(--border-2)",
-                    color: "var(--fg-2)",
-                    background: "var(--surface-2)",
-                  }}
-                >
-                  Résumé ↗
-                </a>
-              </motion.div>
-            </div>
-
-            {/* Right: meta block (desktop only) */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={t(0.55) as Transition}
-              className="hidden lg:flex flex-col justify-center gap-5"
-              style={{
-                paddingLeft: "clamp(2rem, 4vw, 3.5rem)",
-                borderLeft: "1px solid var(--border)",
-                minWidth: "220px",
-                maxWidth: "260px",
-              }}
+          {/* CTA buttons */}
+          <motion.div variants={item} className="mt-10 flex flex-wrap gap-4">
+            <button
+              onClick={() => scrollTo("work")}
+              className="px-7 py-3.5 bg-blue-600 text-white text-sm font-semibold rounded-full hover:bg-blue-700 active:scale-95 transition-all duration-150"
             >
-              <div>
-                <p className="label" style={{ marginBottom: "0.5rem" }}>Location</p>
-                <p style={{ color: "var(--fg-2)", fontSize: "0.875rem" }}>Vijayawada, India</p>
-              </div>
-              <div>
-                <p className="label" style={{ marginBottom: "0.5rem" }}>University</p>
-                <p style={{ color: "var(--fg-2)", fontSize: "0.875rem" }}>KL University</p>
-                <p style={{ color: "var(--muted)", fontSize: "0.75rem", marginTop: "0.25rem" }}>B.Tech CSE</p>
-              </div>
-              <div>
-                <p className="label" style={{ marginBottom: "0.5rem" }}>Focus</p>
-                <p style={{ color: "var(--fg-2)", fontSize: "0.875rem" }}>Cloud Native Engineering</p>
-              </div>
-              <div
-                style={{
-                  padding: "0.75rem 1rem",
-                  borderRadius: "10px",
-                  background: "var(--accent-dim)",
-                  border: "1px solid var(--accent-border)",
-                }}
-              >
-                <p style={{ fontSize: "0.75rem", color: "var(--accent)", fontWeight: 500 }}>
-                  Currently building the Student Council ERP
-                </p>
-              </div>
-            </motion.div>
-          </div>
+              View Work
+            </button>
+            <button
+              onClick={() => scrollTo("contact")}
+              className="px-7 py-3.5 border border-gray-200 text-gray-700 text-sm font-semibold rounded-full hover:border-gray-400 hover:text-gray-900 active:scale-95 transition-all duration-150"
+            >
+              Get in Touch
+            </button>
+          </motion.div>
 
-          {/* Scroll indicator */}
+          {/* Scroll hint */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1.2 }}
-            className="flex justify-center pb-4 shrink-0"
+            variants={item}
+            className="mt-20 flex items-center gap-3 text-xs text-gray-400"
           >
-            <motion.div
-              animate={{ y: [0, 5, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-              style={{ color: "var(--subtle)", fontSize: "0.75rem" }}
-            >
-              ↓
-            </motion.div>
+            <div className="w-8 h-px bg-gray-300" />
+            Scroll to explore
           </motion.div>
         </motion.div>
       </div>
 
-      {/* ── Stats strip ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.9 } as Transition}
-        style={{ borderTop: "1px solid var(--border)" }}
+      {/* Large decorative type in background */}
+      <div
+        aria-hidden="true"
+        className="absolute right-0 top-1/2 -translate-y-1/2 text-[20vw] font-black text-gray-50 select-none pointer-events-none leading-none overflow-hidden max-w-[60vw] -z-10"
       >
-        <div
-          className="container grid grid-cols-2 sm:grid-cols-4"
-          style={{ gap: "0" }}
-        >
-          {stats.map((stat, i) => (
-            <div
-              key={stat.label}
-              className="flex flex-col gap-1.5 py-6"
-              style={{
-                paddingInline: "clamp(1rem, 3vw, 2rem)",
-                borderRight: i < stats.length - 1 ? "1px solid var(--border)" : "none",
-                borderBottom: i < 2 ? "1px solid var(--border)" : "none",
-              }}
-            >
-              <span
-                className="font-bold tracking-tight"
-                style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--fg)", lineHeight: 1 }}
-              >
-                {stat.value}
-              </span>
-              <span style={{ fontSize: "0.6875rem", color: "var(--muted)", letterSpacing: "0.05em" }}>
-                {stat.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </motion.div>
+        DEV
+      </div>
     </section>
   );
 }
