@@ -6,7 +6,7 @@
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-black?style=flat-square&logo=framer)](https://www.framer.com/motion/)
 [![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?style=flat-square&logo=vercel)](https://vercel.com/)
 
-> Personal portfolio website showcasing my projects, experience, and skills as a Full-Stack Developer & Cloud Native Engineering student.
+> Personal portfolio website for Rohith Pinnamaneni — CS (Cloud Native Engineering) student, Full Stack Developer, and President of the Student Activity Center at KL University.
 
 ---
 
@@ -18,21 +18,21 @@
 
 ## About
 
-This is my personal developer portfolio — a single-page, long-scroll website built with modern web technologies. It covers my projects, work experience, certifications, and contact details, and is designed to be fast, accessible, and easy to update.
+Immersive dark portfolio with a premium editorial feel — inspired by Spencer Gabor-level interaction design. Multi-page architecture with cinematic animations, custom cursor, magnetic buttons, and scroll-linked parallax.
 
-**Design philosophy:** Type-led editorial layout inspired by the Spencer Gabor aesthetic — big confident headings, generous whitespace, smooth scroll-reveal animations, and clean project cards with hover interactions.
+**Design philosophy:** Bottom-anchored hero with outrageously large Syne display type, film grain overlay, mouse parallax grid, word-reveal animations, and a marquee ticker. Product-website feel — not a single endless scroll.
 
 ---
 
-## Sections
+## Pages
 
-| Section | Description |
+| Route | Description |
 |---|---|
-| **Hero** | Name, role, tagline, and CTA buttons |
-| **Work** | Student Council ERP + Smart Farming Advisor with architecture graphics |
-| **About** | Bio, education, leadership, and skills grid |
-| **Experience** | Career & internship timeline + certifications |
-| **Contact** | Email, LinkedIn, Phone, GitHub links |
+| `/` | Cinematic hero · Featured project · Leadership preview · Stack · CTA |
+| `/projects` | All projects listing |
+| `/projects/sac-platform` | SAC Council Management Platform case study with animated architecture diagram |
+| `/experience` | Full leadership progression · Internships · Certifications · Education |
+| `/contact` | Contact links |
 
 ---
 
@@ -40,26 +40,25 @@ This is my personal developer portfolio — a single-page, long-scroll website b
 
 | Category | Technology |
 |---|---|
-| Framework | [Next.js 15](https://nextjs.org/) (App Router) |
+| Framework | [Next.js 15](https://nextjs.org/) (App Router, static export) |
 | Language | [TypeScript](https://www.typescriptlang.org/) |
-| Styling | [Tailwind CSS v4](https://tailwindcss.com/) |
-| Animations | [Framer Motion](https://www.framer.com/motion/) |
-| Deployment | [Vercel](https://vercel.com/) (static export) |
-| Font | Inter (Google Fonts) |
+| Styling | [Tailwind CSS v4](https://tailwindcss.com/) (CSS-first, no config file) |
+| Animations | [Framer Motion 12](https://www.framer.com/motion/) |
+| Fonts | Syne (display) · Inter (body) · JetBrains Mono (code) |
+| Deployment | [Vercel](https://vercel.com/) |
 
 ---
 
-## Features
+## Interaction Design
 
-- **Static export** — pre-rendered HTML, no server needed, Lighthouse-optimised
-- **Scroll animations** — fade-in / slide-in on scroll via Framer Motion
-- **Sticky nav** — transparent on hero, solid on scroll, mobile hamburger menu
-- **Project graphics** — architecture diagram cards built with pure HTML/CSS (no screenshots)
-- **Fully responsive** — mobile, tablet, and desktop layouts
-- **Accessible** — semantic HTML, ARIA labels, focus-visible rings, reduced-motion-safe
-- **SEO ready** — OpenGraph + Twitter meta tags, structured metadata
-- **Custom 404** page
-- **SVG favicon**
+- **Custom cursor** — `mix-blend-difference` ring with spring physics, expands on hover
+- **Magnetic buttons** — `useSpring` displacement on mouse proximity
+- **Hero parallax** — scroll-linked fade/lift + mouse-driven grid background
+- **Word reveals** — clip-path animation (`y: 108% → 0`) with custom easing
+- **CSS marquee** — GPU-accelerated ticker, no JS
+- **Film grain** — SVG `feTurbulence` overlay with 6-step keyframe animation
+- **InView stagger** — all sections animate in as they enter the viewport
+- **Animated diagram** — RBAC bars grow, architecture layers fade, feature grid scales on scroll
 
 ---
 
@@ -68,32 +67,39 @@ This is my personal developer portfolio — a single-page, long-scroll website b
 ```
 portfolio-website/
 ├── app/
-│   ├── layout.tsx          # Root layout, metadata, OG tags
-│   ├── page.tsx            # Single-page composition
-│   ├── globals.css         # Tailwind imports, CSS variables
-│   └── not-found.tsx       # Custom 404 page
+│   ├── layout.tsx                    # Root layout, metadata, custom cursor
+│   ├── page.tsx                      # Homepage
+│   ├── globals.css                   # Design tokens, grain, marquee keyframes
+│   ├── not-found.tsx                 # Custom 404
+│   ├── projects/
+│   │   ├── page.tsx                  # Projects listing
+│   │   └── sac-platform/
+│   │       └── page.tsx              # SAC Platform case study
+│   ├── experience/
+│   │   └── page.tsx                  # Experience page
+│   └── contact/
+│       └── page.tsx                  # Contact page
 ├── components/
 │   ├── graphics/
-│   │   ├── ERPDiagram.tsx  # Architecture visual for ERP project
-│   │   └── FarmingCard.tsx # Flow card for AI Farming project
+│   │   └── ERPDiagram.tsx            # Animated RBAC + architecture diagram
 │   ├── layout/
-│   │   ├── Navbar.tsx      # Sticky minimal nav
-│   │   └── Footer.tsx      # Footer
+│   │   ├── Navbar.tsx                # Sticky nav with Next.js Link routing
+│   │   └── Footer.tsx
 │   ├── sections/
-│   │   ├── Hero.tsx        # Hero section
-│   │   ├── Work.tsx        # Projects section
-│   │   ├── About.tsx       # About + skills
-│   │   ├── Experience.tsx  # Timeline + certifications
-│   │   └── Contact.tsx     # Contact cards
+│   │   ├── Hero.tsx                  # Cinematic hero, bottom-anchored
+│   │   ├── HomeFeatured.tsx          # Featured project teaser
+│   │   ├── HomeLeadership.tsx        # Leadership preview
+│   │   ├── HomeStack.tsx             # Technical skills grid
+│   │   └── HomeCTA.tsx               # Call to action
 │   └── ui/
-│       └── FadeIn.tsx      # Scroll-reveal animation wrapper
+│       ├── CustomCursor.tsx          # mix-blend-difference cursor
+│       ├── MagneticButton.tsx        # Spring-physics magnetic button
+│       └── Marquee.tsx               # CSS ticker
 ├── data/
-│   └── content.ts          # All site content in one place
-├── lib/
-│   └── utils.ts            # Utility functions
+│   └── content.ts                    # All site content — single source of truth
 ├── public/
-│   └── favicon.svg         # SVG favicon
-├── next.config.ts          # Static export config
+│   └── favicon.svg
+├── next.config.ts                    # output: "export", trailingSlash
 └── README.md
 ```
 
@@ -104,23 +110,17 @@ portfolio-website/
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) v18 or higher
-- npm (comes with Node.js)
 
 ### Run locally
 
 ```bash
-# 1. Clone the repository
 git clone https://github.com/pinnamanenirohith/portfolio-website.git
 cd portfolio-website
-
-# 2. Install dependencies
 npm install
-
-# 3. Start development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000).
 
 ### Build for production
 
@@ -128,38 +128,25 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 npm run build
 ```
 
-Output is generated in the `out/` folder as static HTML — ready for any static host.
-
----
-
-## Deployment
-
-This project is deployed on **Vercel** with automatic deployments on every push to `main`.
-
-### Deploy your own
-
-**Option A — Vercel Dashboard (recommended)**
-
-1. Fork this repository
-2. Go to [vercel.com/new](https://vercel.com/new)
-3. Import your forked repo
-4. Click **Deploy** — Vercel auto-detects Next.js, no config needed
-
-**Option B — Vercel CLI**
-
-```bash
-npm i -g vercel
-vercel login
-vercel --yes
-```
+Output is in `out/` as static HTML — deployable to any static host.
 
 ---
 
 ## Customisation
 
-All site content lives in a single file: [`data/content.ts`](data/content.ts)
+All content lives in [`data/content.ts`](data/content.ts). Update `personal`, `projects`, `leadership`, `internships`, `certifications`, and `skills` there — no component edits needed.
 
-Update your name, bio, projects, experience, skills, and contact details there — no need to touch the component files.
+---
+
+## Deployment
+
+Auto-deployed on Vercel on every push to `main`.
+
+**Deploy your own:**
+
+1. Fork this repo
+2. Import at [vercel.com/new](https://vercel.com/new)
+3. Click Deploy — no config needed
 
 ---
 
@@ -168,11 +155,11 @@ Update your name, bio, projects, experience, skills, and contact details there �
 **Pinnamaneni Rohith Venkata Sai**
 
 - Email: [pinnamanenirohith@gmail.com](mailto:pinnamanenirohith@gmail.com)
-- LinkedIn: [linkedin.com/in/rohith-venkata-sai-pinnamaneni-38807a2b2](https://www.linkedin.com/in/rohith-venkata-sai-pinnamaneni-38807a2b2/)
+- LinkedIn: [linkedin.com/in/rohith-pinnamaneni](https://www.linkedin.com/in/rohith-pinnamaneni)
 - GitHub: [github.com/pinnamanenirohith](https://github.com/pinnamanenirohith)
 
 ---
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+MIT
