@@ -54,7 +54,8 @@ export default function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              className="text-sm font-medium transition-colors duration-200 hover:text-[--text]"
+              data-underline
+              className="text-sm font-medium transition-colors duration-150 hover:text-[--text]"
               style={{
                 color: pathname === l.href ? "var(--text)" : "var(--text-mid)",
                 fontFamily: "var(--mono)",

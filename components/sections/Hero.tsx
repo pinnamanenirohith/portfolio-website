@@ -1,13 +1,8 @@
 "use client";
 import { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import MagneticButton from "@/components/ui/MagneticButton";
+import { useSpotlight } from "@/hooks/useSpotlight";
 
 const container = {
   hidden: {},
@@ -24,6 +19,13 @@ const word = {
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const spotlightRef = useSpotlight<HTMLElement>();
+
+  /* Merge both refs */
+  const setRef = (el: HTMLElement | null) => {
+    (sectionRef as React.MutableRefObject<HTMLElement | null>).current = el;
+    (spotlightRef as React.MutableRefObject<HTMLElement | null>).current = el;
+  };
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -32,56 +34,41 @@ export default function Hero() {
   const yContent = useTransform(scrollYProgress, [0, 1], [0, -140]);
   const opContent = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
 
-  const mX = useMotionValue(0);
-  const mY = useMotionValue(0);
-  const mXs = useSpring(mX, { damping: 55, stiffness: 110 });
-  const mYs = useSpring(mY, { damping: 55, stiffness: 110 });
-  const gX = useTransform(mXs, [-720, 720], [-18, 18]);
-  const gY = useTransform(mYs, [-450, 450], [-10, 10]);
-
-  const handleMove = (e: React.MouseEvent<HTMLElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    mX.set(e.clientX - r.width / 2);
-    mY.set(e.clientY - r.height / 2);
-  };
-  const handleLeave = () => {
-    mX.set(0);
-    mY.set(0);
-  };
-
   return (
     <section
-      ref={sectionRef}
+      ref={setRef}
       id="home"
       className="relative min-h-screen flex flex-col justify-end px-6 md:px-14 pb-12 md:pb-16 overflow-hidden"
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
       style={{ background: "var(--bg)" }}
     >
-      {/* Grid background with mouse parallax */}
-      <motion.div
+      {/* Grid */}
+      <div
         className="absolute inset-0 pointer-events-none select-none"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px)",
+            "linear-gradient(rgba(255,255,255,0.024) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.024) 1px, transparent 1px)",
           backgroundSize: "80px 80px",
-          x: gX,
-          y: gY,
         }}
       />
 
-      {/* Radial glow */}
-      <motion.div
+      {/* Zero-lag spotlight — CSS custom props, no spring */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(520px circle at var(--sx, 60%) var(--sy, 40%), rgba(91,124,247,0.055) 0%, transparent 65%)",
+        }}
+      />
+
+      {/* Static ambient glow */}
+      <div
         className="absolute pointer-events-none rounded-full"
         style={{
-          width: "55vw",
-          height: "55vw",
-          background:
-            "radial-gradient(circle, rgba(91,124,247,0.09) 0%, transparent 70%)",
-          right: "-10vw",
-          bottom: "-5vw",
-          x: useTransform(mXs, [-720, 720], [12, -12]),
-          y: useTransform(mYs, [-450, 450], [8, -8]),
+          width: "50vw",
+          height: "50vw",
+          background: "radial-gradient(circle, rgba(91,124,247,0.07) 0%, transparent 70%)",
+          right: "-8vw",
+          bottom: "-4vw",
         }}
       />
 
@@ -105,9 +92,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Main content — bottom anchored */}
+      {/* Main content */}
       <motion.div style={{ y: yContent, opacity: opContent }}>
-        {/* Display headline */}
         <div className="overflow-hidden mb-1">
           <motion.div
             variants={container}
@@ -145,7 +131,7 @@ export default function Hero() {
               lineHeight: 0.92,
               letterSpacing: "-0.03em",
               color: "transparent",
-              WebkitTextStroke: "1.5px rgba(240,240,235,0.25)",
+              WebkitTextStroke: "1.5px rgba(240,240,235,0.22)",
               marginLeft: "clamp(0px, 2vw, 48px)",
             }}
           >
@@ -153,7 +139,6 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Descriptor + CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -170,7 +155,7 @@ export default function Hero() {
           </p>
 
           <div className="flex items-center gap-3 flex-wrap">
-            <MagneticButton href="/projects" variant="ghost">
+            <MagneticButton href="/work" variant="ghost">
               View work
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path d="M2.5 11.5L11.5 2.5M11.5 2.5H5.5M11.5 2.5V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
