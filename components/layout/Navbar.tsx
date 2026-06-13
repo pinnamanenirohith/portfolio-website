@@ -50,8 +50,9 @@ export function Navbar() {
             ? "bg-white/90 backdrop-blur-xl border-b border-[var(--border)]"
             : "bg-transparent"
         )}
+        style={scrolled || mobileOpen ? { background: "rgba(255,255,255,0.92)" } : undefined}
       >
-        <nav className="container-tight flex h-14 items-center justify-between">
+        <nav className="container flex h-14 items-center justify-between">
           {/* Logo */}
           <a href="#" aria-label="Back to top" className="flex items-center gap-2 group">
             <div
@@ -60,7 +61,7 @@ export function Navbar() {
             >
               {SITE.initials}
             </div>
-            <span className="hidden sm:block text-sm font-semibold text-[var(--foreground)]">
+            <span className="hidden sm:block text-sm font-semibold text-[var(--fg)]">
               Rohith
             </span>
           </a>
@@ -77,13 +78,13 @@ export function Navbar() {
                       "relative px-3 py-1.5 text-sm rounded-md transition-colors duration-150",
                       isActive
                         ? "text-[var(--blue)] font-medium"
-                        : "text-[var(--muted)] hover:text-[var(--foreground)]"
+                        : "text-[var(--muted)] hover:text-[var(--fg)]"
                     )}
                   >
                     {isActive && (
                       <motion.span
                         layoutId="nav-active"
-                        className="absolute inset-0 rounded-md bg-[var(--blue-light)]"
+                        className="absolute inset-0 rounded-md bg-[var(--blue-bg)]"
                         style={{ zIndex: -1 }}
                         transition={{ type: "spring", stiffness: 350, damping: 30 }}
                       />
@@ -107,7 +108,7 @@ export function Navbar() {
             </a>
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="md:hidden p-2 text-[var(--muted)] hover:text-[var(--foreground)] transition-colors rounded-md"
+              className="md:hidden p-2 text-[var(--muted)] hover:text-[var(--fg)] transition-colors rounded-md"
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
@@ -126,7 +127,7 @@ export function Navbar() {
             transition={menuTransition}
             className="fixed inset-x-0 top-14 z-40 md:hidden bg-white border-b border-[var(--border)] shadow-md"
           >
-            <nav className="container-tight py-4 flex flex-col gap-0.5">
+            <nav className="container py-4 flex flex-col gap-0.5">
               {NAV_LINKS.map((link) => {
                 const isActive = activeSection === link.href.replace("#", "");
                 return (
@@ -137,8 +138,8 @@ export function Navbar() {
                     className={cn(
                       "px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150",
                       isActive
-                        ? "text-[var(--blue)] bg-[var(--blue-light)]"
-                        : "text-[var(--foreground-secondary)] hover:bg-[var(--bg-subtle)]"
+                        ? "text-[var(--blue)] bg-[var(--blue-bg)]"
+                        : "text-[var(--fg-2)] hover:bg-[var(--surface-2)]"
                     )}
                   >
                     {link.label}
