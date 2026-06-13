@@ -1,36 +1,38 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import type { Transition } from "framer-motion";
-import { cn } from "@/lib/cn";
 import { NAV_LINKS, SITE } from "@/lib/constants";
-import { useScrollProgress } from "@/hooks/useScrollProgress";
-
-const menuTransition: Transition = { duration: 0.22, ease: [0.22, 1, 0.36, 1] };
 
 export function Navbar() {
-  const { scrollY } = useScrollProgress();
-  const [activeSection, setActiveSection] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
-  const scrolled = scrollY > 40;
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const lastY = useRef(0);
 
   useEffect(() => {
-    const sectionIds = NAV_LINKS.map((l) => l.href.replace("#", ""));
-    const observer = new IntersectionObserver(
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 20);
+      setHidden(y > lastY.current && y > 120);
+      lastY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const ids = NAV_LINKS.map((l) => l.href.replace("#", ""));
+    const obs = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
+        entries.forEach((e) => { if (e.isIntersecting) setActiveSection(e.target.id); });
       },
       { rootMargin: "-40% 0px -55% 0px" }
     );
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    ids.forEach((id) => { const el = document.getElementById(id); if (el) obs.observe(el); });
+    return () => obs.disconnect();
   }, []);
 
   useEffect(() => {
@@ -41,77 +43,88 @@ export function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -16, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-200",
-          scrolled || mobileOpen
-            ? "bg-white/90 backdrop-blur-xl border-b border-[var(--border)]"
-            : "bg-transparent"
-        )}
-        style={scrolled || mobileOpen ? { background: "rgba(255,255,255,0.92)" } : undefined}
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: hidden ? -80 : 0, opacity: 1 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed top-0 left-0 right-0 z-50"
+        style={{
+          background: scrolled || mobileOpen ? "rgba(12,12,12,0.88)" : "transparent",
+          backdropFilter: scrolled || mobileOpen ? "blur(20px)" : "none",
+          borderBottom: scrolled || mobileOpen ? "1px solid var(--border)" : "none",
+          transition: "background 0.3s ease, border-color 0.3s ease",
+        }}
       >
-        <nav className="container flex h-14 items-center justify-between">
+        <nav className="container flex h-14 items-center justify-between gap-4">
           {/* Logo */}
-          <a href="#" aria-label="Back to top" className="flex items-center gap-2 group">
+          <a href="#" aria-label="Back to top" className="flex items-center gap-2.5 shrink-0">
             <div
-              className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold font-mono text-white"
-              style={{ background: "linear-gradient(135deg, #2563EB, #4F46E5)" }}
+              className="w-7 h-7 rounded-md flex items-center justify-center text-xs font-bold text-white"
+              style={{ background: "var(--surface-2)", border: "1px solid var(--border-2)" }}
             >
-              {SITE.initials}
+              R
             </div>
-            <span className="hidden sm:block text-sm font-semibold text-[var(--fg)]">
+            <span className="hidden sm:block text-sm font-semibold" style={{ color: "var(--fg)" }}>
               Rohith
             </span>
           </a>
 
-          {/* Desktop nav */}
-          <ul className="hidden md:flex items-center gap-0.5">
+          {/* Center pill nav — desktop */}
+          <div
+            className="hidden md:flex items-center gap-0.5 rounded-full px-1.5 py-1.5"
+            style={{
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+            }}
+          >
             {NAV_LINKS.map((link) => {
               const isActive = activeSection === link.href.replace("#", "");
               return (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className={cn(
-                      "relative px-3 py-1.5 text-sm rounded-md transition-colors duration-150",
-                      isActive
-                        ? "text-[var(--blue)] font-medium"
-                        : "text-[var(--muted)] hover:text-[var(--fg)]"
-                    )}
-                  >
-                    {isActive && (
-                      <motion.span
-                        layoutId="nav-active"
-                        className="absolute inset-0 rounded-md bg-[var(--blue-bg)]"
-                        style={{ zIndex: -1 }}
-                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                      />
-                    )}
-                    {link.label}
-                  </a>
-                </li>
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="relative px-3.5 py-1 text-xs font-medium rounded-full transition-colors duration-150"
+                  style={{
+                    color: isActive ? "#fff" : "var(--muted)",
+                    background: isActive ? "var(--accent)" : "transparent",
+                  }}
+                >
+                  {link.label}
+                </a>
               );
             })}
-          </ul>
+          </div>
 
-          {/* Right: Resume + hamburger */}
-          <div className="flex items-center gap-2">
+          {/* Right: links + hamburger */}
+          <div className="flex items-center gap-3 shrink-0">
             <a
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium px-4 py-1.5 rounded-full bg-[var(--foreground)] text-white hover:bg-[var(--foreground)]/90 transition-all duration-150"
+              className="hidden sm:inline-flex items-center gap-1 text-sm font-medium transition-colors duration-150"
+              style={{ color: "var(--muted)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--fg)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
             >
-              Resume
+              Resume ↗
+            </a>
+            <a
+              href={SITE.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-1 text-sm font-medium transition-colors duration-150"
+              style={{ color: "var(--muted)" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--fg)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
+            >
+              GitHub ↗
             </a>
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="md:hidden p-2 text-[var(--muted)] hover:text-[var(--fg)] transition-colors rounded-md"
+              className="md:hidden p-2 rounded-md transition-colors duration-150"
+              style={{ color: "var(--muted)" }}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
             >
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </nav>
@@ -124,10 +137,15 @@ export function Navbar() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={menuTransition}
-            className="fixed inset-x-0 top-14 z-40 md:hidden bg-white border-b border-[var(--border)] shadow-md"
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-0 top-14 z-40 md:hidden"
+            style={{
+              background: "rgba(12,12,12,0.96)",
+              backdropFilter: "blur(20px)",
+              borderBottom: "1px solid var(--border)",
+            }}
           >
-            <nav className="container py-4 flex flex-col gap-0.5">
+            <nav className="container py-5 flex flex-col gap-1">
               {NAV_LINKS.map((link) => {
                 const isActive = activeSection === link.href.replace("#", "");
                 return (
@@ -135,17 +153,25 @@ export function Navbar() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className={cn(
-                      "px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150",
-                      isActive
-                        ? "text-[var(--blue)] bg-[var(--blue-bg)]"
-                        : "text-[var(--fg-2)] hover:bg-[var(--surface-2)]"
-                    )}
+                    className="px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150"
+                    style={{
+                      color: isActive ? "var(--accent)" : "var(--fg-2)",
+                      background: isActive ? "var(--accent-dim)" : "transparent",
+                    }}
                   >
                     {link.label}
                   </a>
                 );
               })}
+              <div className="divider my-2" />
+              <div className="flex gap-4 px-3">
+                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="text-sm" style={{ color: "var(--muted)" }}>
+                  Resume ↗
+                </a>
+                <a href={SITE.github} target="_blank" rel="noopener noreferrer" className="text-sm" style={{ color: "var(--muted)" }}>
+                  GitHub ↗
+                </a>
+              </div>
             </nav>
           </motion.div>
         )}
