@@ -7,15 +7,25 @@ export default function CustomCursor() {
   const [visible, setVisible] = useState(false);
   const [isHover, setIsHover] = useState(false);
 
-  const cursorX = useMotionValue(-200);
-  const cursorY = useMotionValue(-200);
+  const cursorX = useMotionValue(-400);
+  const cursorY = useMotionValue(-400);
 
-  const spring = { damping: 24, stiffness: 500, mass: 0.45 };
-  const x = useSpring(cursorX, spring);
-  const y = useSpring(cursorY, spring);
+  /* Dot — fast */
+  const dotSpring = { damping: 28, stiffness: 600, mass: 0.3 };
+  const dotX = useSpring(cursorX, dotSpring);
+  const dotY = useSpring(cursorY, dotSpring);
+
+  /* Ring — medium */
+  const ringSpring = { damping: 32, stiffness: 260, mass: 0.5 };
+  const ringX = useSpring(cursorX, ringSpring);
+  const ringY = useSpring(cursorY, ringSpring);
+
+  /* Aura — slow, large lag for depth */
+  const auraSpring = { damping: 38, stiffness: 90, mass: 1.2 };
+  const auraX = useSpring(cursorX, auraSpring);
+  const auraY = useSpring(cursorY, auraSpring);
 
   useEffect(() => {
-    // Only enable on true pointer devices (not touch)
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     setMounted(true);
 
@@ -47,29 +57,49 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Outer ring — mix-blend-difference inverts colour under it */}
+      {/* Aura — soft glow, most lag */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference"
-        style={{ x, y, translateX: "-50%", translateY: "-50%" }}
+        className="fixed top-0 left-0 pointer-events-none z-[9996]"
+        style={{ x: auraX, y: auraY, translateX: "-50%", translateY: "-50%" }}
       >
         <motion.div
           animate={{
-            width:   isHover ? 54 : 30,
-            height:  isHover ? 54 : 30,
+            width:   isHover ? 180 : 80,
+            height:  isHover ? 180 : 80,
+            opacity: visible ? (isHover ? 0.12 : 0.06) : 0,
+          }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="rounded-full"
+          style={{
+            background: "radial-gradient(circle, rgba(91,124,247,1) 0%, transparent 70%)",
+          }}
+        />
+      </motion.div>
+
+      {/* Ring — mix-blend-difference */}
+      <motion.div
+        className="fixed top-0 left-0 pointer-events-none z-[9998] mix-blend-difference"
+        style={{ x: ringX, y: ringY, translateX: "-50%", translateY: "-50%" }}
+      >
+        <motion.div
+          animate={{
+            width:   isHover ? 52 : 28,
+            height:  isHover ? 52 : 28,
             opacity: visible ? 1 : 0,
           }}
-          transition={{ duration: 0.18, ease: "easeOut" }}
+          transition={{ duration: 0.22, ease: "easeOut" }}
           className="rounded-full border border-white"
         />
       </motion.div>
 
-      {/* Inner dot — direct (no spring), instant */}
+      {/* Dot — instant, no spring */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999]"
-        style={{ x: cursorX, y: cursorY, translateX: "-50%", translateY: "-50%" }}
+        style={{ x: dotX, y: dotY, translateX: "-50%", translateY: "-50%" }}
       >
         <motion.div
-          animate={{ opacity: visible ? 1 : 0 }}
+          animate={{ opacity: visible ? 1 : 0, scale: isHover ? 0 : 1 }}
+          transition={{ duration: 0.12 }}
           className="w-1 h-1 rounded-full bg-white"
         />
       </motion.div>
