@@ -14,7 +14,7 @@ export const personal = {
     university: "KL University",
     cgpa: "8.29",
   },
-  leadership: "President of the Student Activities Council (25+ member council)",
+  leadership: "President of the Student Council of KL University (under SAC — Student Activity Center)",
 };
 
 export const projects = [
@@ -71,7 +71,7 @@ export const projects = [
 export const experience = [
   {
     role: "President",
-    org: "Student Activities Council, KL University",
+    org: "Student Council of KL University (under SAC — Student Activity Center)",
     period: "2026 – Present",
     description:
       "Leads a 25+ member council across Drafting, Hostel Events, PR & Media, and Finance sub-councils. Oversees Internal Affairs and Student Engagement.",
