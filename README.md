@@ -155,7 +155,7 @@ Auto-deployed on Vercel on every push to `main`.
 **Pinnamaneni Rohith Venkata Sai**
 
 - Email: [pinnamanenirohith@gmail.com](mailto:pinnamanenirohith@gmail.com)
-- LinkedIn: [linkedin.com/in/rohith-pinnamaneni](https://www.linkedin.com/in/rohith-pinnamaneni)
+- LinkedIn: [linkedin.com/in/rohith-venkata-sai-pinnamaneni-38807a2b2](https://www.linkedin.com/in/rohith-venkata-sai-pinnamaneni-38807a2b2/)
 - GitHub: [github.com/pinnamanenirohith](https://github.com/pinnamanenirohith)
 
 ---
