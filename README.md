@@ -12,7 +12,7 @@
 
 ## Live Demo
 
-🔗 **[portfolio-website-seven-silk-89.vercel.app](https://portfolio-website-seven-silk-89.vercel.app)**
+🔗 **[rohithpinnamaneni.vercel.app](https://rohithpinnamaneni.vercel.app)**
 
 ---
 
@@ -162,4 +162,4 @@ Auto-deployed on Vercel on every push to `main`.
 
 ## License
 
-MIT
+This project is open source and available under the [MIT License](LICENSE).
