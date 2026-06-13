@@ -6,7 +6,7 @@ export const personal = {
     "Full Stack Developer · Aspiring Software Engineer",
   email: "pinnamanenirohith@gmail.com",
   phone: "+91 82229 33323",
-  linkedin: "linkedin.com/in/rohith-venkata-sai-pinnamaneni-38807a2b2",
+  linkedin: "www.linkedin.com/in/rohith-venkata-sai-pinnamaneni-38807a2b2",
   github: "github.com/pinnamanenirohith",
   bio: "Computer Science (Cloud Native Engineering) student and full-stack developer building web applications across the MERN stack. Strong in RESTful API design, role-based access control, and JWT authentication, with hands-on CI/CD, Nginx, and self-hosted Linux deployment.",
   education: {
