@@ -8,7 +8,7 @@ export default function Footer() {
           className="text-xs"
           style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
         >
-          © 2025 Rohith Pinnamaneni
+          © {new Date().getFullYear()} Rohith Pinnamaneni
         </p>
         <div className="flex items-center gap-6">
           {[

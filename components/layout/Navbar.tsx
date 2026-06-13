@@ -1,18 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import MagneticButton from "@/components/ui/MagneticButton";
 
 const links = [
-  { label: "Work",       href: "#work"       },
-  { label: "Leadership", href: "#leadership"  },
-  { label: "Stack",      href: "#stack"       },
-  { label: "Contact",    href: "#contact"     },
+  { label: "Work",       href: "/projects"    },
+  { label: "Experience", href: "/experience"  },
+  { label: "Contact",    href: "/contact"     },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled]   = useState(false);
-  const [menuOpen, setMenuOpen]   = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 48);
@@ -20,10 +22,9 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  const go = (href: string) => {
+  useEffect(() => {
     setMenuOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, [pathname]);
 
   return (
     <motion.header
@@ -39,25 +40,28 @@ export default function Navbar() {
     >
       <nav className="max-w-[1180px] mx-auto px-6 md:px-14 h-16 flex items-center justify-between">
 
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        <Link
+          href="/"
           className="text-sm font-semibold tracking-tight transition-opacity duration-200 hover:opacity-60"
           style={{ color: "var(--text)", fontFamily: "var(--display)" }}
         >
           Rohith<span style={{ color: "var(--text-dim)" }}>.</span>
-        </button>
+        </Link>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
           {links.map((l) => (
-            <button
+            <Link
               key={l.href}
-              onClick={() => go(l.href)}
+              href={l.href}
               className="text-sm font-medium transition-colors duration-200 hover:text-[--text]"
-              style={{ color: "var(--text-mid)" }}
+              style={{
+                color: pathname === l.href ? "var(--text)" : "var(--text-mid)",
+                fontFamily: "var(--mono)",
+              }}
             >
               {l.label}
-            </button>
+            </Link>
           ))}
           <MagneticButton href="mailto:pinnamanenirohith@gmail.com" variant="primary">
             Get in touch
@@ -104,14 +108,14 @@ export default function Navbar() {
           >
             <div className="px-6 py-6 flex flex-col gap-5">
               {links.map((l) => (
-                <button
+                <Link
                   key={l.href}
-                  onClick={() => go(l.href)}
+                  href={l.href}
                   className="text-left text-base font-medium transition-colors hover:text-[--text]"
                   style={{ color: "var(--text-mid)" }}
                 >
                   {l.label}
-                </button>
+                </Link>
               ))}
               <a
                 href="mailto:pinnamanenirohith@gmail.com"

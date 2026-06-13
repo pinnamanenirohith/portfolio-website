@@ -2,12 +2,10 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
 import Marquee from "@/components/ui/Marquee";
-import Systems from "@/components/sections/Systems";
-import Work from "@/components/sections/Work";
-import Leadership from "@/components/sections/Leadership";
-import About from "@/components/sections/About";
-import Experience from "@/components/sections/Experience";
-import Contact from "@/components/sections/Contact";
+import HomeFeatured from "@/components/sections/HomeFeatured";
+import HomeLeadership from "@/components/sections/HomeLeadership";
+import HomeStack from "@/components/sections/HomeStack";
+import HomeCTA from "@/components/sections/HomeCTA";
 
 export default function Home() {
   return (
@@ -16,12 +14,10 @@ export default function Home() {
       <main>
         <Hero />
         <Marquee />
-        <Systems />
-        <Work />
-        <Leadership />
-        <About />
-        <Experience />
-        <Contact />
+        <HomeFeatured />
+        <HomeLeadership />
+        <HomeStack />
+        <HomeCTA />
       </main>
       <Footer />
     </>

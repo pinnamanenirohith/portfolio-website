@@ -50,14 +50,14 @@ export default function ERPDiagram() {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
           <span className="text-xs text-zinc-400" style={{ fontFamily: "var(--mono)" }}>
-            Student Council ERP
+            SAC Council Management Platform
           </span>
         </div>
         <span
           className="text-[10px] text-zinc-600 bg-zinc-800/50 px-2 py-0.5 rounded-full"
           style={{ fontFamily: "var(--mono)" }}
         >
-          Active Pilot
+          Multi-user Testing
         </span>
       </div>
 
