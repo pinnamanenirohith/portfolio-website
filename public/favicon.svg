@@ -1,4 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="8" fill="#2563eb"/>
-  <text x="16" y="22" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="white" text-anchor="middle">R</text>
+  <!-- Dark background matching --bg -->
+  <rect width="32" height="32" rx="7" fill="#09090c"/>
+  <!-- Subtle border -->
+  <rect width="32" height="32" rx="7" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <!-- Accent dot — top-right, matches --accent #5b7cf7 -->
+  <circle cx="23" cy="9" r="2.5" fill="#5b7cf7"/>
+  <!-- "R" in Syne-style weight, slightly offset left to balance the dot -->
+  <text x="14" y="22" font-family="system-ui,sans-serif" font-size="15" font-weight="800" fill="#f0f0eb" text-anchor="middle" letter-spacing="-0.5">R</text>
 </svg>
