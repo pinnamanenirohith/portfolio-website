@@ -12,15 +12,15 @@
 
 ## Live Demo
 
-🔗 **[rohithpinnamaneni.vercel.app](https://rohithpinnamaneni.vercel.app)**
+**[rohithpinnamaneni.vercel.app](https://rohithpinnamaneni.vercel.app)**
 
 ---
 
 ## About
 
-Immersive dark portfolio with a premium editorial feel — inspired by Spencer Gabor-level interaction design. Multi-page architecture with cinematic animations, custom cursor, magnetic buttons, and scroll-linked parallax.
+Premium dark portfolio with an editorial, immersive feel. Multi-page architecture with a cinematic homepage, scroll-driven case study narratives, and Apple/Linear-quality micro-interactions — no gimmicks, no lag.
 
-**Design philosophy:** Bottom-anchored hero with outrageously large Syne display type, film grain overlay, mouse parallax grid, word-reveal animations, and a marquee ticker. Product-website feel — not a single endless scroll.
+**Design philosophy:** Bottom-anchored hero with large Syne display type, film grain overlay, spotlight effect, scroll-linked parallax, and word-reveal animations. Information architecture prioritises storytelling over dashboard-style layouts.
 
 ---
 
@@ -28,11 +28,14 @@ Immersive dark portfolio with a premium editorial feel — inspired by Spencer G
 
 | Route | Description |
 |---|---|
-| `/` | Cinematic hero · Featured project · Leadership preview · Stack · CTA |
-| `/projects` | All projects listing |
-| `/projects/sac-platform` | SAC Council Management Platform case study with animated architecture diagram |
-| `/experience` | Full leadership progression · Internships · Certifications · Education |
+| `/` | Cinematic hero · Featured project (editorial) · Leadership preview · CTA |
+| `/work` | Projects listing — editorial row layout |
+| `/work/sac-platform` | SAC Platform — 7-chapter scroll-driven case study |
+| `/work/smart-farming` | Smart Farming Advisor case study |
+| `/leadership` | Full leadership progression · Internships · Certifications · Education |
 | `/contact` | Contact links |
+
+Old routes (`/projects`, `/experience`) redirect to the new URLs.
 
 ---
 
@@ -44,21 +47,23 @@ Immersive dark portfolio with a premium editorial feel — inspired by Spencer G
 | Language | [TypeScript](https://www.typescriptlang.org/) |
 | Styling | [Tailwind CSS v4](https://tailwindcss.com/) (CSS-first, no config file) |
 | Animations | [Framer Motion 12](https://www.framer.com/motion/) |
-| Fonts | Syne (display) · Inter (body) · JetBrains Mono (code) |
+| Fonts | Syne (display) · Inter (body) · JetBrains Mono (mono) |
 | Deployment | [Vercel](https://vercel.com/) |
 
 ---
 
 ## Interaction Design
 
-- **Custom cursor** — `mix-blend-difference` ring with spring physics, expands on hover
-- **Magnetic buttons** — `useSpring` displacement on mouse proximity
-- **Hero parallax** — scroll-linked fade/lift + mouse-driven grid background
-- **Word reveals** — clip-path animation (`y: 108% → 0`) with custom easing
-- **CSS marquee** — GPU-accelerated ticker, no JS
-- **Film grain** — SVG `feTurbulence` overlay with 6-step keyframe animation
-- **InView stagger** — all sections animate in as they enter the viewport
-- **Animated diagram** — RBAC bars grow, architecture layers fade, feature grid scales on scroll
+- **Spotlight** — zero-lag radial glow that follows the cursor; implemented via direct CSS custom property writes (`--sx`, `--sy`) on `mousemove` — no React state, no spring, no repaints
+- **Button feedback** — `whileHover: y: -1.5px` lift + `whileTap: scale(0.96)` press with stiffness 900 spring; feels tactile and immediate
+- **Navbar underlines** — pure CSS `::after` slide-in at 160ms, no JS
+- **Scroll parallax** — `useScroll` + `useTransform` on hero and featured section titles
+- **Word reveals** — overflow-clip animation (`y: 108% → 0`) with custom cubic-bezier easing
+- **InView stagger** — sections animate in as they enter the viewport
+- **Chapter narrative** — SAC case study uses ghost chapter numbers (28vw) and scroll-triggered reveals per chapter
+- **RBAC visualiser** — animated horizontal bars that draw left-to-right on scroll
+- **Film grain** — SVG `feTurbulence` overlay with 6-step keyframe animation, GPU-composited
+- **CSS marquee** — GPU-accelerated ticker, zero JS
 
 ---
 
@@ -67,34 +72,39 @@ Immersive dark portfolio with a premium editorial feel — inspired by Spencer G
 ```
 portfolio-website/
 ├── app/
-│   ├── layout.tsx                    # Root layout, metadata, custom cursor
+│   ├── layout.tsx                    # Root layout, metadata
 │   ├── page.tsx                      # Homepage
 │   ├── globals.css                   # Design tokens, grain, marquee keyframes
-│   ├── not-found.tsx                 # Custom 404
-│   ├── projects/
+│   ├── not-found.tsx
+│   ├── work/
 │   │   ├── page.tsx                  # Projects listing
-│   │   └── sac-platform/
-│   │       └── page.tsx              # SAC Platform case study
-│   ├── experience/
-│   │   └── page.tsx                  # Experience page
-│   └── contact/
-│       └── page.tsx                  # Contact page
+│   │   ├── sac-platform/
+│   │   │   └── page.tsx              # 7-chapter scroll case study
+│   │   └── smart-farming/
+│   │       └── page.tsx              # Smart Farming case study
+│   ├── leadership/
+│   │   └── page.tsx                  # Leadership, internships, certifications
+│   ├── contact/
+│   │   └── page.tsx
+│   ├── projects/                     # Redirect stubs → /work
+│   └── experience/                   # Redirect stub → /leadership
 ├── components/
 │   ├── graphics/
-│   │   └── ERPDiagram.tsx            # Animated RBAC + architecture diagram
+│   │   ├── ERPDiagram.tsx            # Animated architecture diagram
+│   │   └── FarmingCard.tsx
 │   ├── layout/
-│   │   ├── Navbar.tsx                # Sticky nav with Next.js Link routing
+│   │   ├── Navbar.tsx                # Sticky nav, scroll-aware
 │   │   └── Footer.tsx
 │   ├── sections/
-│   │   ├── Hero.tsx                  # Cinematic hero, bottom-anchored
-│   │   ├── HomeFeatured.tsx          # Featured project teaser
-│   │   ├── HomeLeadership.tsx        # Leadership preview
-│   │   ├── HomeStack.tsx             # Technical skills grid
-│   │   └── HomeCTA.tsx               # Call to action
+│   │   ├── Hero.tsx                  # Cinematic hero with spotlight
+│   │   ├── HomeFeatured.tsx          # Editorial featured project
+│   │   ├── HomeLeadership.tsx        # Leadership pull-quote + timeline
+│   │   └── HomeCTA.tsx
 │   └── ui/
-│       ├── CustomCursor.tsx          # mix-blend-difference cursor
-│       ├── MagneticButton.tsx        # Spring-physics magnetic button
+│       ├── MagneticButton.tsx        # Tactile lift/press button
 │       └── Marquee.tsx               # CSS ticker
+├── hooks/
+│   └── useSpotlight.ts               # Zero-lag cursor spotlight hook
 ├── data/
 │   └── content.ts                    # All site content — single source of truth
 ├── public/
@@ -155,7 +165,7 @@ Auto-deployed on Vercel on every push to `main`.
 **Pinnamaneni Rohith Venkata Sai**
 
 - Email: [pinnamanenirohith@gmail.com](mailto:pinnamanenirohith@gmail.com)
-- LinkedIn: [linkedin.com/in/rohith-venkata-sai-pinnamaneni-38807a2b2](https://www.linkedin.com/in/rohith-venkata-sai-pinnamaneni-38807a2b2/)
+- LinkedIn: [linkedin.com/in/rohith-venkata-sai-pinnamaneni-38807a2b2](https://www.linkedin.com/in/rohith-venkata-sai-pinnamaneni-38807a2b2)
 - GitHub: [github.com/pinnamanenirohith](https://github.com/pinnamanenirohith)
 
 ---
