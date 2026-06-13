@@ -1,68 +1,112 @@
+const flow = [
+  { label: "User Query", sub: "Natural language input", accent: "#34d399" },
+  { label: "NLP Engine", sub: "Watson intent detection", accent: "#6ee7b7" },
+  { label: "Dialog Tree", sub: "Entities · conditions · nodes", accent: "#a7f3d0" },
+  { label: "Response", sub: "Crop / weather guidance", accent: "#d1fae5" },
+];
+
+const tags = ["Intents", "Entities", "Dialog Nodes", "NLP", "IBM Cloud"];
+
 export default function FarmingCard() {
-  const steps = [
-    { icon: "💬", label: "User Query", desc: "Natural language input" },
-    { icon: "🧠", label: "NLP Engine", desc: "Watson intent detection" },
-    { icon: "🌿", label: "Dialog Tree", desc: "Entities & conditions" },
-    { icon: "📊", label: "Response", desc: "Crop / weather guidance" },
-  ];
-
   return (
-    <div className="relative rounded-2xl bg-gradient-to-br from-emerald-900 to-teal-900 p-6 overflow-hidden select-none">
-      {/* Background dots */}
+    <div
+      className="rounded-2xl overflow-hidden select-none border border-white/[0.08]"
+      style={{ background: "#0d1a14" }}
+    >
+      {/* Header */}
       <div
-        aria-hidden
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: "radial-gradient(#34d399 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-      />
+        className="flex items-center justify-between px-5 py-3.5 border-b border-white/[0.06]"
+        style={{ background: "rgba(255,255,255,0.02)" }}
+      >
+        <span
+          className="text-xs text-zinc-400"
+          style={{ fontFamily: "var(--mono)" }}
+        >
+          IBM Watson Assistant
+        </span>
+        <span
+          className="text-[10px] text-emerald-600 bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-900"
+          style={{ fontFamily: "var(--mono)" }}
+        >
+          IBM SkillsBuild
+        </span>
+      </div>
 
-      <div className="relative">
-        <p className="text-xs font-mono text-emerald-400 mb-1">IBM Watson Assistant</p>
-        <p className="text-white font-semibold text-lg mb-6">Smart Farming Advisor</p>
+      <div className="p-5">
+        <p className="text-white font-semibold mb-5">Smart Farming Advisor</p>
 
-        {/* Flow */}
-        <div className="space-y-3">
-          {steps.map((s, i) => (
-            <div key={s.label} className="flex items-center gap-3">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
-                style={{ background: "rgba(52,211,153,0.15)", border: "1px solid rgba(52,211,153,0.25)" }}
-              >
-                {s.icon}
+        {/* NLP flow */}
+        <div className="space-y-2">
+          {flow.map((f, i) => (
+            <div key={f.label} className="flex items-start gap-3">
+              <div className="flex flex-col items-center mt-1">
+                <div
+                  className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                  style={{ background: f.accent }}
+                />
+                {i < flow.length - 1 && (
+                  <div
+                    className="w-px flex-1 mt-1"
+                    style={{
+                      height: "28px",
+                      background: "rgba(52,211,153,0.2)",
+                    }}
+                  />
+                )}
               </div>
-              <div className="flex-1">
-                <p className="text-white text-sm font-medium">{s.label}</p>
-                <p className="text-emerald-300 text-xs">{s.desc}</p>
+              <div className="pb-2">
+                <p
+                  className="text-xs text-zinc-200"
+                  style={{ fontFamily: "var(--mono)" }}
+                >
+                  {f.label}
+                </p>
+                <p
+                  className="text-[10px] text-zinc-500 mt-0.5"
+                  style={{ fontFamily: "var(--mono)" }}
+                >
+                  {f.sub}
+                </p>
               </div>
-              {i < steps.length - 1 && (
-                <div className="absolute left-[52px] mt-10 w-px h-3 bg-emerald-700" style={{ position: "relative", left: "auto", marginLeft: "-2.5rem", marginTop: "0.25rem" }} />
-              )}
             </div>
           ))}
         </div>
 
+        {/* Sample exchange */}
+        <div
+          className="mt-5 p-3.5 rounded-xl"
+          style={{
+            background: "rgba(52,211,153,0.05)",
+            border: "1px solid rgba(52,211,153,0.12)",
+          }}
+        >
+          <p
+            className="text-[10px] text-emerald-400"
+            style={{ fontFamily: "var(--mono)" }}
+          >
+            &ldquo;What crops suit clay soil in July?&rdquo;
+          </p>
+          <p className="text-xs text-zinc-300 mt-2 leading-relaxed">
+            Based on season &amp; soil type, consider rice or maize — both
+            thrive in high-moisture clay during the kharif season.
+          </p>
+        </div>
+
         {/* Tags */}
-        <div className="mt-6 flex flex-wrap gap-2">
-          {["Intents", "Entities", "Dialog Nodes", "NLP", "IBM Cloud"].map((t) => (
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {tags.map((t) => (
             <span
               key={t}
-              className="text-xs px-2.5 py-1 rounded-md text-emerald-200 font-medium"
-              style={{ background: "rgba(52,211,153,0.12)", border: "1px solid rgba(52,211,153,0.2)" }}
+              className="text-[10px] px-2 py-1 rounded-md text-emerald-400"
+              style={{
+                fontFamily: "var(--mono)",
+                background: "rgba(52,211,153,0.07)",
+                border: "1px solid rgba(52,211,153,0.12)",
+              }}
             >
               {t}
             </span>
           ))}
-        </div>
-
-        <div className="mt-5 p-3 rounded-xl" style={{ background: "rgba(52,211,153,0.08)", border: "1px solid rgba(52,211,153,0.15)" }}>
-          <p className="text-xs text-emerald-300 font-mono">
-            &ldquo;What crops suit clay soil in July?&rdquo;
-          </p>
-          <p className="text-xs text-white mt-1.5">
-            Based on season & soil type, consider rice or maize...
-          </p>
         </div>
       </div>
     </div>

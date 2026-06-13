@@ -9,7 +9,31 @@
       "PowerShell(Stop-Process -Id 13124 -Force)",
       "mcp__505ac66e-900b-4143-b518-347ce4042f9b__deploy_to_vercel",
       "Bash(npx vercel *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git commit *)",
+      "mcp__505ac66e-900b-4143-b518-347ce4042f9b__list_projects",
+      "mcp__505ac66e-900b-4143-b518-347ce4042f9b__list_deployments",
+      "mcp__505ac66e-900b-4143-b518-347ce4042f9b__get_deployment_build_logs",
+      "Bash(npm show *)",
+      "Bash(git push *)",
+      "Bash(git rebase *)",
+      "Bash(git stash *)",
+      "Bash(git filter-branch *)",
+      "Bash(xargs -I{} sh -c 'echo \"---\" && git show {} --format=\"%B\" | grep -i \"co-authored\" || true')",
+      "Bash(xargs -I{} git update-ref -d {})",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter 'sed \"/Co-Authored-By: Claude/d\" | sed \"/^[[:space:]]*$/{ /^\\\\n*$/d }\"' -- --all)",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch -f --msg-filter 'sed \"/Co-Authored-By: Claude/d\"' -- --all)",
+      "Bash(git reflog *)",
+      "Bash(git gc *)",
+      "Bash(git log *)",
+      "Bash(gh api *)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(npx uipro-cli *)",
+      "Bash(Get-ChildItem -Recurse \"D:\\\\Career\\\\Resume\\\\portfolio-website\\\\.claude\\\\skills\")",
+      "Bash(Select-Object FullName)",
+      "Bash(claude mcp *)"
     ]
   }
 }
