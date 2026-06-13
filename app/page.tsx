@@ -1,6 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Hero from "@/components/sections/Hero";
+import Marquee from "@/components/ui/Marquee";
 import Systems from "@/components/sections/Systems";
 import Work from "@/components/sections/Work";
 import Leadership from "@/components/sections/Leadership";
@@ -14,6 +15,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <Marquee />
         <Systems />
         <Work />
         <Leadership />
