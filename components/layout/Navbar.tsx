@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 import MagneticButton from "@/components/ui/MagneticButton";
 
 const links = [
-  { label: "Work",       href: "/projects"    },
-  { label: "Experience", href: "/experience"  },
+  { label: "Work",       href: "/work"        },
+  { label: "Leadership", href: "/leadership"  },
   { label: "Contact",    href: "/contact"     },
 ];
 

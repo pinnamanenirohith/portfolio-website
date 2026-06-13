@@ -1,181 +1,140 @@
 "use client";
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { projects } from "@/data/content";
 
 const sac = projects[0];
 
 export default function HomeFeatured() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const titleY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
     <section
       ref={ref}
-      className="py-28 md:py-36 px-6 md:px-14 border-t"
+      className="py-32 md:py-44 px-6 md:px-14 border-t overflow-hidden"
       style={{ borderColor: "var(--border)" }}
     >
       <div className="max-w-[1180px] mx-auto">
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16"
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-[11px] tracking-[0.28em] uppercase mb-20"
+          style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
         >
-          <p
-            className="text-[11px] tracking-[0.22em] uppercase mb-3"
-            style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
-          >
-            Featured Work
-          </p>
-          <h2
-            style={{
-              fontFamily: "var(--display)",
-              fontSize: "clamp(2rem, 4vw, 3.2rem)",
-              fontWeight: 800,
-              color: "var(--text)",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Flagship system
-          </h2>
-        </motion.div>
+          Flagship System
+        </motion.p>
 
-        <Link href="/projects/sac-platform" className="group block">
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative rounded-2xl border overflow-hidden transition-all duration-500 group-hover:border-white/[0.18]"
-            style={{
-              background: "var(--bg-elevated)",
-              borderColor: "var(--border)",
-            }}
-          >
-            <div className="p-8 md:p-12 grid md:grid-cols-[1fr_auto] gap-8 items-start">
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <span
-                    className="text-[10px] tracking-[0.18em] uppercase px-2.5 py-1 rounded-full border"
-                    style={{
-                      color: "var(--accent)",
-                      borderColor: "rgba(91,124,247,0.3)",
-                      background: "rgba(91,124,247,0.08)",
-                      fontFamily: "var(--mono)",
-                    }}
-                  >
-                    {sac.badge}
-                  </span>
-                  <span
-                    className="text-[10px]"
-                    style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
-                  >
-                    {sac.badgeDetail}
-                  </span>
-                </div>
+        <Link href="/work/sac-platform" className="group block" data-hover>
+          <div className="grid md:grid-cols-[1fr_auto] gap-8 items-end">
 
-                <h3
-                  className="mb-3 group-hover:text-white transition-colors duration-300"
-                  style={{
-                    fontFamily: "var(--display)",
-                    fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)",
-                    fontWeight: 800,
-                    color: "var(--text)",
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  {sac.title}
-                </h3>
-
-                <p
-                  className="text-sm leading-relaxed mb-8 max-w-xl"
-                  style={{ color: "var(--text-mid)" }}
-                >
-                  {sac.description}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {sac.stack.slice(0, 7).map((t) => (
-                    <span
-                      key={t}
-                      className="text-[10px] px-2.5 py-1 rounded-md border"
-                      style={{
-                        color: "var(--text-dim)",
-                        borderColor: "var(--border)",
-                        fontFamily: "var(--mono)",
-                      }}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
+            {/* Title with parallax */}
+            <motion.div style={{ y: titleY }}>
+              <motion.h2
+                initial={{ opacity: 0, y: 32 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 1.0, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  fontFamily: "var(--display)",
+                  fontSize: "clamp(3rem, 8vw, 7rem)",
+                  fontWeight: 800,
+                  color: "var(--text)",
+                  letterSpacing: "-0.035em",
+                  lineHeight: 0.92,
+                }}
+              >
+                SAC Council
+                <br />
                 <span
-                  className="inline-flex items-center gap-2 text-sm font-medium transition-colors duration-200 group-hover:text-white"
-                  style={{ color: "var(--text-mid)" }}
+                  className="transition-colors duration-500 group-hover:text-white"
+                  style={{ color: "rgba(240,240,235,0.3)", WebkitTextStroke: "1px rgba(240,240,235,0.18)" }}
                 >
-                  View case study
-                  <motion.span
-                    className="inline-block"
-                    animate={{ x: 0 }}
-                    whileHover={{ x: 3 }}
-                  >
-                    →
-                  </motion.span>
+                  Management
                 </span>
-              </div>
+                <br />
+                Platform
+              </motion.h2>
+            </motion.div>
 
-              {/* Stats */}
-              <div className="flex md:flex-col gap-6 md:gap-8 flex-wrap">
-                {[
-                  { val: "8", label: "Permission Tiers" },
-                  { val: "22", label: "MongoDB Models" },
-                  { val: "8", label: "Feature Areas" },
-                ].map((s) => (
-                  <div key={s.label}>
-                    <p
-                      className="text-4xl font-bold tabular-nums"
-                      style={{ fontFamily: "var(--display)", color: "var(--text)" }}
-                    >
-                      {s.val}
-                    </p>
-                    <p
-                      className="text-[10px] mt-1 tracking-[0.12em] uppercase"
-                      style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
-                    >
-                      {s.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            {/* CTA arrow */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="pb-2"
+            >
+              <span
+                className="text-2xl transition-all duration-300 opacity-30 group-hover:opacity-100 group-hover:translate-x-2 inline-block"
+                style={{ color: "var(--text)" }}
+              >
+                ↗
+              </span>
+            </motion.div>
+          </div>
 
-            {/* Arrow */}
-            <div
-              className="absolute top-8 right-8 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 group-hover:translate-x-0"
+          {/* Divider that fills on hover */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-10 mb-10 h-px transition-colors duration-500 group-hover:bg-white/20"
+            style={{ background: "var(--border)" }}
+          />
+
+          <div className="grid md:grid-cols-[1fr_1fr] gap-8 items-start">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.35 }}
+              className="text-base leading-relaxed"
               style={{ color: "var(--text-mid)" }}
             >
-              ↗
-            </div>
-          </motion.div>
+              {sac.description}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.45 }}
+              className="flex flex-wrap gap-2 md:justify-end items-start"
+            >
+              {sac.stack.slice(0, 8).map((t) => (
+                <span
+                  key={t}
+                  className="text-[10px] px-2.5 py-1 rounded-md border transition-colors duration-200 group-hover:border-white/20"
+                  style={{
+                    color: "var(--text-dim)",
+                    borderColor: "var(--border)",
+                    fontFamily: "var(--mono)",
+                  }}
+                >
+                  {t}
+                </span>
+              ))}
+            </motion.div>
+          </div>
         </Link>
 
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-5 text-right"
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-6 text-right"
         >
           <Link
-            href="/projects"
-            className="text-sm transition-colors duration-200 hover:text-[--text]"
+            href="/work"
+            className="text-xs transition-colors duration-200 hover:text-[--text]"
             style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
           >
             All projects →
           </Link>
         </motion.div>
+
       </div>
     </section>
   );

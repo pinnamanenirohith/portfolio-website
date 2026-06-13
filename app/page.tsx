@@ -4,7 +4,6 @@ import Hero from "@/components/sections/Hero";
 import Marquee from "@/components/ui/Marquee";
 import HomeFeatured from "@/components/sections/HomeFeatured";
 import HomeLeadership from "@/components/sections/HomeLeadership";
-import HomeStack from "@/components/sections/HomeStack";
 import HomeCTA from "@/components/sections/HomeCTA";
 
 export default function Home() {
@@ -16,7 +15,6 @@ export default function Home() {
         <Marquee />
         <HomeFeatured />
         <HomeLeadership />
-        <HomeStack />
         <HomeCTA />
       </main>
       <Footer />
