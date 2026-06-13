@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { leadership, internships, certifications, personal } from "@/data/content";
+import { leadership, internships, certifications, awards, personal } from "@/data/content";
 
 function Section({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef(null);
@@ -56,7 +56,7 @@ export default function ExperiencePage() {
 
           <div className="grid md:grid-cols-[1fr_1fr] gap-20 md:gap-28">
 
-            {/* Left column — Leadership + Internships */}
+            {/* Left column */}
             <div>
               {/* Leadership */}
               <Section>
@@ -83,28 +83,16 @@ export default function ExperiencePage() {
                           borderColor: i === 0 ? "var(--accent)" : "var(--text-dim)",
                         }}
                       />
-                      <p
-                        className="text-[10px] mb-1.5"
-                        style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
-                      >
+                      <p className="text-[10px] mb-1.5" style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}>
                         {e.period}
                       </p>
-                      <h3
-                        className="text-sm font-semibold mb-1"
-                        style={{ color: i === 0 ? "var(--text)" : "var(--text-mid)" }}
-                      >
+                      <h3 className="text-sm font-semibold mb-1" style={{ color: i === 0 ? "var(--text)" : "var(--text-mid)" }}>
                         {e.role}
                       </h3>
-                      <p
-                        className="text-[11px] mb-3"
-                        style={{ color: "var(--accent)", fontFamily: "var(--mono)" }}
-                      >
+                      <p className="text-[11px] mb-3" style={{ color: "var(--accent)", fontFamily: "var(--mono)" }}>
                         {e.org}
                       </p>
-                      <p
-                        className="text-sm leading-relaxed"
-                        style={{ color: "var(--text-mid)" }}
-                      >
+                      <p className="text-sm leading-relaxed" style={{ color: "var(--text-mid)" }}>
                         {e.description}
                       </p>
                     </motion.div>
@@ -134,19 +122,13 @@ export default function ExperiencePage() {
                         className="absolute -left-[5px] mt-1.5 w-2.5 h-2.5 rounded-full border-2"
                         style={{ background: "var(--bg)", borderColor: "var(--text-dim)" }}
                       />
-                      <p
-                        className="text-[10px] mb-1.5"
-                        style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
-                      >
+                      <p className="text-[10px] mb-1.5" style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}>
                         {e.period}
                       </p>
                       <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--text)" }}>
                         {e.role}
                       </h3>
-                      <p
-                        className="text-[11px] mb-3"
-                        style={{ color: "var(--accent)", fontFamily: "var(--mono)" }}
-                      >
+                      <p className="text-[11px] mb-3" style={{ color: "var(--accent)", fontFamily: "var(--mono)" }}>
                         {e.org}
                       </p>
                       <p className="text-sm leading-relaxed" style={{ color: "var(--text-mid)" }}>
@@ -175,12 +157,45 @@ export default function ExperiencePage() {
                   <p className="text-xs mb-2" style={{ color: "var(--text-mid)" }}>
                     {personal.education.university}
                   </p>
-                  <p
-                    className="text-xs"
-                    style={{ color: "var(--accent)", fontFamily: "var(--mono)" }}
-                  >
+                  <p className="text-xs" style={{ color: "var(--accent)", fontFamily: "var(--mono)" }}>
                     CGPA {personal.education.cgpa}
                   </p>
+                </div>
+              </Section>
+
+              {/* Recognition Awards */}
+              <Section delay={0.2}>
+                <p
+                  className="text-[10px] tracking-[0.22em] uppercase mb-6 mt-16"
+                  style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
+                >
+                  Recognition Awards
+                </p>
+                <div className="space-y-3">
+                  {awards.map((a, i) => (
+                    <motion.div
+                      key={a.title}
+                      initial={{ opacity: 0, x: -8 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.45, delay: i * 0.08 }}
+                      className="flex items-start gap-3 p-4 rounded-xl border"
+                      style={{ borderColor: "var(--border)", background: "rgba(255,255,255,0.01)" }}
+                    >
+                      <div
+                        className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
+                        style={{ background: "var(--accent)" }}
+                      />
+                      <div>
+                        <p className="text-xs font-medium leading-snug" style={{ color: "var(--text)" }}>
+                          {a.title}
+                        </p>
+                        <p className="text-[10px] mt-0.5" style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}>
+                          {a.org} · {a.period}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
               </Section>
             </div>
@@ -191,7 +206,7 @@ export default function ExperiencePage() {
                 className="text-[10px] tracking-[0.22em] uppercase mb-8"
                 style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
               >
-                Certifications &amp; Achievements
+                Certifications
               </p>
               <div className="space-y-2">
                 {certifications.map((c, i) => (
@@ -212,10 +227,7 @@ export default function ExperiencePage() {
                       <p className="text-xs font-medium leading-snug" style={{ color: "var(--text-mid)" }}>
                         {c.name}
                       </p>
-                      <p
-                        className="text-[10px] mt-0.5"
-                        style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
-                      >
+                      <p className="text-[10px] mt-0.5" style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}>
                         {c.issuer}
                       </p>
                     </div>

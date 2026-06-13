@@ -18,7 +18,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
       transition={{ duration: 0.75, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
     >
       <Link
-        href={project.id === "sac-platform" ? "/projects/sac-platform" : "#"}
+        href={`/projects/${project.id}/`}
         className="group block rounded-2xl border p-8 md:p-10 transition-all duration-400 hover:border-white/[0.16]"
         style={{ background: "var(--bg-elevated)", borderColor: "var(--border)" }}
       >

@@ -134,6 +134,27 @@ export const internships = [
   },
 ];
 
+export const awards = [
+  {
+    title: "Vice President Recognition Award",
+    org: "WDC, KL University",
+    period: "2025–26",
+    detail: "Recognition for service as Vice President of SAC Student Council",
+  },
+  {
+    title: "SAC Administrative Lead Recognition Award",
+    org: "Student Activity Center, KL University",
+    period: "2024–25",
+    detail: "Recognition for service as Administrative Lead of SAC",
+  },
+  {
+    title: "SafeLife Club Lead Recognition Award",
+    org: "Student Activity Center, KL University",
+    period: "2024–25",
+    detail: "Recognition for leading the SafeLife Club",
+  },
+];
+
 export const certifications = [
   { name: "Salesforce Certified AI Associate", issuer: "Salesforce" },
   { name: "Python Essentials 1", issuer: "Cisco" },
