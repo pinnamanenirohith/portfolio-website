@@ -7,7 +7,6 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
-import Link from "next/link";
 import MagneticButton from "@/components/ui/MagneticButton";
 
 const container = {

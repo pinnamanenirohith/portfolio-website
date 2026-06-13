@@ -2,7 +2,6 @@
 import { motion } from "framer-motion";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import MagneticButton from "@/components/ui/MagneticButton";
 import { personal } from "@/data/content";
 
 const contactLinks = [
