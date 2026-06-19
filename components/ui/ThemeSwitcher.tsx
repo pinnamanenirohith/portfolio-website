@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useRef, useState } from "react";
-import { motion, AnimatePresence, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useSpring } from "framer-motion";
 import { useTheme } from "@/context/ThemeContext";
 
 /* Star positions for the dark-mode orb (stable, not random) */
@@ -79,11 +79,12 @@ export default function ThemeSwitcher() {
         onMouseUp={() => setPressing(false)}
         onClick={handleClick}
         aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-        style={{ x: springX, y: springY }}
         animate={{ scale: pressing ? 0.9 : hovered ? 1.08 : 1 }}
         transition={{ type: "spring", stiffness: 400, damping: 22 }}
         className="relative w-12 h-12 rounded-full cursor-pointer outline-none focus-visible:outline-none"
         style={{
+          x: springX,
+          y: springY,
           background: "var(--orb-bg)",
           boxShadow: `0 0 20px var(--orb-glow), 0 4px 16px rgba(0,0,0,0.3)`,
         } as React.CSSProperties}
