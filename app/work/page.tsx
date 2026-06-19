@@ -30,7 +30,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           {/* Hover fill */}
           <div
             className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-            style={{ background: "rgba(255,255,255,0.018)" }}
+            style={{ background: "var(--accent-subtle)" }}
           />
 
           <div className={`flex flex-col ${isHero ? "gap-6" : "gap-4"} md:flex-row md:items-start md:justify-between`}>
@@ -40,8 +40,8 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                   className="text-[10px] tracking-[0.18em] uppercase px-2.5 py-0.5 rounded-full border"
                   style={{
                     color: "var(--accent)",
-                    borderColor: "rgba(91,124,247,0.3)",
-                    background: "rgba(91,124,247,0.07)",
+                    borderColor: "var(--accent-glow)",
+                    background: "var(--accent-subtle)",
                     fontFamily: "var(--mono)",
                   }}
                 >
@@ -50,7 +50,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               </div>
 
               <h2
-                className="group-hover:text-white transition-colors duration-300 mb-3"
+                className="transition-colors duration-300 mb-3"
                 style={{
                   fontFamily: "var(--display)",
                   fontSize: isHero ? "clamp(2.2rem, 5vw, 4.2rem)" : "clamp(1.6rem, 3vw, 2.4rem)",

@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from "@/context/ThemeContext";
+import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
+
 export const metadata: Metadata = {
   title: "Rohith Pinnamaneni — Full-Stack Developer & Systems Builder",
   description:
@@ -34,14 +37,31 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://rohith.dev"),
 };
 
+/* Inline script prevents flash of incorrect theme before React hydrates */
+const noFlashScript = `
+(function(){
+  try{
+    var s=localStorage.getItem('theme');
+    var sys=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';
+    var t=s||sys;
+    document.documentElement.setAttribute('data-theme',t);
+  }catch(e){}
+})();
+`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
+        {/* Must run synchronously before first paint to prevent FOCT */}
+        <script dangerouslySetInnerHTML={{ __html: noFlashScript }} />
       </head>
       <body>
-        {children}
+        <ThemeProvider>
+          {children}
+          <ThemeSwitcher />
+        </ThemeProvider>
       </body>
     </html>
   );

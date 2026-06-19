@@ -46,9 +46,15 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none select-none"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.024) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.024) 1px, transparent 1px)",
+            "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)",
           backgroundSize: "80px 80px",
         }}
+      />
+
+      {/* Light-mode ambient hero gradient — indigo/violet wash from top */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "var(--hero-gradient)" }}
       />
 
       {/* Zero-lag spotlight — CSS custom props, no spring */}
@@ -56,7 +62,7 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(520px circle at var(--sx, 60%) var(--sy, 40%), rgba(91,124,247,0.055) 0%, transparent 65%)",
+            "radial-gradient(520px circle at var(--sx, 60%) var(--sy, 40%), var(--spotlight-color) 0%, transparent 65%)",
         }}
       />
 
@@ -66,7 +72,7 @@ export default function Hero() {
         style={{
           width: "50vw",
           height: "50vw",
-          background: "radial-gradient(circle, rgba(91,124,247,0.07) 0%, transparent 70%)",
+          background: "radial-gradient(circle, var(--ambient-color) 0%, transparent 70%)",
           right: "-8vw",
           bottom: "-4vw",
         }}
@@ -131,7 +137,7 @@ export default function Hero() {
               lineHeight: 0.92,
               letterSpacing: "-0.03em",
               color: "transparent",
-              WebkitTextStroke: "1.5px rgba(240,240,235,0.22)",
+              WebkitTextStroke: "1.5px var(--border-mid)",
               marginLeft: "clamp(0px, 2vw, 48px)",
             }}
           >

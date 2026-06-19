@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { useTheme } from "@/context/ThemeContext";
 
 type Variant = "primary" | "ghost";
 
@@ -11,7 +12,6 @@ interface Props {
   className?: string;
 }
 
-/* Spring config that feels immediate — no perceivable lag */
 const tapSpring = { type: "spring" as const, stiffness: 900, damping: 30, mass: 0.5 };
 
 export default function MagneticButton({
@@ -21,22 +21,31 @@ export default function MagneticButton({
   variant = "primary",
   className = "",
 }: Props) {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
   const base =
-    "relative inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-full whitespace-nowrap select-none outline-none focus-visible:ring-2 focus-visible:ring-[--accent] focus-visible:ring-offset-2 focus-visible:ring-offset-[--bg]";
+    "relative inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-full whitespace-nowrap select-none outline-none focus-visible:ring-2 focus-visible:ring-[--accent] focus-visible:ring-offset-2 focus-visible:ring-offset-[--bg] cursor-pointer";
 
-  const styles: Record<Variant, string> = {
-    primary:
-      "bg-white text-zinc-950 transition-colors duration-150 hover:bg-zinc-100 active:bg-zinc-200",
-    ghost:
-      "border text-[--text-mid] transition-colors duration-150 hover:border-white/30 hover:text-white active:bg-white/[0.04]",
-  };
+  const computedStyle =
+    variant === "primary"
+      ? isLight
+        ? {
+            background: "var(--accent)",
+            color: "#FFFFFF",
+            boxShadow: "0 1px 3px rgba(79,70,229,0.3), 0 4px 12px rgba(79,70,229,0.2)",
+          }
+        : { background: "var(--text)", color: "var(--bg)" }
+      : isLight
+        ? {
+            borderColor: "var(--border-mid)",
+            color: "var(--text-mid)",
+            background: "var(--bg-elevated)",
+            boxShadow: "var(--shadow-xs)",
+          }
+        : { borderColor: "var(--border-mid)", color: "var(--text-mid)" };
 
-  const ghostBorder =
-    variant === "ghost"
-      ? { borderColor: "rgba(255,255,255,0.13)" }
-      : {};
-
-  const combined = `${base} ${styles[variant]} ${className}`;
+  const combined = `${base} ${variant === "ghost" ? "border transition-all duration-200" : "transition-all duration-200"} ${className}`;
 
   const motionProps = {
     whileHover: { y: -1.5, transition: { duration: 0.14, ease: [0.25, 0.46, 0.45, 0.94] as [number,number,number,number] } },
@@ -52,7 +61,7 @@ export default function MagneticButton({
         rel={isExternal && !href.startsWith("mailto") ? "noopener noreferrer" : undefined}
         onClick={onClick}
         className={combined}
-        style={ghostBorder}
+        style={computedStyle}
         {...motionProps}
       >
         {children}
@@ -64,7 +73,7 @@ export default function MagneticButton({
     <motion.button
       onClick={onClick}
       className={combined}
-      style={ghostBorder}
+      style={computedStyle}
       {...motionProps}
     >
       {children}
