@@ -101,7 +101,6 @@ export default function HomeFeatured() {
           style={{ background: "var(--border)" }}
           onMouseEnter={(e) => (e.currentTarget.style.background = "var(--border-mid)")}
           onMouseLeave={(e) => (e.currentTarget.style.background = "var(--border)")}
-            style={{ background: "var(--border)" }}
           />
 
           <div className="grid md:grid-cols-[1fr_1fr] gap-8 items-start">

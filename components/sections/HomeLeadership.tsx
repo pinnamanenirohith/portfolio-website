@@ -101,8 +101,7 @@ export default function HomeLeadership() {
                   >
                     {/* Dot */}
                     <div
-                      className="absolute -left-8 top-1.5 w-[7px] h-[7px] rounded-full border translate-x-[-3px]"
-                      className={i === 0 ? "" : "timeline-dot-inactive"}
+                      className={`absolute -left-8 top-1.5 w-[7px] h-[7px] rounded-full border translate-x-[-3px] ${i === 0 ? "" : "timeline-dot-inactive"}`}
                       style={{
                         background: i === 0 ? "var(--accent)" : "var(--bg-elevated)",
                         borderColor: i === 0 ? "var(--accent)" : "var(--text-dim)",
