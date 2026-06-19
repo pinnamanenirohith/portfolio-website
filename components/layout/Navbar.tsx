@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MagneticButton from "@/components/ui/MagneticButton";
+import { useTheme } from "@/context/ThemeContext";
 
 const links = [
   { label: "Work",       href: "/work"        },
@@ -15,6 +16,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { theme } = useTheme();
+  const isLight = theme === "light";
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 48);
@@ -26,6 +29,14 @@ export default function Navbar() {
     setMenuOpen(false);
   }, [pathname]);
 
+  const scrolledBg = isLight
+    ? "rgba(255,255,255,0.88)"
+    : "color-mix(in srgb, var(--bg) 82%, transparent)";
+
+  const scrolledShadow = isLight && scrolled
+    ? "0 1px 0 rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06)"
+    : "none";
+
   return (
     <motion.header
       initial={{ y: -14, opacity: 0 }}
@@ -33,9 +44,10 @@ export default function Navbar() {
       transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
       className="fixed top-0 inset-x-0 z-50 transition-all duration-500"
       style={{
-        background: scrolled ? "rgba(9,9,12,0.82)" : "transparent",
-        backdropFilter: scrolled ? "blur(18px)" : "none",
+        background: scrolled ? scrolledBg : "transparent",
+        backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
         borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
+        boxShadow: scrolledShadow,
       }}
     >
       <nav className="max-w-[1180px] mx-auto px-6 md:px-14 h-16 flex items-center justify-between">
@@ -71,23 +83,24 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col gap-[5px] p-2 -mr-2"
+          className="md:hidden flex flex-col gap-[5px] p-2 -mr-2 cursor-pointer"
           onClick={() => setMenuOpen((v) => !v)}
           aria-label="Toggle menu"
         >
           <motion.span
             animate={menuOpen ? { y: 7, rotate: 45 } : { y: 0, rotate: 0 }}
-            className="block w-5 h-px bg-white transition-colors"
-            style={{ originX: 0.5, originY: 0.5 }}
+            className="block w-5 h-px"
+            style={{ background: "var(--text)", originX: 0.5, originY: 0.5 }}
           />
           <motion.span
             animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-            className="block w-5 h-px bg-white"
+            className="block w-5 h-px"
+            style={{ background: "var(--text)" }}
           />
           <motion.span
             animate={menuOpen ? { y: -7, rotate: -45 } : { y: 0, rotate: 0 }}
-            className="block w-5 h-px bg-white"
-            style={{ originX: 0.5, originY: 0.5 }}
+            className="block w-5 h-px"
+            style={{ background: "var(--text)", originX: 0.5, originY: 0.5 }}
           />
         </button>
       </nav>
@@ -102,8 +115,8 @@ export default function Navbar() {
             transition={{ duration: 0.22 }}
             className="md:hidden overflow-hidden border-b"
             style={{
-              background: "rgba(9,9,12,0.96)",
-              backdropFilter: "blur(18px)",
+              background: isLight ? "rgba(255,255,255,0.96)" : "color-mix(in srgb, var(--bg) 96%, transparent)",
+              backdropFilter: "blur(20px)",
               borderColor: "var(--border)",
             }}
           >
@@ -120,7 +133,12 @@ export default function Navbar() {
               ))}
               <a
                 href="mailto:pinnamanenirohith@gmail.com"
-                className="inline-block text-center text-sm font-semibold px-5 py-2.5 bg-white text-zinc-950 rounded-full hover:bg-zinc-100 transition-colors"
+                className="inline-block text-center text-sm font-semibold px-5 py-2.5 rounded-full transition-opacity hover:opacity-80"
+                style={
+                  isLight
+                    ? { background: "var(--accent)", color: "#fff" }
+                    : { background: "var(--text)", color: "var(--bg)" }
+                }
               >
                 Get in touch
               </a>

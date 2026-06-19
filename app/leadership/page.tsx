@@ -78,7 +78,7 @@ export default function LeadershipPage() {
                       <div
                         className="absolute -left-[5px] mt-1.5 w-2.5 h-2.5 rounded-full border-2 transition-colors duration-300"
                         style={{
-                          background: i === 0 ? "var(--accent)" : "var(--bg)",
+                          background: i === 0 ? "var(--accent)" : "var(--bg-elevated)",
                           borderColor: i === 0 ? "var(--accent)" : "var(--text-dim)",
                         }}
                       />
@@ -119,7 +119,7 @@ export default function LeadershipPage() {
                     >
                       <div
                         className="absolute -left-[5px] mt-1.5 w-2.5 h-2.5 rounded-full border-2"
-                        style={{ background: "var(--bg)", borderColor: "var(--text-dim)" }}
+                        style={{ background: "var(--bg-elevated)", borderColor: "var(--text-dim)" }}
                       />
                       <p className="text-[10px] mb-1.5" style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}>
                         {e.period}
@@ -141,8 +141,8 @@ export default function LeadershipPage() {
               {/* Education */}
               <Section delay={0.15}>
                 <div
-                  className="mt-16 p-6 rounded-2xl border"
-                  style={{ background: "var(--bg-elevated)", borderColor: "var(--border)" }}
+                  className="surface-card mt-16 p-6 rounded-2xl border"
+                  style={{ borderColor: "var(--border)" }}
                 >
                   <p
                     className="text-[10px] tracking-[0.22em] uppercase mb-4"
@@ -178,8 +178,8 @@ export default function LeadershipPage() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.45, delay: i * 0.08 }}
-                      className="flex items-start gap-3 p-4 rounded-xl border"
-                      style={{ borderColor: "var(--border)", background: "rgba(255,255,255,0.01)" }}
+                      className="surface-card flex items-start gap-3 p-4 rounded-xl border"
+                      style={{ borderColor: "var(--border)" }}
                     >
                       <div
                         className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
@@ -215,7 +215,7 @@ export default function LeadershipPage() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: 0.03 * i }}
-                    className="group flex items-start gap-3 p-3.5 rounded-xl border transition-all duration-200 hover:border-white/[0.12] hover:bg-white/[0.02]"
+                    className="surface-card group flex items-start gap-3 p-3.5 rounded-xl border transition-all duration-200"
                     style={{ borderColor: "var(--border)" }}
                   >
                     <div

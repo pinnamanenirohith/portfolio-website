@@ -114,7 +114,7 @@ export default function ContactPage() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: 0.15 + i * 0.08 }}
-                className="group p-5 rounded-xl border transition-all duration-300 hover:border-white/[0.18] hover:bg-white/[0.02]"
+                className="group p-5 rounded-xl border transition-all duration-300 surface-card"
                 style={{ borderColor: "var(--border)" }}
               >
                 <p
@@ -123,7 +123,7 @@ export default function ContactPage() {
                 >
                   {c.label}
                 </p>
-                <p className="text-sm font-medium mb-1 group-hover:text-white transition-colors" style={{ color: "var(--text-mid)" }}>
+                <p className="text-sm font-medium mb-1 transition-colors" style={{ color: "var(--text)" }}>
                   {c.value}
                 </p>
                 <p className="text-xs" style={{ color: "var(--text-dim)" }}>

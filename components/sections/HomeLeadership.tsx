@@ -13,7 +13,7 @@ export default function HomeLeadership() {
   return (
     <section
       ref={ref}
-      className="py-32 md:py-44 px-6 md:px-14 border-t overflow-hidden"
+      className="py-32 md:py-44 px-6 md:px-14 border-t overflow-hidden surface-section-alt"
       style={{ borderColor: "var(--border)", background: "var(--bg-elevated)" }}
     >
       <div className="max-w-[1180px] mx-auto">
@@ -102,6 +102,7 @@ export default function HomeLeadership() {
                     {/* Dot */}
                     <div
                       className="absolute -left-8 top-1.5 w-[7px] h-[7px] rounded-full border translate-x-[-3px]"
+                      className={i === 0 ? "" : "timeline-dot-inactive"}
                       style={{
                         background: i === 0 ? "var(--accent)" : "var(--bg-elevated)",
                         borderColor: i === 0 ? "var(--accent)" : "var(--text-dim)",
@@ -122,7 +123,7 @@ export default function HomeLeadership() {
                     </p>
                     <p
                       className="text-[11px] mt-0.5"
-                      style={{ color: i === 0 ? "rgba(91,124,247,0.8)" : "var(--text-dim)", fontFamily: "var(--mono)" }}
+                      style={{ color: i === 0 ? "var(--accent)" : "var(--text-dim)", fontFamily: "var(--mono)" }}
                     >
                       {role.org}
                     </p>

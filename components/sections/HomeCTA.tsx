@@ -10,7 +10,7 @@ export default function HomeCTA() {
   return (
     <section
       ref={ref}
-      className="py-28 md:py-40 px-6 md:px-14 border-t text-center"
+      className="py-28 md:py-40 px-6 md:px-14 border-t text-center surface-section-alt"
       style={{ borderColor: "var(--border)", background: "var(--bg-elevated)" }}
     >
       <div className="max-w-[800px] mx-auto">

@@ -67,7 +67,7 @@ export default function HomeFeatured() {
                 <br />
                 <span
                   className="transition-colors duration-500 group-hover:text-white"
-                  style={{ color: "rgba(240,240,235,0.3)", WebkitTextStroke: "1px rgba(240,240,235,0.18)" }}
+                  style={{ color: "var(--border-mid)", WebkitTextStroke: "1px var(--border)" }}
                 >
                   Management
                 </span>
@@ -97,7 +97,10 @@ export default function HomeFeatured() {
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-10 mb-10 h-px transition-colors duration-500 group-hover:bg-white/20"
+            className="mt-10 mb-10 h-px transition-colors duration-500"
+          style={{ background: "var(--border)" }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "var(--border-mid)")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "var(--border)")}
             style={{ background: "var(--border)" }}
           />
 
@@ -121,7 +124,7 @@ export default function HomeFeatured() {
               {sac.stack.slice(0, 8).map((t) => (
                 <span
                   key={t}
-                  className="text-[10px] px-2.5 py-1 rounded-md border transition-colors duration-200 group-hover:border-white/20"
+                  className="text-[10px] px-2.5 py-1 rounded-md border transition-colors duration-200"
                   style={{
                     color: "var(--text-dim)",
                     borderColor: "var(--border)",

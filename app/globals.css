@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500&display=swap");
 @import "tailwindcss";
 
+/* ─── Dark theme (default) ─── */
 :root {
   --bg:          #09090c;
   --bg-elevated: #111118;
@@ -11,11 +12,80 @@
   --border:      rgba(255, 255, 255, 0.07);
   --border-mid:  rgba(255, 255, 255, 0.13);
   --accent:      #5b7cf7;
+  --accent-hover:  #4F6FF5;
   --accent-glow: rgba(91, 124, 247, 0.14);
+  --accent-subtle: rgba(91, 124, 247, 0.08);
   --accent-green:#34d399;
+  --border-strong: rgba(255, 255, 255, 0.22);
   --mono:        "JetBrains Mono", ui-monospace, monospace;
   --display:     "Syne", "Inter", system-ui, sans-serif;
+  /* shadows — none on dark bg */
+  --shadow-xs:   none;
+  --shadow-sm:   none;
+  --shadow-md:   none;
+  --shadow-lg:   none;
+  --shadow-xl:   none;
+  --shadow-inset: none;
+  /* ambient */
+  --spotlight-color: rgba(91, 124, 247, 0.055);
+  --ambient-color:   rgba(91, 124, 247, 0.07);
+  --hero-gradient:   none;
+  /* portal orb */
+  --orb-bg:      conic-gradient(from 200deg, #1a1a3e, #2d1b69, #0f3460, #1a1a3e);
+  --orb-glow:    rgba(91, 124, 247, 0.5);
+  --orb-ring:    rgba(91, 124, 247, 0.25);
+  --grain-opacity: 0.038;
 }
+
+/* ─── Light theme — premium, Linear/Framer quality ─── */
+[data-theme="light"] {
+  /* ── Surface hierarchy (base → recessed / base → elevated card) ──
+     Cards and elevated elements use --bg-elevated (white) sitting ABOVE
+     the neutral base. --bg-subtle is for recessed/section-divider areas. */
+  --bg:          #F5F5F3;   /* warm-neutral base — not pure white, not cream */
+  --bg-elevated: #FFFFFF;   /* cards, modals, navbar — float above base */
+  --bg-subtle:   #ECECEA;   /* recessed sections, pressed states */
+
+  /* ── Typography — strong hierarchy ── */
+  --text:        #0C0C0F;   /* near-black, max contrast */
+  --text-mid:    #3C3C4E;   /* strong secondary — readable, not gray-washed */
+  --text-dim:    #717183;   /* muted but AA-compliant on white */
+
+  /* ── Borders — crisp and visible ── */
+  --border:      rgba(0, 0, 0, 0.08);
+  --border-mid:  rgba(0, 0, 0, 0.15);
+  --border-strong: rgba(0, 0, 0, 0.24);
+
+  /* ── Accent — indigo-600, confident not flashy ── */
+  --accent:      #4F46E5;
+  --accent-hover:#4338CA;
+  --accent-glow: rgba(79, 70, 229, 0.14);
+  --accent-subtle: rgba(79, 70, 229, 0.07);
+  --accent-green:#059669;
+
+  /* ── Shadow system — the depth engine ──
+     These are absent in dark mode (shadows don't work on dark bg).
+     In light mode they're the primary way to create tangible surfaces. */
+  --shadow-xs:   0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md:   0 4px 8px rgba(0, 0, 0, 0.05), 0 12px 24px rgba(0, 0, 0, 0.07);
+  --shadow-lg:   0 8px 16px rgba(0, 0, 0, 0.05), 0 24px 48px rgba(0, 0, 0, 0.09);
+  --shadow-xl:   0 16px 32px rgba(0, 0, 0, 0.06), 0 40px 80px rgba(0, 0, 0, 0.10);
+  --shadow-inset: inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -1px 0 rgba(0,0,0,0.04);
+
+  /* ── Light-mode specific ambience ── */
+  --spotlight-color: rgba(79, 70, 229, 0.06);
+  --ambient-color:   rgba(79, 70, 229, 0.09);
+  --hero-gradient:   radial-gradient(ellipse 80% 60% at 60% -10%, rgba(199,210,254,0.5) 0%, transparent 60%),
+                     radial-gradient(ellipse 60% 40% at 100% 60%, rgba(167,139,250,0.18) 0%, transparent 50%);
+
+  /* portal orb */
+  --orb-bg:      conic-gradient(from 200deg, #FED8A0, #FFBA60, #FF9B40, #FFA060, #FED8A0);
+  --orb-glow:    rgba(255, 160, 60, 0.6);
+  --orb-ring:    rgba(255, 160, 60, 0.28);
+  --grain-opacity: 0.020;
+}
+
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -24,6 +94,27 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* Smooth theme transitions — only on deliberate toggle, not on page load */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition:
+    background-color 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    color            0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color     0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow       0.45s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transitioning,
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    transition: none !important;
+  }
 }
 
 /* Premium link underline */
@@ -63,7 +154,7 @@ body::after {
   height: 300%;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
   background-size: 250px 250px;
-  opacity: 0.038;
+  opacity: var(--grain-opacity, 0.038);
   mix-blend-mode: overlay;
   animation: grain 0.55s steps(1) infinite;
   will-change: transform;
@@ -93,5 +184,62 @@ body::after {
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #222230; border-radius: 9999px; }
-::-webkit-scrollbar-thumb:hover { background: #33334a; }
+::-webkit-scrollbar-thumb { background: var(--text-dim); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-mid); }
+
+/* ─── Light-mode surface primitives ─── */
+
+/* Card — white, shadowed, elevated */
+[data-theme="light"] .surface-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+[data-theme="light"] .surface-card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-mid);
+}
+
+/* Recessed section — subtle inset feel */
+[data-theme="light"] .surface-section-alt {
+  background: var(--bg-subtle);
+  border-top-color: var(--border) !important;
+  border-bottom-color: var(--border) !important;
+}
+
+/* Accent badge */
+[data-theme="light"] .accent-badge {
+  background: var(--accent-subtle);
+  color: var(--accent);
+  border-color: rgba(79, 70, 229, 0.18);
+}
+
+/* Timeline dot — light mode needs white center */
+[data-theme="light"] .timeline-dot-inactive {
+  background: var(--bg-elevated) !important;
+  border-color: var(--border-mid) !important;
+}
+
+/* ─── Portal ripple overlay ─── */
+.portal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background: var(--bg);
+  clip-path: circle(0% at var(--origin-x, 50%) var(--origin-y, 50%));
+  will-change: clip-path;
+}
+.portal-overlay.expanding {
+  animation: portalExpand 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes portalExpand {
+  from { clip-path: circle(0% at var(--origin-x) var(--origin-y)); }
+  to   { clip-path: circle(200% at var(--origin-x) var(--origin-y)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portal-overlay.expanding {
+    animation: none;
+    clip-path: circle(200% at var(--origin-x) var(--origin-y));
+  }
+}
