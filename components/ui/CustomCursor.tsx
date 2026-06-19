@@ -51,7 +51,7 @@ export default function CustomCursor() {
       document.removeEventListener("mouseover", onOver);
       document.removeEventListener("mouseleave", onLeave);
     };
-  }, []);
+  }, [cursorX, cursorY]);
 
   if (!mounted) return null;
 
