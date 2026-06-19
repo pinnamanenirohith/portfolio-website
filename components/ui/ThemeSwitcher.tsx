@@ -87,7 +87,7 @@ export default function ThemeSwitcher() {
           y: springY,
           background: "var(--orb-bg)",
           boxShadow: `0 0 20px var(--orb-glow), 0 4px 16px rgba(0,0,0,0.3)`,
-        } as React.CSSProperties}
+        }}
       >
         <AnimatePresence mode="wait">
           {isDark ? (
