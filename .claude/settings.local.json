@@ -42,7 +42,12 @@
       "Bash(python3 -c ' *)",
       "Bash(pip install *)",
       "Bash(git reset *)",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Bash(npx tsc *)",
+      "Bash(python3 \"D:/Career/Resume/portfolio-website/.claude/skills/ui-ux-pro-max/scripts/search.py\" \"developer portfolio dark light mode premium theme switching animation\" --design-system -p \"Portfolio Theme System\")",
+      "Bash(git fetch *)",
+      "Bash(git ls-remote *)",
+      "Bash(xargs ls -la)"
     ]
   }
 }
