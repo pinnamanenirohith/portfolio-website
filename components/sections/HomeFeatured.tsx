@@ -4,6 +4,7 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { projects } from "@/data/content";
 import { useSpotlight } from "@/hooks/useSpotlight";
+import TextScramble from "@/components/ui/TextScramble";
 
 const sac = projects[0];
 
@@ -35,15 +36,20 @@ export default function HomeFeatured() {
       />
       <div className="max-w-[1180px] mx-auto">
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-[11px] tracking-[0.28em] uppercase mb-20"
-          style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
+          className="mb-20"
         >
-          Flagship System
-        </motion.p>
+          <TextScramble
+            text="Flagship System"
+            trigger="hover"
+            speed={1.6}
+            className="text-[11px] tracking-[0.28em] uppercase cursor-default"
+            style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
+          />
+        </motion.div>
 
         <Link href="/work/sac-platform" className="group block">
           <div className="grid md:grid-cols-[1fr_auto] gap-8 items-end">

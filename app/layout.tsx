@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
+import ScrollProgress from "@/components/ui/ScrollProgress";
 
 export const metadata: Metadata = {
   title: "Rohith Pinnamaneni — Full-Stack Developer & Systems Builder",
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <ThemeProvider>
+          <ScrollProgress />
           {children}
           <ThemeSwitcher />
         </ThemeProvider>
