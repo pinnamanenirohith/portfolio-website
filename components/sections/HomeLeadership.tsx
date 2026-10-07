@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { leadership } from "@/data/content";
+import TextScramble from "@/components/ui/TextScramble";
 
 export default function HomeLeadership() {
   const ref = useRef<HTMLElement>(null);
@@ -22,15 +23,20 @@ export default function HomeLeadership() {
 
           {/* Left — editorial pull-quote */}
           <motion.div style={{ y: quoteY }}>
-            <motion.p
+            <motion.div
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6 }}
-              className="text-[11px] tracking-[0.28em] uppercase mb-8"
-              style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
+              className="mb-8"
             >
-              Leadership
-            </motion.p>
+              <TextScramble
+                text="Leadership"
+                trigger="hover"
+                speed={1.6}
+                className="text-[11px] tracking-[0.28em] uppercase cursor-default"
+                style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
+              />
+            </motion.div>
 
             <motion.h2
               initial={{ opacity: 0, y: 28 }}

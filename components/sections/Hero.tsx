@@ -2,26 +2,37 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import MagneticButton from "@/components/ui/MagneticButton";
+import TextScramble from "@/components/ui/TextScramble";
 import { useSpotlight } from "@/hooks/useSpotlight";
 
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.1, delayChildren: 0.3 } },
-};
-const word = {
-  hidden: { y: "108%", opacity: 0 },
-  show: {
-    y: 0,
-    opacity: 1,
-    transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  },
-};
+/* Character split — each char clips up from below */
+function SplitText({ text, delay = 0 }: { text: string; delay?: number }) {
+  return (
+    <>
+      {text.split("").map((ch, i) => (
+        <span key={i} className="inline-block overflow-hidden">
+          <motion.span
+            className="inline-block"
+            initial={{ y: "110%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              duration: 0.9,
+              delay: delay + i * 0.035,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+          >
+            {ch === " " ? " " : ch}
+          </motion.span>
+        </span>
+      ))}
+    </>
+  );
+}
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const spotlightRef = useSpotlight<HTMLElement>();
 
-  /* Merge both refs */
   const setRef = (el: HTMLElement | null) => {
     (sectionRef as React.MutableRefObject<HTMLElement | null>).current = el;
     (spotlightRef as React.MutableRefObject<HTMLElement | null>).current = el;
@@ -51,13 +62,13 @@ export default function Hero() {
         }}
       />
 
-      {/* Light-mode ambient hero gradient — indigo/violet wash from top */}
+      {/* Light-mode ambient hero gradient */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: "var(--hero-gradient)" }}
       />
 
-      {/* Zero-lag spotlight — CSS custom props, no spring */}
+      {/* Spotlight */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -66,7 +77,7 @@ export default function Hero() {
         }}
       />
 
-      {/* Static ambient glow */}
+      {/* Ambient glow */}
       <div
         className="absolute pointer-events-none rounded-full"
         style={{
@@ -81,9 +92,14 @@ export default function Hero() {
       {/* Top labels */}
       <div className="absolute top-20 md:top-24 left-6 md:left-14 right-6 md:right-14 flex justify-between pointer-events-none">
         <div>
-          <p className="text-[10px] tracking-[0.2em] uppercase" style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}>
-            ROHITH PINNAMANENI
-          </p>
+          <TextScramble
+            text="ROHITH PINNAMANENI"
+            trigger="mount"
+            delay={800}
+            speed={1.4}
+            className="text-[10px] tracking-[0.2em] uppercase block"
+            style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
+          />
           <p className="text-[10px] tracking-[0.16em] uppercase mt-0.5" style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}>
             CS · CLOUD NATIVE ENGINEERING
           </p>
@@ -98,14 +114,41 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* Available badge */}
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.8 }}
+        className="absolute top-20 md:top-24 left-1/2 -translate-x-1/2 hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full border pointer-events-none"
+        style={{
+          borderColor: "var(--border-mid)",
+          background: "color-mix(in srgb, var(--bg-elevated) 80%, transparent)",
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+        }}
+      >
+        <span className="relative flex h-2 w-2">
+          <span
+            className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+            style={{ background: "var(--accent-green)" }}
+          />
+          <span
+            className="relative inline-flex rounded-full h-2 w-2"
+            style={{ background: "var(--accent-green)" }}
+          />
+        </span>
+        <span
+          className="text-[10px] tracking-[0.18em] uppercase"
+          style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
+        >
+          Available for opportunities
+        </span>
+      </motion.div>
+
       {/* Main content */}
       <motion.div style={{ y: yContent, opacity: opContent }}>
-        <div className="overflow-hidden mb-1">
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="flex flex-wrap gap-x-[0.28em]"
+        <div className="mb-1">
+          <div
             style={{
               fontFamily: "var(--display)",
               fontSize: "clamp(4.5rem, 13vw, 11.5rem)",
@@ -115,21 +158,15 @@ export default function Hero() {
               color: "var(--text)",
             }}
           >
-            {["I", "build"].map((w) => (
-              <span key={w} className="overflow-hidden inline-block">
-                <motion.span variants={word} className="inline-block">
-                  {w}
-                </motion.span>
-              </span>
-            ))}
-          </motion.div>
+            <SplitText text="I build" delay={0.25} />
+          </div>
         </div>
 
         <div className="overflow-hidden">
           <motion.div
             initial={{ y: "108%", opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1.1, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily: "var(--display)",
               fontSize: "clamp(4.5rem, 13vw, 11.5rem)",
@@ -148,7 +185,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
+          transition={{ duration: 0.8, delay: 1.1 }}
           className="mt-10 flex flex-col sm:flex-row sm:items-end justify-between gap-8"
         >
           <p
@@ -178,7 +215,7 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6 }}
+        transition={{ delay: 1.8 }}
         className="absolute bottom-6 left-6 md:left-14 flex items-center gap-2"
         style={{ color: "var(--text-dim)" }}
       >

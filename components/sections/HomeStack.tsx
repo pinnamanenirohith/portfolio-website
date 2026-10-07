@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { skills } from "@/data/content";
+import TextScramble from "@/components/ui/TextScramble";
 
 export default function HomeStack() {
   const ref = useRef(null);
@@ -29,17 +30,20 @@ export default function HomeStack() {
           >
             Technical Expertise
           </p>
-          <h2
+          <TextScramble
+            text="Stack"
+            trigger="hover"
+            speed={1.6}
+            as="h2"
             style={{
               fontFamily: "var(--display)",
               fontSize: "clamp(2rem, 4vw, 3.2rem)",
               fontWeight: 800,
               color: "var(--text)",
               letterSpacing: "-0.02em",
+              cursor: "default",
             }}
-          >
-            Stack
-          </h2>
+          />
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10">
@@ -63,11 +67,14 @@ export default function HomeStack() {
                     initial={{ opacity: 0, x: -6 }}
                     animate={inView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.4, delay: 0.05 * gi + 0.03 * ii }}
-                    className="text-xs px-2.5 py-1 rounded-md border transition-colors duration-200 hover:border-white/20 hover:text-[--text]"
+                    whileHover={{ scale: 1.06, y: -2 }}
+                    whileTap={{ scale: 0.96 }}
+                    className="text-xs px-2.5 py-1 rounded-md border cursor-default transition-colors duration-200 hover:border-[--border-mid] hover:text-[--text]"
                     style={{
                       color: "var(--text-mid)",
                       borderColor: "var(--border)",
                       fontFamily: "var(--mono)",
+                      transformOrigin: "center bottom",
                     }}
                   >
                     {item}
