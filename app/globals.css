@@ -243,3 +243,57 @@ body::after {
     clip-path: circle(200% at var(--origin-x) var(--origin-y));
   }
 }
+
+/* ─── Animated gradient border ─── */
+.gradient-border {
+  position: relative;
+  border-radius: inherit;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--angle, 0deg),
+    var(--accent) 0%,
+    transparent 30%,
+    transparent 70%,
+    var(--accent) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.gradient-border:hover::before { opacity: 1; }
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes rotateBorder {
+  to { --angle: 360deg; }
+}
+.gradient-border:hover::before {
+  animation: rotateBorder 3s linear infinite;
+}
+
+/* ─── Floating ring decoration ─── */
+@keyframes floatRing {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-18px) rotate(3deg); }
+}
+.float-ring {
+  animation: floatRing 6s ease-in-out infinite;
+}
+
+/* ─── Glow on hover utility ─── */
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+.hover-glow:hover {
+  box-shadow: 0 0 0 1px var(--accent), 0 0 24px rgba(91,124,247,0.2);
+}
