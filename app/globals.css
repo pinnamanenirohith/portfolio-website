@@ -409,6 +409,11 @@ html[data-mode="dev"] body::after {
   }
 }
 
+/* One-page resume sheet: only exists for printing / the PDF. */
+.print-only {
+  display: none;
+}
+
 /* ─── Print ───────────────────────────────────────────────────
    The resume prints as exactly one A4 page: the sheet is sized in
    mm and everything else on the page is hidden.                    */
@@ -441,8 +446,7 @@ html[data-mode="dev"] body::after {
     display: none !important;
   }
   .resume-page,
-  .resume-page .wrap,
-  .resume-frame {
+  .resume-page .wrap {
     padding: 0 !important;
     margin: 0 !important;
     border: 0 !important;
@@ -450,13 +454,8 @@ html[data-mode="dev"] body::after {
     border-radius: 0 !important;
     max-width: none !important;
   }
-  .fit-outer {
-    height: auto !important;
-  }
-  .fit-inner,
-  .fit-inner > div {
-    transform: none !important;
-    box-shadow: none !important;
+  .print-only {
+    display: block !important;
   }
   .resume-sheet {
     height: 296mm !important;
