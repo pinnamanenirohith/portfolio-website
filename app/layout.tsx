@@ -1,71 +1,98 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Inter_Tight, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/context/ThemeContext";
-import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
-import ScrollProgress from "@/components/ui/ScrollProgress";
-import PageLoader from "@/components/ui/PageLoader";
+import { ModeProvider, modeScript } from "@/components/mode/ModeProvider";
+import CommandPalette from "@/components/mode/CommandPalette";
+import Nav from "@/components/layout/Nav";
+import Footer from "@/components/layout/Footer";
+import { site } from "@/lib/site";
+
+const interTight = Inter_Tight({ subsets: ["latin"], variable: "--font-inter-tight", display: "swap" });
+const instrument = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument",
+  display: "swap",
+});
+const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" });
+
+const title = "Rohith Pinnamaneni — Full-Stack Engineer & Cloud-Native Developer";
+const description =
+  "Full-stack engineer building scalable web platforms, intelligent applications and cloud-native products. Available for freelance websites, landing pages and full-stack web applications.";
 
 export const metadata: Metadata = {
-  title: "Rohith Pinnamaneni — Full-Stack Developer & Systems Builder",
-  description:
-    "Full-Stack Developer & Cloud Native Engineering Student building production-grade web systems, role-based ERPs, and leading KL University's Student Council.",
+  metadataBase: new URL(site.url),
+  title: { default: title, template: "%s — Rohith Pinnamaneni" },
+  description,
   keywords: [
-    "Full-Stack Developer",
-    "Cloud Native",
-    "MERN Stack",
-    "Next.js",
-    "TypeScript",
-    "Node.js",
-    "Student Council",
-    "ERP",
+    "Full-Stack Engineer",
+    "Cloud-Native Developer",
+    "Freelance Web Developer",
+    "Next.js Developer",
+    "Vijayawada",
+    "Business Website Development",
+    "Landing Page Development",
+    "Web Application Development",
   ],
-  authors: [{ name: "Pinnamaneni Rohith Venkata Sai" }],
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
   openGraph: {
-    title: "Rohith Pinnamaneni — Full-Stack Developer & Systems Builder",
-    description:
-      "Building production-grade web systems, role-based ERPs, and leading institutional-scale execution.",
-    url: "https://rohith.dev",
-    siteName: "Rohith Pinnamaneni",
+    title,
+    description,
+    url: site.url,
+    siteName: "rohith.dev",
     type: "website",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Rohith Pinnamaneni" }],
+    locale: "en_IN",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Rohith Pinnamaneni — Full-Stack Developer",
-    description: "Building production-grade web systems across the MERN stack.",
-    images: ["/og-image.png"],
-  },
+  twitter: { card: "summary_large_image", title, description },
   robots: { index: true, follow: true },
-  metadataBase: new URL("https://rohith.dev"),
+  icons: { icon: "/favicon.svg" },
 };
 
-/* Inline script prevents flash of incorrect theme before React hydrates */
-const noFlashScript = `
-(function(){
-  try{
-    var s=localStorage.getItem('theme');
-    var sys=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';
-    var t=s||sys;
-    document.documentElement.setAttribute('data-theme',t);
-  }catch(e){}
-})();
-`;
+export const viewport: Viewport = {
+  themeColor: "#0c0d0b",
+  colorScheme: "dark",
+};
+
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  jobTitle: `${site.role} | ${site.roleSecondary}`,
+  email: `mailto:${site.email}`,
+  url: site.url,
+  address: { "@type": "PostalAddress", addressLocality: "Vijayawada", addressCountry: "IN" },
+  alumniOf: { "@type": "CollegeOrUniversity", name: site.education.university },
+  sameAs: [site.github, site.linkedin],
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      data-mode="creative"
+      suppressHydrationWarning
+      className={`${interTight.variable} ${instrument.variable} ${jetbrains.variable}`}
+    >
       <head>
-        <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
-        {/* Must run synchronously before first paint to prevent FOCT */}
-        <script dangerouslySetInnerHTML={{ __html: noFlashScript }} />
+        <script dangerouslySetInnerHTML={{ __html: modeScript }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }} />
       </head>
       <body>
-        <ThemeProvider>
-          <PageLoader />
-          <ScrollProgress />
-          {children}
-          <ThemeSwitcher />
-        </ThemeProvider>
+        <ModeProvider>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-lime focus:px-4 focus:py-2 focus:text-lime-ink"
+          >
+            Skip to content
+          </a>
+          <Nav />
+          <main id="main">{children}</main>
+          <Footer />
+          <CommandPalette />
+          <div className="grain" aria-hidden />
+        </ModeProvider>
       </body>
     </html>
   );

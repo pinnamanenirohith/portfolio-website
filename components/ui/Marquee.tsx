@@ -1,46 +1,18 @@
-const items = [
-  "Full-Stack Systems",
-  "Cloud Infrastructure",
-  "RBAC Architecture",
-  "CI/CD Pipelines",
-  "MongoDB Design",
-  "Student Council",
-  "Next.js · Node.js",
-  "Linux · Nginx",
-  "JWT Auth",
-  "System Design",
-];
-
-export default function Marquee() {
-  const doubled = [...items, ...items];
-
+export default function Marquee({ items }: { items: string[] }) {
+  const row = [...items, ...items];
   return (
-    <div
-      className="overflow-hidden border-t border-b py-4"
-      style={{ borderColor: "var(--border)" }}
-      aria-hidden
-    >
-      <div
-        className="flex w-max"
-        style={{ animation: "marquee 30s linear infinite" }}
-      >
-        {doubled.map((item, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-8 px-4 whitespace-nowrap flex-shrink-0"
-          >
-            <span
-              className="text-[11px] tracking-[0.22em] uppercase"
-              style={{ color: "var(--text-dim)", fontFamily: "var(--mono)" }}
-            >
-              {item}
-            </span>
-            <span style={{ color: "var(--text-dim)", opacity: 0.35, fontSize: 8 }}>
-              ◆
-            </span>
-          </div>
+    <div className="marquee-wrap relative overflow-hidden border-y border-line py-6" data-component="Marquee">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-bg to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-bg to-transparent" />
+      <div className="marquee" aria-hidden>
+        {row.map((item, i) => (
+          <span key={i} className="flex items-center gap-8 pr-8 text-[clamp(1.25rem,2.4vw,2rem)] font-medium tracking-tight text-dim">
+            {item}
+            <span className="text-lime/60">✦</span>
+          </span>
         ))}
       </div>
+      <p className="sr-only">Technologies: {items.join(", ")}</p>
     </div>
   );
 }

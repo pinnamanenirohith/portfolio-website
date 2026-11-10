@@ -1,9 +1,5 @@
-"use client";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import Redirect from "@/components/Redirect";
 
-export default function Redirect() {
-  const router = useRouter();
-  useEffect(() => { router.replace("/work/smart-farming"); }, [router]);
-  return null;
+export default function Page() {
+  return <Redirect to="/projects/smart-farming-advisor/" />;
 }

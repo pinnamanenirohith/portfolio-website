@@ -1,175 +1,66 @@
-# Rohith Pinnamaneni — Personal Portfolio
+# rohith.dev — Portfolio of Pinnamaneni Rohith Venkata Sai
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38bdf8?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
-[![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-black?style=flat-square&logo=framer)](https://www.framer.com/motion/)
 [![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?style=flat-square&logo=vercel)](https://vercel.com/)
 
-> Personal portfolio website for Rohith Pinnamaneni — CS (Cloud Native Engineering) student, Full Stack Developer, and President of the Student Activity Center at KL University.
+> Full-Stack Engineer | Cloud-Native Developer. I build scalable web platforms, intelligent applications and cloud-native digital products that solve real-world problems.
+
+**Live:** [rohithpinnamaneni.vercel.app](https://rohithpinnamaneni.vercel.app)
 
 ---
 
-## Live Demo
+## Design
 
-**[rohithpinnamaneni.vercel.app](https://rohithpinnamaneni.vercel.app)**
+A premium dark, editorial portfolio with a developer-native personality.
 
----
-
-## About
-
-Premium dark portfolio with an editorial, immersive feel. Multi-page architecture with a cinematic homepage, scroll-driven case study narratives, and Apple/Linear-quality micro-interactions — no gimmicks, no lag.
-
-**Design philosophy:** Bottom-anchored hero with large Syne display type, film grain overlay, spotlight effect, scroll-linked parallax, and word-reveal animations. Information architecture prioritises storytelling over dashboard-style layouts.
-
----
+- **Deep charcoal + muted lime** palette, film grain, subtle grid and cursor-following glow
+- **Editorial type** — Inter Tight display, Instrument Serif italic accents, JetBrains Mono details
+- **Creative Mode / Developer Mode** — toggle in the nav (or press `~`). Developer Mode swaps the type to monospace, outlines every component with its name, overlays a 12-column grid and replaces visuals with code views (profile, skills, architecture as TypeScript)
+- **Command terminal** — press `/` or `⌘K` / `Ctrl+K` for a terminal-style palette: navigate, open case studies, copy email, switch modes, or try `help`, `whoami`, `stack`, `status`
+- Masked line reveals, spotlight cards, cursor-following project previews, animated architecture flows — all respecting `prefers-reduced-motion`
 
 ## Pages
 
-| Route | Description |
+| Route | Contents |
 |---|---|
-| `/` | Cinematic hero · Featured project (editorial) · Leadership preview · CTA |
-| `/work` | Projects listing — editorial row layout |
-| `/work/sac-platform` | SAC Platform — 7-chapter scroll-driven case study |
-| `/work/smart-farming` | Smart Farming Advisor case study |
-| `/leadership` | Full leadership progression · Internships · Certifications · Education |
-| `/contact` | Contact links |
+| `/` | Hero with live terminal · tech marquee · featured work · freelance services · expertise · leadership · awards |
+| `/projects` | Editorial project index with hover previews + gallery |
+| `/projects/[slug]` | Case studies: problem · solution · architecture · technologies · contribution · outcomes |
+| `/services` | Business websites · landing pages · full-stack web apps · process · FAQ |
+| `/about` | Story · principles · education · skills |
+| `/experience` | SAC leadership timeline · internships · education · awards |
+| `/certifications` | 14 credentials, filterable |
+| `/contact` | Project enquiry form + direct contact |
+| `/resume` | Web resume generated from site data, print-optimised (Download PDF → print to PDF) |
 
-Old routes (`/projects`, `/experience`) redirect to the new URLs.
+Legacy URLs (`/work`, `/work/*`, `/leadership`, `/projects/sac-platform`, `/projects/smart-farming`) redirect to their new pages.
 
----
+## Editing content
 
-## Tech Stack
+All content lives in **[`lib/site.ts`](lib/site.ts)** — profile, links, projects and case studies, services, experience, awards, certifications and skills. No component edits needed.
 
-| Category | Technology |
-|---|---|
-| Framework | [Next.js 15](https://nextjs.org/) (App Router, static export) |
-| Language | [TypeScript](https://www.typescriptlang.org/) |
-| Styling | [Tailwind CSS v4](https://tailwindcss.com/) (CSS-first, no config file) |
-| Animations | [Framer Motion 12](https://www.framer.com/motion/) |
-| Fonts | Syne (display) · Inter (body) · JetBrains Mono (mono) |
-| Deployment | [Vercel](https://vercel.com/) |
+## Contact form
 
----
-
-## Interaction Design
-
-- **Spotlight** — zero-lag radial glow that follows the cursor; implemented via direct CSS custom property writes (`--sx`, `--sy`) on `mousemove` — no React state, no spring, no repaints
-- **Button feedback** — `whileHover: y: -1.5px` lift + `whileTap: scale(0.96)` press with stiffness 900 spring; feels tactile and immediate
-- **Navbar underlines** — pure CSS `::after` slide-in at 160ms, no JS
-- **Scroll parallax** — `useScroll` + `useTransform` on hero and featured section titles
-- **Word reveals** — overflow-clip animation (`y: 108% → 0`) with custom cubic-bezier easing
-- **InView stagger** — sections animate in as they enter the viewport
-- **Chapter narrative** — SAC case study uses ghost chapter numbers (28vw) and scroll-triggered reveals per chapter
-- **RBAC visualiser** — animated horizontal bars that draw left-to-right on scroll
-- **Film grain** — SVG `feTurbulence` overlay with 6-step keyframe animation, GPU-composited
-- **CSS marquee** — GPU-accelerated ticker, zero JS
-
----
-
-## Project Structure
+By default the form opens the visitor's email client with the enquiry pre-filled (works with no backend). To receive submissions directly, set an environment variable on Vercel:
 
 ```
-portfolio-website/
-├── app/
-│   ├── layout.tsx                    # Root layout, metadata
-│   ├── page.tsx                      # Homepage
-│   ├── globals.css                   # Design tokens, grain, marquee keyframes
-│   ├── not-found.tsx
-│   ├── work/
-│   │   ├── page.tsx                  # Projects listing
-│   │   ├── sac-platform/
-│   │   │   └── page.tsx              # 7-chapter scroll case study
-│   │   └── smart-farming/
-│   │       └── page.tsx              # Smart Farming case study
-│   ├── leadership/
-│   │   └── page.tsx                  # Leadership, internships, certifications
-│   ├── contact/
-│   │   └── page.tsx
-│   ├── projects/                     # Redirect stubs → /work
-│   └── experience/                   # Redirect stub → /leadership
-├── components/
-│   ├── graphics/
-│   │   ├── ERPDiagram.tsx            # Animated architecture diagram
-│   │   └── FarmingCard.tsx
-│   ├── layout/
-│   │   ├── Navbar.tsx                # Sticky nav, scroll-aware
-│   │   └── Footer.tsx
-│   ├── sections/
-│   │   ├── Hero.tsx                  # Cinematic hero with spotlight
-│   │   ├── HomeFeatured.tsx          # Editorial featured project
-│   │   ├── HomeLeadership.tsx        # Leadership pull-quote + timeline
-│   │   └── HomeCTA.tsx
-│   └── ui/
-│       ├── MagneticButton.tsx        # Tactile lift/press button
-│       └── Marquee.tsx               # CSS ticker
-├── hooks/
-│   └── useSpotlight.ts               # Zero-lag cursor spotlight hook
-├── data/
-│   └── content.ts                    # All site content — single source of truth
-├── public/
-│   └── favicon.svg
-├── next.config.ts                    # output: "export", trailingSlash
-└── README.md
+NEXT_PUBLIC_FORM_ENDPOINT=https://formspree.io/f/<your-form-id>
 ```
 
----
+The form will then POST JSON to that endpoint.
 
-## Getting Started
+## Stack
 
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) v18 or higher
-
-### Run locally
+Next.js 15 (App Router, static export) · TypeScript · Tailwind CSS v4 · Framer Motion · `next/font` · Vercel
 
 ```bash
-git clone https://github.com/pinnamanenirohith/portfolio-website.git
-cd portfolio-website
 npm install
-npm run dev
+npm run dev     # http://localhost:3000
+npm run build   # static output in out/
 ```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-### Build for production
-
-```bash
-npm run build
-```
-
-Output is in `out/` as static HTML — deployable to any static host.
-
----
-
-## Customisation
-
-All content lives in [`data/content.ts`](data/content.ts). Update `personal`, `projects`, `leadership`, `internships`, `certifications`, and `skills` there — no component edits needed.
-
----
-
-## Deployment
-
-Auto-deployed on Vercel on every push to `main`.
-
-**Deploy your own:**
-
-1. Fork this repo
-2. Import at [vercel.com/new](https://vercel.com/new)
-3. Click Deploy — no config needed
-
----
-
-## Contact
-
-**Pinnamaneni Rohith Venkata Sai**
-
-- Email: [pinnamanenirohith@gmail.com](mailto:pinnamanenirohith@gmail.com)
-- LinkedIn: [linkedin.com/in/rohith-venkata-sai-pinnamaneni-38807a2b2](https://www.linkedin.com/in/rohith-venkata-sai-pinnamaneni-38807a2b2)
-- GitHub: [github.com/pinnamanenirohith](https://github.com/pinnamanenirohith)
-
----
 
 ## License
 
-This project is open source and available under the [MIT License](LICENSE).
+MIT
