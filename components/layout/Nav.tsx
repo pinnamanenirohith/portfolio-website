@@ -74,6 +74,18 @@ export default function Nav() {
               <span>⌘K</span>
             </button>
             <ModeToggle mode={mode} onToggle={toggleMode} />
+            <Link
+              href="/resume"
+              aria-current={isActive("/resume") ? "page" : undefined}
+              className={`btn btn-ghost hidden !h-9 !gap-1.5 !px-4 !text-[13px] sm:inline-flex ${
+                isActive("/resume") ? "!border-lime text-lime" : ""
+              }`}
+            >
+              Resume
+              <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
+                <path d="M8 3v8M4.5 7.5L8 11l3.5-3.5M3.5 13.5h9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
             <Link href="/contact" className="btn btn-primary hidden !h-9 !px-4 !text-[13px] sm:inline-flex">
               Hire me
             </Link>
