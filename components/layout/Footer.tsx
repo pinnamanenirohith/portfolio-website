@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { nav, site } from "@/lib/site";
+import { quickEmailHref } from "@/lib/email";
 import LocalTime from "@/components/ui/LocalTime";
 import { Arrow } from "@/components/ui/Icons";
 
@@ -19,7 +20,7 @@ export default function Footer() {
               <Link href="/contact" className="btn btn-primary">
                 Start a project <Arrow className="arrow" />
               </Link>
-              <a href={`mailto:${site.email}`} className="btn btn-ghost">
+              <a href={quickEmailHref()} className="btn btn-ghost">
                 {site.email}
               </a>
             </div>
@@ -54,7 +55,7 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a href={`mailto:${site.email}`} className="link-u text-muted hover:text-ink">
+                  <a href={quickEmailHref()} className="link-u text-muted hover:text-ink">
                     Email ↗
                   </a>
                 </li>

@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { site } from "@/lib/site";
+import { quickEmailHref } from "@/lib/email";
 import { Check, Copy } from "@/components/ui/Icons";
 
 export default function CopyEmail() {
   const [copied, setCopied] = useState(false);
   return (
     <div className="group flex flex-wrap items-center gap-3">
-      <a href={`mailto:${site.email}`} className="link-u text-[clamp(1.15rem,2.2vw,1.75rem)] font-medium tracking-tight text-ink">
+      <a href={quickEmailHref()} className="link-u text-[clamp(1.15rem,2.2vw,1.75rem)] font-medium tracking-tight text-ink">
         {site.email}
       </a>
       <button

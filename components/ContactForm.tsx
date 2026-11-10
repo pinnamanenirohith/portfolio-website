@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { services, site } from "@/lib/site";
+import { enquiryEmailHref } from "@/lib/email";
 import { Arrow, Check } from "@/components/ui/Icons";
 
 /* If NEXT_PUBLIC_FORM_ENDPOINT is set (e.g. a Formspree endpoint), the form
@@ -10,10 +11,16 @@ import { Arrow, Check } from "@/components/ui/Icons";
    enquiry pre-filled. */
 const ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
 
+/* `email` is the wording used in the email draft's subject and summary. */
+const emailWording: Record<string, string> = {
+  "business-websites": "Business website",
+  "landing-pages": "Landing page",
+  "web-applications": "Full-stack web application",
+};
 const types = [
-  ...services.map((s) => ({ id: s.id, label: s.title })),
-  { id: "collaboration", label: "Collaboration / role" },
-  { id: "other", label: "Something else" },
+  ...services.map((s) => ({ id: s.id, label: s.title, email: emailWording[s.id] ?? s.title })),
+  { id: "collaboration", label: "Collaboration / role", email: "Collaboration / role" },
+  { id: "other", label: "Something else", email: "" },
 ];
 const timelines = ["As soon as possible", "Within 1–2 months", "Flexible"];
 
@@ -34,7 +41,8 @@ export default function ContactForm() {
     const email = String(fd.get("email") || "").trim();
     const company = String(fd.get("company") || "").trim();
     const message = String(fd.get("message") || "").trim();
-    const typeLabel = types.find((t) => t.id === type)?.label || "Not specified";
+    const chosen = types.find((t) => t.id === type);
+    const typeLabel = chosen?.label || "Not specified";
 
     if (ENDPOINT) {
       setStatus("sending");
@@ -54,14 +62,7 @@ export default function ContactForm() {
       }
     }
 
-    const subject = `Project enquiry — ${typeLabel}${company ? ` · ${company}` : ""}`;
-    const lines = [`Name: ${name}`, `Email: ${email}`];
-    if (company) lines.push(`Company: ${company}`);
-    lines.push(`Project type: ${typeLabel}`);
-    if (timeline) lines.push(`Timeline: ${timeline}`);
-    lines.push("", message);
-    const body = lines.join("\n");
-    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = enquiryEmailHref({ name, email, company, type: chosen?.email, timeline, message });
     setStatus("mailto");
   };
 

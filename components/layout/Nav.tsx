@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { nav, site } from "@/lib/site";
+import { quickEmailHref } from "@/lib/email";
 import { useMode } from "@/components/mode/ModeProvider";
 
 export default function Nav() {
@@ -146,7 +147,7 @@ export default function Nav() {
                 >
                   <span className="mono text-[13px]">$ open terminal</span>
                 </button>
-                <a href={`mailto:${site.email}`} className="mono text-center text-[13px] text-muted">
+                <a href={quickEmailHref()} className="mono text-center text-[13px] text-muted">
                   {site.email}
                 </a>
               </div>
