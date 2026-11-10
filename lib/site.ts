@@ -613,3 +613,123 @@ export const marquee = [
   "Tailwind CSS",
   "IBM Watson",
 ];
+
+/* ─── One-page resume ─────────────────────────────────────────────
+   Condensed copy used by /resume and the downloadable PDF.
+   Keep it short: the whole resume must fit on one A4 page.
+   After editing, run `npm run resume:pdf` to regenerate the PDF.
+   ──────────────────────────────────────────────────────────────── */
+
+export const resumePdf = "/Rohith_Pinnamaneni_Resume.pdf";
+
+export const resume = {
+  summary:
+    "Full-stack engineer building scalable web platforms, intelligent applications and cloud-native products. Builds end to end across Next.js, React, Node.js/Express, FastAPI, MongoDB and MySQL, with GitHub Actions CI/CD, Nginx and Linux deployment. President of KL University's Student Activity Center.",
+  projects: [
+    {
+      title: "SAC Council Management Platform",
+      meta: "2025 – 2026",
+      stack: "Next.js · TypeScript · Node.js · Express 5 · MongoDB · JWT · GitHub Actions · Nginx · PM2",
+      points: [
+        "Role-based platform for club management, approvals, task tracking and communication — 8 permission tiers and 22 data models, designed for 20–40 clubs.",
+        "JWT access/refresh, bcrypt and email OTP; API hardened with Helmet, rate limiting and Joi validation; CI/CD to self-hosted Linux.",
+        "Approved by the SAC Director; currently in pilot testing.",
+      ],
+    },
+    {
+      title: "KL University SAC Official Website",
+      meta: "sac.kluniversity.in",
+      stack: "Next.js 16 · React 19 · TypeScript · Tailwind CSS · MySQL · AWS S3 · PM2",
+      points: [
+        "Official SAC website for clubs, domains, achievements, stories and news — MySQL content, S3 media, PM2 in production. Public repo, 190 commits.",
+      ],
+    },
+    {
+      title: "SafeStay AP",
+      meta: "2026",
+      stack: "FastAPI · Python · SQLite · React / Vite · Flutter",
+      points: [
+        "Digital hotel guest registration for AP Police: FastAPI backend serving a React admin panel and a Flutter citizen app. Prototype demonstrated in Eluru.",
+        "Certificate of Appreciation from the SP, Guntur District, presented by the DGP, AP Police (Sep 2026).",
+      ],
+    },
+    {
+      title: "Smart Farming Advisor",
+      meta: "2025",
+      stack: "IBM Watson Assistant · IBM Cloud · NLP",
+      points: [
+        "Conversational AI for crop and weather guidance using intents, entities and dialog nodes, built during the IBM SkillsBuild internship.",
+      ],
+    },
+  ],
+  experience: [
+    {
+      role: "President",
+      org: "Student Activity Center, KL University",
+      period: "Jun 2026 – Present",
+      points: [
+        "Lead an 80+ member council serving 7,000+ registered students across 30+ clubs and 60+ activities a month; primary liaison with university administration.",
+      ],
+    },
+    {
+      role: "Vice President",
+      org: "Student Activity Center, KL University",
+      period: "Sep 2025 – Jun 2026",
+      points: ["Council-wide leadership for the 2025–26 term, coordinating student-facing programs."],
+    },
+    {
+      role: "Administrative Lead",
+      org: "Student Activity Center, KL University",
+      period: "Jul 2025 – Sep 2025",
+      points: ["Ran internal operations; supported event coordination for Surabhi 2026 (5,000+ attendees)."],
+    },
+    {
+      role: "Club Lead",
+      org: "SafeLife Club, KL University",
+      period: "Jun 2024 – Jul 2025",
+      points: [
+        "Led CPR training for ~1,500 students with AIIMS Mangalagiri; 5-village health survey and 2-day health camp with Aster Ramesh Hospital.",
+      ],
+    },
+  ],
+  internships: [
+    {
+      role: "AI & Cloud Intern",
+      org: "IBM SkillsBuild / Edunet Foundation (AICTE)",
+      period: "Jul 2025 – Aug 2025",
+      point: "Built the Smart Farming Advisor chatbot on IBM Cloud with Watson Assistant.",
+    },
+    {
+      role: "Java Full Stack Intern",
+      org: "BrainOVision Solutions India (AICTE)",
+      period: "May 2025 – Jun 2025",
+      point: "Built front-end and back-end components across the development lifecycle.",
+    },
+  ],
+  skills: [
+    { group: "Languages", items: "TypeScript, JavaScript, Python, Java, C" },
+    { group: "Frontend", items: "React, Next.js, Tailwind CSS, TanStack Query, Vite, Flutter" },
+    { group: "Backend", items: "Node.js, Express, FastAPI, REST APIs, JWT, OTP auth" },
+    { group: "Data", items: "MongoDB, MySQL, PostgreSQL, SQLite" },
+    { group: "Cloud & DevOps", items: "AWS (S3), GitHub Actions, Docker, Linux, Nginx, PM2, Vercel" },
+    { group: "AI & RPA", items: "IBM Watson, NLP, Generative AI, Automation 360" },
+  ],
+  certifications: [
+    "AWS Certified Developer – Associate",
+    "AWS Certified Cloud Practitioner",
+    "Automation Anywhere Advanced Automation Professional",
+    "Salesforce Certified AI Associate",
+    "Cisco: Python Essentials 1 & 2, Intro to Data Science, Intro to Modern AI, Apply AI, Networking Essentials",
+    "IBM SkillsBuild: Getting Started with AI; Journey to Cloud",
+    "Java Full Stack Internship — BrainOVision (AICTE)",
+    "Cambridge Linguaskill — English B2 (C1 in Reading)",
+  ],
+  awards: [
+    "Certificate of Appreciation — SP Guntur District, AP Police (2026)",
+    "Certificate of Recognition — Femflare'26, WDC, KLU (2026)",
+    "Vice President Recognition Award — WDC, KLU (2025–26)",
+    "SAC Administrative Lead Recognition Award (2024–25)",
+    "SafeLife Club Lead Recognition Award (2024–25)",
+    "Bharatiya Antariksh Hackathon 2026 (ISRO) — idea submission",
+  ],
+};

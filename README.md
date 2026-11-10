@@ -33,13 +33,24 @@ A premium dark, editorial portfolio with a developer-native personality.
 | `/experience` | SAC leadership timeline · internships · education · awards |
 | `/certifications` | 14 credentials, filterable |
 | `/contact` | Project enquiry form + direct contact |
-| `/resume` | Web resume generated from site data, print-optimised (Download PDF → print to PDF) |
+| `/resume` | One-page A4 resume preview + **Download PDF** (`public/Rohith_Pinnamaneni_Resume.pdf`) |
 
 Legacy URLs (`/work`, `/work/*`, `/leadership`, `/projects/sac-platform`, `/projects/smart-farming`) redirect to their new pages.
 
 ## Editing content
 
 All content lives in **[`lib/site.ts`](lib/site.ts)** — profile, links, projects and case studies, services, experience, awards, certifications and skills. No component edits needed.
+
+## Resume PDF (always one page)
+
+The resume is a fixed A4 sheet (`components/resume/ResumeSheet.tsx`) fed by the `resume` object in `lib/site.ts`. After changing resume content, regenerate the downloadable PDF:
+
+```bash
+npm run dev           # in one terminal
+npm run resume:pdf    # in another — writes public/Rohith_Pinnamaneni_Resume.pdf
+```
+
+The script uses your installed Chrome or Edge and **fails if the PDF is not exactly one page**, so a two-page resume can't ship by accident. Printing the /resume page from a browser (Ctrl+P) also gives one A4 page.
 
 ## Contact form
 

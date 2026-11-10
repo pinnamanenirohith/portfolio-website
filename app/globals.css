@@ -409,41 +409,61 @@ html[data-mode="dev"] body::after {
   }
 }
 
-/* ─── Print (resume page) ──────────────────────────────────── */
+/* ─── Print ───────────────────────────────────────────────────
+   The resume prints as exactly one A4 page: the sheet is sized in
+   mm and everything else on the page is hidden.                    */
 
 @media print {
   @page {
     size: A4;
-    margin: 14mm 14mm;
+    margin: 0;
   }
   html,
   body {
     background: #fff !important;
-    color: #111 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 0 !important;
   }
   .no-print,
-  .grain {
+  .grain,
+  body > header,
+  body > footer {
     display: none !important;
   }
   body::after {
     display: none !important;
   }
-  .print-sheet {
-    color: #111 !important;
-    background: #fff !important;
-    border: 0 !important;
+  [data-component] {
+    outline: none !important;
+  }
+  [data-component]::before {
+    display: none !important;
+  }
+  .resume-page,
+  .resume-page .wrap,
+  .resume-frame {
     padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: none !important;
+    border-radius: 0 !important;
+    max-width: none !important;
+  }
+  .fit-outer {
+    height: auto !important;
+  }
+  .fit-inner,
+  .fit-inner > div {
+    transform: none !important;
     box-shadow: none !important;
   }
-  .print-sheet * {
-    color: #111 !important;
-    border-color: #ccc !important;
-    background: transparent !important;
-  }
-  .print-sheet a {
-    text-decoration: none !important;
-  }
-  .print-avoid {
+  .resume-sheet {
+    height: 296mm !important;
+    margin: 0 !important;
+    break-after: avoid;
     break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
