@@ -15,7 +15,7 @@ export default function FeaturedWork() {
           title={["Products built for", "*real* people."]}
           aside={
             <p className="text-[15px] leading-relaxed text-muted">
-              From a director-approved council platform to a police-commended public-safety prototype — each project
+              From a live university website to a police-commended public-safety prototype — each project
               has a full case study covering the problem, architecture and outcome.
             </p>
           }

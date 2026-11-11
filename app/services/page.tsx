@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const why = [
   {
     title: "Production experience",
-    body: "I build and run real systems — a director-approved RBAC platform and a live university website — not just mock-ups.",
+    body: "I build and run real systems — a live university website and a police-commended prototype — not just mock-ups.",
   },
   {
     title: "One person, end to end",

@@ -1,143 +1,191 @@
 import { certifications, resume, site } from "@/lib/site";
 
 /* A single A4 page (210 × 297 mm). Sized in mm/pt so the screen preview,
-   the browser's print-to-PDF and the generated PDF are identical. */
+   the browser's print-to-PDF and the generated PDF are identical.
+
+   ATS rules this layout follows on purpose — keep them when editing:
+   - One column, in reading order. Two-column layouts get their text
+     scrambled by resume parsers.
+   - No letter-spacing (tracking) on any text. PDF text extraction turns
+     spaced letters into "S K I L L S" and drops spaces in tight names.
+   - Real separators ("|") so the extracted text keeps its structure.
+   - No overflow clipping: if the copy grows past one page it spills onto
+     a second page, and `npm run resume:pdf` fails instead of silently
+     cutting text off.                                                   */
+
+const strip = (u: string) => u.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+const href = (u: string) => (u.startsWith("http") ? u : `https://${u}`);
 
 function H({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="mb-[1.6mm] mt-[3.6mm] flex items-center gap-[2mm] text-[7.5pt] font-semibold uppercase tracking-[0.14em] text-[#4a5a12] first:mt-0">
-      <span className="inline-block h-[1.4mm] w-[1.4mm] rounded-[0.3mm] bg-[#bfd96b]" />
+    <h2 className="mb-[1.3mm] mt-[3.8mm] border-b border-[#cfd6b4] pb-[0.5mm] text-[8.8pt] font-bold uppercase text-[#4a5a12]">
       {children}
-      <span className="h-px flex-1 bg-[#e3e5dc]" />
     </h2>
+  );
+}
+
+function Row({ left, right }: { left: React.ReactNode; right: React.ReactNode }) {
+  return (
+    <div className="flex items-baseline justify-between gap-[4mm]">
+      <h3 className="text-[9.5pt] font-semibold">{left}</h3>
+      <span className="shrink-0 text-[8.2pt] text-[#4b4e46]">{right}</span>
+    </div>
   );
 }
 
 function Bullets({ items }: { items: string[] }) {
   return (
-    <ul className="mt-[0.6mm] space-y-[0.4mm]">
+    <ul className="mt-[0.3mm] list-disc space-y-[0.2mm] pl-[4mm] text-[#2c2e29] marker:text-[#7d9a2c]">
       {items.map((t) => (
-        <li key={t} className="relative pl-[3mm] text-[#3b3d36]">
-          <span className="absolute left-0 top-[1.7mm] h-[0.7mm] w-[1.4mm] bg-[#a6bf55]" />
-          {/* word-joiner keeps ranges like "2024–25" on one line */}
-          {t.replace(/(\d)–(\d)/g, "$1–⁠$2")}
+        <li key={t} className="pl-[0.5mm]">
+          {t}
         </li>
       ))}
     </ul>
   );
 }
 
+function Sep() {
+  return <span className="px-[1.4mm] text-[#9aa77a]">|</span>;
+}
+
+function Link({ to }: { to: string }) {
+  return (
+    <a href={href(to)} className="not-italic text-[#3a4a0c] underline decoration-[#cfd6b4] underline-offset-2">
+      {to}
+    </a>
+  );
+}
+
+/* "a | b | c" as text, with styled separators. */
+function Inline({ items }: { items: string[] }) {
+  return (
+    <p className="text-[#2c2e29]">
+      {items.map((t, i) => (
+        <span key={t}>
+          {i > 0 && <Sep />}
+          {t}
+        </span>
+      ))}
+    </p>
+  );
+}
+
 export default function ResumeSheet() {
-  const strip = (u: string) => u.replace(/^https?:\/\/(www\.)?/, "");
   return (
     <article
       id="resume-sheet"
-      className="resume-sheet relative mx-auto box-border flex h-[297mm] w-[210mm] flex-col overflow-hidden bg-white px-[13mm] py-[11mm] font-sans text-[8.4pt] leading-[1.38] text-[#17181a]"
+      className="resume-sheet relative mx-auto box-border flex h-[297mm] w-[210mm] flex-col bg-white px-[13mm] py-[10mm] font-sans text-[8.7pt] leading-[1.45] text-[#17181a]"
     >
       {/* header */}
-      <header className="flex items-end justify-between gap-[6mm] border-b-[0.6mm] border-[#17181a] pb-[3mm]">
-        <div>
-          <h1 className="text-[21pt] font-semibold leading-none tracking-[-0.03em]">{site.name}</h1>
-          <p className="mt-[1.6mm] text-[10pt] font-medium text-[#3b3d36]">
-            {site.role} <span className="text-[#a6bf55]">|</span> {site.roleSecondary}
+      <header className="border-b-[0.6mm] border-[#17181a] pb-[2.2mm]">
+        <div className="flex items-baseline justify-between gap-[4mm]">
+          <h1 className="text-[19pt] font-bold leading-none">{site.name}</h1>
+          <p className="shrink-0 text-[10pt] font-medium text-[#3b3d36]">
+            {site.role} <span className="text-[#7d9a2c]">|</span> {site.roleSecondary}
           </p>
         </div>
-        <div className="shrink-0 text-right font-mono text-[7.2pt] leading-[1.55] text-[#3b3d36]">
-          <p>{site.location}</p>
-          <p>
-            <a href={`mailto:${site.email}`}>{site.email}</a>
-          </p>
-          <p>
-            <a href={site.github}>{strip(site.github)}</a>
-          </p>
-          <p>
-            <a href={site.linkedin}>{strip(site.linkedin)}</a>
-          </p>
-        </div>
+        <p className="mt-[1.8mm] text-[8.4pt] text-[#2c2e29]">
+          {site.location}
+          <Sep />
+          <a href={`tel:${resume.phone.replace(/\s/g, "")}`}>{resume.phone}</a>
+          <Sep />
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <Sep />
+          <a href={resume.portfolio}>{strip(resume.portfolio)}</a>
+        </p>
+        <p className="text-[8.4pt] text-[#2c2e29]">
+          <a href={site.github}>{strip(site.github)}</a>
+          <Sep />
+          <a href={site.linkedin}>{strip(site.linkedin)}</a>
+        </p>
       </header>
 
-      <p className="mt-[3mm] text-[8.6pt] leading-[1.45] text-[#2c2e29]">{resume.summary}</p>
+      <H>Summary</H>
+      <p className="text-[#2c2e29]">{resume.summary}</p>
 
-      <div className="mt-[1mm] grid flex-1 grid-cols-[1fr_62mm] gap-[7mm]">
-        {/* main column */}
-        <div>
-          <H>Projects</H>
-          <div className="space-y-[2.2mm]">
-            {resume.projects.map((p) => (
-              <div key={p.title}>
-                <div className="flex items-baseline justify-between gap-[3mm]">
-                  <h3 className="text-[9.2pt] font-semibold tracking-[-0.01em]">{p.title}</h3>
-                  <span className="shrink-0 font-mono text-[7pt] text-[#6a6e63]">{p.meta}</span>
-                </div>
-                <p className="font-mono text-[6.8pt] text-[#6a6e63]">{p.stack}</p>
-                <Bullets items={p.points} />
-              </div>
-            ))}
-          </div>
+      <H>Education</H>
+      <Row
+        left={
+          <>
+            {resume.education.degree}
+            <span className="font-normal text-[#4b4e46]">
+              , {resume.education.school}
+              <Sep />
+              CGPA {resume.education.cgpa}
+            </span>
+          </>
+        }
+        right={resume.education.period}
+      />
 
-          <H>Experience &amp; leadership</H>
-          <div className="space-y-[1.8mm]">
-            {resume.experience.map((e) => (
-              <div key={e.role}>
-                <div className="flex items-baseline justify-between gap-[3mm]">
-                  <h3 className="text-[9pt] font-semibold">
-                    {e.role} <span className="font-normal text-[#5b5e55]">· {e.org}</span>
-                  </h3>
-                  <span className="shrink-0 font-mono text-[7pt] text-[#6a6e63]">{e.period}</span>
-                </div>
-                <Bullets items={e.points} />
-              </div>
-            ))}
-          </div>
-
-          <H>Internships</H>
-          <div className="space-y-[1.8mm]">
-            {resume.internships.map((x) => (
-              <div key={x.role}>
-                <div className="flex items-baseline justify-between gap-[3mm]">
-                  <h3 className="text-[9pt] font-semibold">
-                    {x.role} <span className="font-normal text-[#5b5e55]">· {x.org}</span>
-                  </h3>
-                  <span className="shrink-0 font-mono text-[7pt] text-[#6a6e63]">{x.period}</span>
-                </div>
-                <Bullets items={[x.point]} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* side column */}
-        <aside>
-          <H>Education</H>
-          <p className="text-[8.8pt] font-semibold leading-snug">{site.education.degree}</p>
-          <p className="text-[#3b3d36]">{site.education.specialization}</p>
-          <p className="mt-[0.6mm] flex items-baseline justify-between text-[#3b3d36]">
-            {site.education.university}
-            <span className="font-mono text-[7.4pt] font-semibold text-[#17181a]">CGPA {site.education.cgpa}</span>
+      <H>Technical Skills</H>
+      <div className="space-y-[0.2mm] text-[#2c2e29]">
+        {resume.skills.map((s) => (
+          <p key={s.group}>
+            <span className="font-semibold text-[#17181a]">{s.group}:</span> {s.items}
           </p>
-
-          <H>Skills</H>
-          <dl className="space-y-[1mm]">
-            {resume.skills.map((s) => (
-              <div key={s.group}>
-                <dt className="text-[7.6pt] font-semibold">{s.group}</dt>
-                <dd className="text-[#3b3d36]">{s.items}</dd>
-              </div>
-            ))}
-          </dl>
-
-          <H>Certifications ({certifications.length})</H>
-          <Bullets items={resume.certifications} />
-
-          <H>Awards</H>
-          <Bullets items={resume.awards} />
-        </aside>
+        ))}
       </div>
 
-      <footer className="mt-[2mm] flex justify-between border-t border-[#e3e5dc] pt-[1.6mm] font-mono text-[6.6pt] text-[#8a8d82]">
-        <span>Portfolio &amp; case studies — {strip(site.url)}</span>
-        <span>Available for freelance projects &amp; opportunities</span>
-      </footer>
+      <H>Projects</H>
+      <div className="space-y-[1.8mm]">
+        {resume.projects.map((p) => (
+          <div key={p.title}>
+            <Row left={p.title} right={p.meta} />
+            <p className="text-[8.2pt] italic text-[#4b4e46]">
+              {p.stack}
+              {p.links.map((l) => (
+                <span key={l}>
+                  <Sep />
+                  <Link to={l} />
+                </span>
+              ))}
+            </p>
+            <Bullets items={p.points} />
+          </div>
+        ))}
+      </div>
+
+      <H>Internships</H>
+      <div className="space-y-[1.2mm]">
+        {resume.internships.map((x) => (
+          <div key={x.role}>
+            <Row
+              left={
+                <>
+                  {x.role}
+                  <span className="font-normal text-[#4b4e46]">, {x.org}</span>
+                </>
+              }
+              right={x.period}
+            />
+            {x.link && (
+              <p className="text-[8.2pt] text-[#4b4e46]">
+                <Link to={x.link} />
+              </p>
+            )}
+            <Bullets items={x.points} />
+          </div>
+        ))}
+      </div>
+
+      <H>Leadership</H>
+      <div className="space-y-[1.2mm]">
+        {resume.experience.map((e) => (
+          <div key={e.org}>
+            <Row left={e.org} right={e.period} />
+            {e.roles && <p className="text-[8.2pt] italic text-[#4b4e46]">{e.roles}</p>}
+            <Bullets items={e.points} />
+          </div>
+        ))}
+      </div>
+
+      <H>Certifications ({certifications.length})</H>
+      <Inline items={resume.certifications} />
+
+      <H>Awards</H>
+      <Inline items={resume.awards} />
     </article>
   );
 }

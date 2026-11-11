@@ -53,7 +53,7 @@ export type Project = {
   year: string;
   status: string;
   role: string;
-  visual: "rbac" | "website" | "safestay" | "chat";
+  visual: "website" | "safestay" | "chat";
   summary: string;
   stack: string[];
   links: { label: string; href: string }[];
@@ -67,98 +67,8 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "sac-council-platform",
-    index: "01",
-    title: "SAC Council Management Platform",
-    short: "SAC Platform",
-    category: "Full-stack web application · RBAC",
-    year: "2025 — 2026",
-    status: "Approved by SAC Director · Pilot testing",
-    role: "Full-stack engineer — designed and built end to end",
-    visual: "rbac",
-    summary:
-      "A role-based management platform for KL University's Student Activity Center — club management, approval workflows, task tracking, internal communication and a multi-level organisational hierarchy in one system.",
-    stack: [
-      "Next.js",
-      "TypeScript",
-      "React",
-      "Node.js",
-      "Express 5",
-      "MongoDB",
-      "Mongoose",
-      "JWT",
-      "Nodemailer",
-      "Helmet",
-      "Joi",
-      "GitHub Actions",
-      "Nginx",
-      "PM2",
-      "Linux",
-    ],
-    links: [],
-    facts: [
-      { value: "8", label: "Permission tiers" },
-      { value: "22", label: "Data models" },
-      { value: "20–40", label: "Clubs supported" },
-      { value: "Pilot", label: "Director-approved" },
-    ],
-    problem: [
-      "The Student Activity Center coordinates a council and its clubs across several levels of hierarchy — from the Director down to individual club members. Club management, approvals, task tracking and communication all have to happen across those levels.",
-      "A system for this has to be strict about who sees and does what: every role needs its own scoped view, and approvals have to move through the right people in the right order.",
-    ],
-    solution: [
-      "A full-stack platform with role-based access control across 8 permission tiers, from Director through Club Member, each with a scoped dashboard.",
-      "A structured data layer of 22 MongoDB models covering clubs, approvals workflows, tasks, communication and the organisational hierarchy — designed for 20–40 clubs.",
-      "Secure authentication with JWT access/refresh tokens, bcrypt password hashing and email OTP verification, with the API hardened by Helmet, rate limiting and input validation.",
-      "Automated delivery through a GitHub Actions CI/CD pipeline to a self-hosted Linux server behind an Nginx reverse proxy, with PM2 process management.",
-    ],
-    architecture: [
-      {
-        name: "Client",
-        nodes: [
-          { label: "Next.js App Router", detail: "TypeScript, role-scoped dashboards" },
-          { label: "Auth flows", detail: "Login, OTP verification, token refresh" },
-        ],
-      },
-      {
-        name: "API",
-        nodes: [
-          { label: "Express 5 on Node.js", detail: "RESTful resource design" },
-          { label: "Security middleware", detail: "Helmet · rate limiting · Joi / express-validator" },
-          { label: "RBAC guard", detail: "8 permission tiers, Director → Club Member" },
-        ],
-      },
-      {
-        name: "Data & services",
-        nodes: [
-          { label: "MongoDB + Mongoose", detail: "22 models" },
-          { label: "Nodemailer", detail: "Email OTP verification" },
-          { label: "JWT + bcrypt", detail: "Access / refresh tokens, hashed credentials" },
-        ],
-      },
-      {
-        name: "Delivery",
-        nodes: [
-          { label: "GitHub Actions", detail: "CI/CD pipeline" },
-          { label: "Self-hosted Linux", detail: "Nginx reverse proxy · PM2" },
-        ],
-      },
-    ],
-    contribution: [
-      "Designed the system architecture, data model and permission matrix from the ground up.",
-      "Built the Next.js / TypeScript front end and the Express 5 REST API.",
-      "Implemented authentication, authorisation and API hardening.",
-      "Set up the CI/CD pipeline, server, reverse proxy and process management.",
-    ],
-    outcomes: [
-      "Reviewed and approved by the SAC Director.",
-      "Currently in pilot testing with multiple users.",
-      "Access control spanning 8 permission tiers over 22 data models, designed for 20–40 clubs.",
-    ],
-  },
-  {
     slug: "kl-sac-website",
-    index: "02",
+    index: "01",
     title: "KL University SAC Official Website",
     short: "SAC Website",
     category: "Institutional website · Production",
@@ -228,7 +138,7 @@ export const projects: Project[] = [
   },
   {
     slug: "safestay-ap",
-    index: "03",
+    index: "02",
     title: "SafeStay AP",
     short: "SafeStay AP",
     category: "Public-safety prototype · Web + mobile",
@@ -283,18 +193,22 @@ export const projects: Project[] = [
   },
   {
     slug: "smart-farming-advisor",
-    index: "04",
+    index: "03",
     title: "Smart Farming Advisor",
     short: "Smart Farming",
     category: "Conversational AI · IBM Cloud",
     year: "2025",
-    status: "IBM SkillsBuild internship project",
+    status: "IBM SkillsBuild internship project · Live web demo",
     role: "AI & Cloud Intern — built the assistant",
     visual: "chat",
     summary:
-      "A conversational AI advisor on IBM Watson Assistant that guides farmers through crop and weather questions, built during the IBM SkillsBuild / Edunet Foundation (AICTE) internship.",
-    stack: ["IBM Watson Assistant", "IBM Cloud", "NLP"],
+      "A bilingual (English / Telugu) farming advisor that answers crop, price, pest and weather questions. Built on IBM Watson Assistant during the IBM SkillsBuild / Edunet Foundation (AICTE) internship, then rebuilt as a live web app anyone can try.",
+    stack: ["IBM Watson Assistant", "IBM Cloud", "NLP", "JavaScript", "Open-Meteo API"],
     links: [
+      {
+        label: "Try the live demo",
+        href: "https://pinnamanenirohith.github.io/Smart-Farming-Advisor/",
+      },
       {
         label: "Source on GitHub",
         href: "https://github.com/pinnamanenirohith/Smart-Farming-Advisor",
@@ -302,9 +216,9 @@ export const projects: Project[] = [
     ],
     facts: [
       { value: "Watson", label: "IBM Watson Assistant" },
-      { value: "NLP", label: "Intents · entities" },
-      { value: "4 wk", label: "AICTE internship" },
-      { value: "IBM", label: "Cloud deployment" },
+      { value: "EN · తె", label: "English and Telugu" },
+      { value: "19/19", label: "Unseen test questions" },
+      { value: "Live", label: "Weather forecast" },
     ],
     problem: [
       "Farmers need quick, plain-language guidance on crops and weather — answers to questions asked the way people actually ask them.",
@@ -313,6 +227,7 @@ export const projects: Project[] = [
       "A conversational assistant on IBM Watson Assistant that maps farmer questions to intents and entities.",
       "Guided dialog flows that walk users through crop and weather advice.",
       "Built and run on IBM Cloud.",
+      "Rebuilt as a web app on the same intents and replies: an in-browser intent classifier, replies in the language the farmer types in, live 3-day weather and season-aware crop advice.",
     ],
     architecture: [
       {
@@ -334,10 +249,11 @@ export const projects: Project[] = [
     contribution: [
       "Designed the intent, entity and dialog-node structure.",
       "Built the assistant on IBM Watson Assistant with NLP-based query handling.",
+      "Wrote the web version: a script that turns the Watson export into the bot's data, a word and character-trigram classifier, and the chat interface.",
     ],
     outcomes: [
       "Delivered as the internship project for IBM SkillsBuild / Edunet Foundation (AICTE), Jul – Aug 2025.",
-      "Source published on GitHub.",
+      "Live demo on GitHub Pages; the classifier passes 19 of 19 questions it was never trained on.",
     ],
   },
 ];
@@ -623,72 +539,45 @@ export const marquee = [
 export const resumePdf = "/Rohith_Pinnamaneni_Resume.pdf";
 
 export const resume = {
+  /* The portfolio URL printed on the resume (rohith.dev is not live yet). */
+  portfolio: "https://rohithpinnamaneni.vercel.app",
+  /* Printed on the PDF only (which is downloadable from the site). */
+  phone: "+91 82229 33323",
   summary:
-    "Full-stack engineer building scalable web platforms, intelligent applications and cloud-native products. Builds end to end across Next.js, React, Node.js/Express, FastAPI, MongoDB and MySQL, with GitHub Actions CI/CD, Nginx and Linux deployment. President of KL University's Student Activity Center.",
+    "Final-year CS student and AWS Certified Developer who ships full-stack web apps end to end with Next.js/React, Node.js/Express, FastAPI, MongoDB/MySQL and CI/CD to Linux. Built KL University's live SAC website and an AP Police guest-registration system recognised by the SP, Guntur; President of the SAC, leading an 80+ member council for 7,000+ students.",
+  education: {
+    degree: "B.Tech, Computer Science & Engineering (Cloud Native Engineering)",
+    school: "KL University",
+    period: "2023 – 2027",
+    cgpa: "8.29/10",
+  },
+  skills: [
+    { group: "Languages", items: "TypeScript, JavaScript, Python, Java, C, SQL" },
+    { group: "Frontend", items: "React, Next.js, Tailwind CSS, TanStack Query, Vite, Flutter" },
+    { group: "Backend", items: "Node.js, Express, FastAPI, REST APIs, JWT auth" },
+    { group: "Databases", items: "MongoDB, MySQL, SQLite" },
+    { group: "Cloud & DevOps", items: "AWS (S3), GitHub Actions CI/CD, Linux, Nginx, PM2, Vercel, Git" },
+    { group: "AI & Automation", items: "IBM Watson Assistant, NLP, Automation Anywhere (A360)" },
+  ],
   projects: [
     {
-      title: "SAC Council Management Platform",
-      meta: "2025 – 2026",
-      stack: "Next.js · TypeScript · Node.js · Express 5 · MongoDB · JWT · GitHub Actions · Nginx · PM2",
-      points: [
-        "Role-based platform for club management, approvals, task tracking and communication — 8 permission tiers and 22 data models, designed for 20–40 clubs.",
-        "JWT access/refresh, bcrypt and email OTP; API hardened with Helmet, rate limiting and Joi validation; CI/CD to self-hosted Linux.",
-        "Approved by the SAC Director; currently in pilot testing.",
-      ],
-    },
-    {
       title: "KL University SAC Official Website",
-      meta: "sac.kluniversity.in",
-      stack: "Next.js 16 · React 19 · TypeScript · Tailwind CSS · MySQL · AWS S3 · PM2",
+      meta: "2026",
+      links: ["sac.kluniversity.in", "github.com/pinnamanenirohith/KLSAC"],
+      stack: "Next.js 16, React 19, TypeScript, Tailwind CSS, MySQL, AWS S3, PM2",
       points: [
-        "Official SAC website for clubs, domains, achievements, stories and news — MySQL content, S3 media, PM2 in production. Public repo, 190 commits.",
+        "Built and shipped the official SAC website on the university domain: clubs, domains, achievements, stories and news.",
+        "MySQL-backed content with AWS S3 media storage, in production under PM2; built in the open over 190 commits.",
       ],
     },
     {
       title: "SafeStay AP",
       meta: "2026",
-      stack: "FastAPI · Python · SQLite · React / Vite · Flutter",
+      links: [] as string[],
+      stack: "FastAPI, Python, SQLite, React, Vite, Flutter",
       points: [
-        "Digital hotel guest registration for AP Police: FastAPI backend serving a React admin panel and a Flutter citizen app. Prototype demonstrated in Eluru.",
-        "Certificate of Appreciation from the SP, Guntur District, presented by the DGP, AP Police (Sep 2026).",
-      ],
-    },
-    {
-      title: "Smart Farming Advisor",
-      meta: "2025",
-      stack: "IBM Watson Assistant · IBM Cloud · NLP",
-      points: [
-        "Conversational AI for crop and weather guidance using intents, entities and dialog nodes, built during the IBM SkillsBuild internship.",
-      ],
-    },
-  ],
-  experience: [
-    {
-      role: "President",
-      org: "Student Activity Center, KL University",
-      period: "Jun 2026 – Present",
-      points: [
-        "Lead an 80+ member council serving 7,000+ registered students across 30+ clubs and 60+ activities a month; primary liaison with university administration.",
-      ],
-    },
-    {
-      role: "Vice President",
-      org: "Student Activity Center, KL University",
-      period: "Sep 2025 – Jun 2026",
-      points: ["Council-wide leadership for the 2025–26 term, coordinating student-facing programs."],
-    },
-    {
-      role: "Administrative Lead",
-      org: "Student Activity Center, KL University",
-      period: "Jul 2025 – Sep 2025",
-      points: ["Ran internal operations; supported event coordination for Surabhi 2026 (5,000+ attendees)."],
-    },
-    {
-      role: "Club Lead",
-      org: "SafeLife Club, KL University",
-      period: "Jun 2024 – Jul 2025",
-      points: [
-        "Led CPR training for ~1,500 students with AIIMS Mangalagiri; 5-village health survey and 2-day health camp with Aster Ramesh Hospital.",
+        "Built hotel guest registration for AP Police: one FastAPI backend serving a React admin panel and a Flutter citizen app; demoed in Eluru.",
+        "Recognised with a Certificate of Appreciation from the SP, Guntur District, presented by the DGP, AP Police (Sep 2026).",
       ],
     },
   ],
@@ -697,39 +586,51 @@ export const resume = {
       role: "AI & Cloud Intern",
       org: "IBM SkillsBuild / Edunet Foundation (AICTE)",
       period: "Jul 2025 – Aug 2025",
-      point: "Built the Smart Farming Advisor chatbot on IBM Cloud with Watson Assistant.",
+      link: "pinnamanenirohith.github.io/Smart-Farming-Advisor",
+      points: [
+        "Built Smart Farming Advisor, a Watson Assistant chatbot on IBM Cloud that answers crop and weather questions via intents and entities.",
+        "Rebuilt it as a live English / Telugu web app with an in-browser intent classifier and real-time weather.",
+      ],
     },
     {
       role: "Java Full Stack Intern",
       org: "BrainOVision Solutions India (AICTE)",
       period: "May 2025 – Jun 2025",
-      point: "Built front-end and back-end components across the development lifecycle.",
+      link: "",
+      points: ["Worked on assigned Java full-stack projects and tasks in a one-month AICTE-approved internship."],
     },
   ],
-  skills: [
-    { group: "Languages", items: "TypeScript, JavaScript, Python, Java, C" },
-    { group: "Frontend", items: "React, Next.js, Tailwind CSS, TanStack Query, Vite, Flutter" },
-    { group: "Backend", items: "Node.js, Express, FastAPI, REST APIs, JWT, OTP auth" },
-    { group: "Data", items: "MongoDB, MySQL, PostgreSQL, SQLite" },
-    { group: "Cloud & DevOps", items: "AWS (S3), GitHub Actions, Docker, Linux, Nginx, PM2, Vercel" },
-    { group: "AI & RPA", items: "IBM Watson, NLP, Generative AI, Automation 360" },
+  experience: [
+    {
+      org: "Student Activity Center, KL University",
+      period: "Jul 2025 – Present",
+      roles: "President (Jun 2026 – Present) | Vice President (Sep 2025 – Jun 2026) | Administrative Lead (Jul – Sep 2025)",
+      points: [
+        "Lead an 80+ member council serving 7,000+ students across 30+ clubs and 60+ monthly activities; primary liaison to the administration.",
+        "As VP, coordinated council-wide programs (2025–26); as Admin Lead, ran operations and supported Surabhi 2026 (5,000+ attendees).",
+      ],
+    },
+    {
+      org: "Club Lead, SafeLife Club, KL University",
+      period: "Jun 2024 – Jul 2025",
+      roles: "",
+      points: [
+        "Ran CPR training for ~1,500 students with AIIMS Mangalagiri; led a 5-village health survey and a 2-day health camp.",
+      ],
+    },
   ],
   certifications: [
     "AWS Certified Developer – Associate",
     "AWS Certified Cloud Practitioner",
-    "Automation Anywhere Advanced Automation Professional",
     "Salesforce Certified AI Associate",
-    "Cisco: Python Essentials 1 & 2, Intro to Data Science, Intro to Modern AI, Apply AI, Networking Essentials",
-    "IBM SkillsBuild: Getting Started with AI; Journey to Cloud",
-    "Java Full Stack Internship — BrainOVision (AICTE)",
-    "Cambridge Linguaskill — English B2 (C1 in Reading)",
+    "Automation Anywhere Advanced Automation Professional",
+    "Cisco: Python Essentials 1 & 2 + 4 more",
+    "Cambridge Linguaskill English B2 (C1 Reading)",
   ],
   awards: [
-    "Certificate of Appreciation — SP Guntur District, AP Police (2026)",
-    "Certificate of Recognition — Femflare'26, WDC, KLU (2026)",
-    "Vice President Recognition Award — WDC, KLU (2025–26)",
-    "SAC Administrative Lead Recognition Award (2024–25)",
-    "SafeLife Club Lead Recognition Award (2024–25)",
-    "Bharatiya Antariksh Hackathon 2026 (ISRO) — idea submission",
+    "Certificate of Appreciation, SP Guntur District, AP Police (2026)",
+    "Femflare'26 Recognition, WDC, KLU (2026)",
+    "Vice President Recognition Award, WDC, KLU (2025–26)",
+    "SAC Admin Lead and SafeLife Club Lead Recognition Awards (2024–25)",
   ],
 };

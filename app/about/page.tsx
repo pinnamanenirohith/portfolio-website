@@ -90,7 +90,7 @@ export default function AboutPage() {
               </Reveal>
               <Reveal delay={0.1}>
                 <p>
-                  My work includes a role-based management platform approved by the SAC Director, the official website of
+                  My work includes the official website of
                   KL University&apos;s Student Activity Center, a hotel check-in prototype for Andhra Pradesh Police that earned a
                   Certificate of Appreciation, and an AI advisory chatbot on IBM Cloud.
                 </p>

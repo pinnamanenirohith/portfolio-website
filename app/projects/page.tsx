@@ -10,7 +10,7 @@ import { Arrow } from "@/components/ui/Icons";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Case studies: SAC Council Management Platform, KL University SAC website, SafeStay AP and Smart Farming Advisor.",
+    "Case studies: KL University SAC website, SafeStay AP and Smart Farming Advisor.",
 };
 
 export default function ProjectsPage() {

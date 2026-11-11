@@ -12,49 +12,9 @@ export default function ProjectVisual({ project, large = false }: { project: Pro
       aria-hidden
     >
       <div className="grid-bg absolute inset-0 opacity-40" />
-      {project.visual === "rbac" && <Rbac />}
       {project.visual === "website" && <Website />}
       {project.visual === "safestay" && <SafeStay />}
       {project.visual === "chat" && <Chat />}
-    </div>
-  );
-}
-
-function Rbac() {
-  const tiers = ["Director", "", "", "", "", "", "", "Club Member"];
-  return (
-    <div className="absolute inset-0 flex items-center justify-center p-[7%]">
-      <div className="w-full max-w-[520px] rounded-xl border border-line-2 bg-bg/80 p-4 shadow-2xl backdrop-blur sm:p-5">
-        <div className="mb-4 flex items-center justify-between">
-          <span className="mono text-[10px] text-dim">rbac.permissions</span>
-          <span className="mono rounded-full bg-lime/15 px-2 py-0.5 text-[10px] text-lime">8 tiers · 22 models</span>
-        </div>
-        <div className="space-y-1.5">
-          {tiers.map((t, i) => (
-            <div key={i} className="flex items-center gap-3">
-              <span className="mono w-6 text-[10px] text-dim">T{i + 1}</span>
-              <div className="relative h-5 flex-1 overflow-hidden rounded bg-surface-2">
-                <div
-                  className="absolute inset-y-0 left-0 rounded bg-gradient-to-r from-lime to-lime-2"
-                  style={{ width: `${100 - i * 10.5}%`, opacity: 1 - i * 0.085 }}
-                />
-                {t && (
-                  <span className="mono absolute inset-y-0 left-2 flex items-center text-[10px] font-medium text-lime-ink">
-                    {t}
-                  </span>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 grid grid-cols-4 gap-1.5">
-          {["Clubs", "Approvals", "Tasks", "Comms"].map((m) => (
-            <div key={m} className="mono rounded border border-line px-1.5 py-1 text-center text-[9px] text-muted">
-              {m}
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }

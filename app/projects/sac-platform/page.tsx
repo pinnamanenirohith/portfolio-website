@@ -1,5 +1,5 @@
 import Redirect from "@/components/Redirect";
 
 export default function Page() {
-  return <Redirect to="/projects/sac-council-platform/" />;
+  return <Redirect to="/projects/" />;
 }

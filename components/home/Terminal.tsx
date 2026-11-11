@@ -6,7 +6,7 @@ import { useReducedMotion } from "framer-motion";
 const script: { cmd: string; out: string[] }[] = [
   { cmd: "whoami", out: ["rohith — full-stack engineer · cloud-native developer"] },
   { cmd: "cat stack.txt", out: ["next.js  typescript  node.js  express", "fastapi  mongodb  mysql  aws  nginx"] },
-  { cmd: "ls ./shipped", out: ["sac-council-platform/  kl-sac-website/", "safestay-ap/  smart-farming-advisor/"] },
+  { cmd: "ls ./shipped", out: ["kl-sac-website/  safestay-ap/", "smart-farming-advisor/"] },
   { cmd: "status --freelance", out: ["● open — websites · landing pages · web apps"] },
 ];
 
