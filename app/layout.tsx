@@ -6,6 +6,8 @@ import CommandPalette from "@/components/mode/CommandPalette";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import { site } from "@/lib/site";
+import Intro, { introScript } from "@/components/intro/Intro";
+import IntroReplay from "@/components/intro/IntroReplay";
 
 const interTight = Inter_Tight({ subsets: ["latin"], variable: "--font-inter-tight", display: "swap" });
 const instrument = Instrument_Serif({
@@ -77,6 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: modeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }} />
       </head>
       <body>
@@ -88,10 +91,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             Skip to content
           </a>
           <Nav />
-          <main id="main">{children}</main>
+          <main id="main">
+            <IntroReplay>{children}</IntroReplay>
+          </main>
           <Footer />
           <CommandPalette />
           <div className="grain" aria-hidden />
+          <Intro />
         </ModeProvider>
       </body>
     </html>

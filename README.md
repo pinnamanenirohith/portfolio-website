@@ -21,6 +21,13 @@ A premium dark, editorial portfolio with a developer-native personality.
 - **Command terminal** — press `/` or `⌘K` / `Ctrl+K` for a terminal-style palette: navigate, open case studies, copy email, switch modes, or try `help`, `whoami`, `stack`, `status`
 - Masked line reveals, spotlight cards, cursor-following project previews, animated architecture flows — all respecting `prefers-reduced-motion`
 
+## Signature intro
+
+On a visitor's first page load each session, "Rohith Pinnamaneni" is written in a signature script with a pen-nib glow, a lime flourish sweeps underneath, and the curtain lifts to reveal the site (~5 s; click, tap, scroll or any key skips it; disabled for `prefers-reduced-motion` and for printing).
+
+- Component: `components/intro/Intro.tsx` (timing constants at the top)
+- Letter shapes: `components/intro/signature-data.ts`, generated from the Mrs Saint Delafield font (SIL OFL) by `python scripts/signature.py` — pass a different name or `.ttf` to regenerate
+
 ## Pages
 
 | Route | Contents |
