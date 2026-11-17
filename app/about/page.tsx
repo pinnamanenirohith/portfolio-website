@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PageHero from "@/components/ui/PageHero";
 import SectionHead from "@/components/ui/SectionHead";
@@ -52,19 +53,28 @@ export default function AboutPage() {
         <div className="wrap grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
             <Reveal>
-              <div className="card relative aspect-[4/5] overflow-hidden">
-                <div className="grid-bg absolute inset-0 opacity-60" />
-                <div className="absolute -right-16 -top-16 h-72 w-72 rounded-full bg-lime/15 blur-3xl" />
+              <div className="card group relative aspect-[4/5] overflow-hidden">
+                <Image
+                  src="/images/rohith-1080.webp"
+                  alt="Rohith Pinnamaneni at his workstation, wearing headphones and a LEAD lanyard"
+                  fill
+                  priority
+                  sizes="(min-width: 768px) 40vw, 100vw"
+                  className="object-cover object-[50%_34%] transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
+                {/* shade top and bottom so the labels stay readable over the photo */}
+                <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/10 to-bg/50" />
+                <div className="absolute -right-16 -top-16 h-72 w-72 rounded-full bg-lime/10 blur-3xl" />
                 <div className="absolute inset-0 flex flex-col justify-between p-7">
-                  <div className="mono flex justify-between text-[11px] text-dim">
+                  <div className="mono flex justify-between text-[11px] text-ink/70">
                     <span>ID / RVS</span>
                     <span>{site.coords}</span>
                   </div>
                   <div>
-                    <p className="display text-[clamp(4rem,9vw,8rem)] leading-[0.85] text-ink">
-                      R<span className="text-lime">.</span>
+                    <p className="text-[1.1rem] font-medium tracking-tight">
+                      {site.name}
+                      <span className="text-lime">.</span>
                     </p>
-                    <p className="mt-6 text-[1.1rem] font-medium tracking-tight">{site.name}</p>
                     <p className="mono mt-1 text-[12px] text-muted">
                       {site.role} | {site.roleSecondary}
                     </p>
