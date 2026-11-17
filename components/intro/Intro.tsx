@@ -8,7 +8,8 @@ import { site } from "@/lib/site";
    Signature intro — "Rohith Pinnamaneni" written by hand, then a
    lime flourish sweeps underneath and the curtain lifts.
 
-   • Plays once per browser session, only when <html data-intro="play">
+   • Plays on every full page load (first visit and every reload),
+     only when <html data-intro="play">
      was set by the pre-paint script (see introScript below).
    • Click, tap, scroll or any key skips it.
    • Not shown with prefers-reduced-motion, or when printing.
@@ -53,9 +54,6 @@ export default function Intro() {
       setPhase("done");
       return;
     }
-    try {
-      sessionStorage.setItem("rohith-intro", "1");
-    } catch {}
     document.body.style.overflow = "hidden";
     setPhase("play");
 
@@ -243,4 +241,4 @@ export default function Intro() {
 }
 
 /* Pre-paint: decide whether the intro plays, before anything is drawn. */
-export const introScript = `(function(){try{if(sessionStorage.getItem('rohith-intro'))return;if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;document.documentElement.setAttribute('data-intro','play');}catch(e){}})();`;
+export const introScript = `(function(){try{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;document.documentElement.setAttribute('data-intro','play');}catch(e){}})();`;
