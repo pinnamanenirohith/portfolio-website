@@ -35,7 +35,6 @@ const aboutCode = `const about = {
   based: "${site.location}",
   degree: "${site.education.degree} (${site.education.specialization})",
   university: "${site.education.university}",
-  cgpa: ${site.education.cgpa},
   builds: ["web platforms", "cloud-native apps", "conversational AI"],
   leads: "Student Activity Center — President",
   certifications: ${certifications.length},
@@ -53,7 +52,7 @@ export default function AboutPage() {
         <div className="wrap grid gap-12 md:grid-cols-12">
           <div className="md:col-span-5">
             <Reveal>
-              <div className="card group relative aspect-[4/5] overflow-hidden">
+              <div className="theme-dark card group relative aspect-[4/5] overflow-hidden">
                 <Image
                   src="/images/rohith-1080.webp"
                   alt="Rohith Pinnamaneni at his workstation, wearing headphones and a LEAD lanyard"
@@ -94,7 +93,7 @@ export default function AboutPage() {
               <Reveal delay={0.05}>
                 <p>
                   I&apos;m studying for a {site.education.degree} with a specialisation in {site.education.specialization} at{" "}
-                  {site.education.university} (CGPA {site.education.cgpa}). I build end to end: TypeScript and React front ends,
+                  {site.education.university}. I build end to end: TypeScript and React front ends,
                   Node.js and FastAPI back ends, MongoDB and SQL data layers, deployed on Linux with Nginx, PM2 and GitHub Actions.
                 </p>
               </Reveal>
@@ -120,7 +119,7 @@ export default function AboutPage() {
             </div>
             <Reveal delay={0.25} className="mt-10 flex flex-wrap gap-3">
               <Link href="/contact" className="btn btn-primary">
-                Work with me <Arrow className="arrow" />
+                Get in touch <Arrow className="arrow" />
               </Link>
               <Link href="/resume" className="btn btn-ghost">
                 View resume
@@ -154,10 +153,6 @@ export default function AboutPage() {
                 <p className="eyebrow mb-4">{site.education.university}</p>
                 <h3 className="display display-sm">{site.education.degree}</h3>
                 <p className="mt-3 text-[16px] text-muted">Specialisation: {site.education.specialization}</p>
-              </div>
-              <div className="md:col-span-4 md:text-right">
-                <p className="display text-[clamp(3rem,6vw,5rem)] text-lime">{site.education.cgpa}</p>
-                <p className="mono text-[11px] uppercase tracking-[0.06em] text-dim">CGPA</p>
               </div>
             </div>
           </Reveal>

@@ -168,7 +168,6 @@ export default function ResumePage() {
                   <h3 className="text-[15px] font-semibold">
                     {site.education.degree} ({site.education.specialization})
                   </h3>
-                  <span className="mono text-[11px] text-dim">CGPA {site.education.cgpa}</span>
                 </div>
                 <p className="text-muted">{site.education.university}</p>
               </section>

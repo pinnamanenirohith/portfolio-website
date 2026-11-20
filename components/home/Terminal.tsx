@@ -7,7 +7,7 @@ const script: { cmd: string; out: string[] }[] = [
   { cmd: "whoami", out: ["rohith — full-stack engineer · cloud-native developer"] },
   { cmd: "cat stack.txt", out: ["next.js  typescript  node.js  express", "fastapi  mongodb  mysql  aws  nginx"] },
   { cmd: "ls ./shipped", out: ["kl-sac-website/  safestay-ap/", "smart-farming-advisor/"] },
-  { cmd: "status --freelance", out: ["● open — websites · landing pages · web apps"] },
+  { cmd: "status", out: ["● open to full-time roles · internships · collaborations"] },
 ];
 
 export default function Terminal() {
@@ -39,7 +39,7 @@ export default function Terminal() {
   }, [step, chars, showOut, reduce]);
 
   return (
-    <div className="card overflow-hidden shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)]" data-component="Terminal">
+    <div className="theme-dark card overflow-hidden shadow-[0_30px_80px_-30px_rgba(18,20,16,0.45)]" data-component="Terminal">
       <div className="flex items-center gap-2 border-b border-line px-4 py-3">
         <span className="h-2.5 w-2.5 rounded-full bg-[#3a3d36]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#3a3d36]" />

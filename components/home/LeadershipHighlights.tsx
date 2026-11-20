@@ -36,7 +36,8 @@ export default function LeadershipHighlights() {
         </div>
 
         <div className="mt-16 grid gap-0 md:grid-cols-4">
-          {leadership.map((l, i) => (
+          {/* four most recent roles; the full history is on /experience */}
+          {leadership.slice(0, 4).map((l, i) => (
             <Reveal key={l.role} delay={i * 0.08} className="relative border-line py-6 md:border-l md:px-6 md:first:border-l-0 md:first:pl-0">
               <div className="flex items-center gap-3">
                 <span className={`h-2 w-2 rounded-full ${l.current ? "bg-lime" : "bg-line-2"}`} />

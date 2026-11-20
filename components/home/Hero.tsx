@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
-import { certifications, projects, site } from "@/lib/site";
+import { certifications, internships, projects, site } from "@/lib/site";
 import { Lines } from "@/components/ui/Reveal";
 import LocalTime from "@/components/ui/LocalTime";
 import { Arrow } from "@/components/ui/Icons";
@@ -18,8 +18,7 @@ const profileCode = `export const rohith = {
   stack: ["Next.js", "TypeScript", "Node.js", "MongoDB"],
   location: "Vijayawada, IN",
   education: "B.Tech CSE (Cloud Native) — KL University",
-  cgpa: 8.29,
-  available: true, // freelance & collaborations
+  openTo: ["full-time roles", "internships"],
 };`;
 
 export default function Hero() {
@@ -29,7 +28,7 @@ export default function Hero() {
   const stats = [
     { value: String(projects.length).padStart(2, "0"), label: "In-depth case studies" },
     { value: String(certifications.length), label: "Certifications" },
-    { value: site.education.cgpa, label: "CGPA · B.Tech CSE" },
+    { value: String(internships.length).padStart(2, "0"), label: "Internships · IBM, BrainOVision" },
     { value: "SAC", label: "President · KL University" },
   ];
 
@@ -62,7 +61,7 @@ export default function Hero() {
           className="mono flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-b border-line pb-5 text-[11px] uppercase tracking-[0.08em] text-dim"
         >
           <span className="flex items-center gap-2.5 text-muted">
-            <span className="dot-live" /> Available for freelance
+            <span className="dot-live" /> Open to roles & internships
           </span>
           <span className="hidden md:inline">
             {site.role} <span className="text-lime">|</span> {site.roleSecondary}
@@ -109,7 +108,7 @@ export default function Hero() {
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link href="/contact" className="btn btn-primary">
-                Start a project <Arrow className="arrow" />
+                Get in touch <Arrow className="arrow" />
               </Link>
               <Link href="/projects" className="btn btn-ghost">
                 View selected work
@@ -117,7 +116,7 @@ export default function Hero() {
             </div>
             <p className="mono mt-8 hidden text-[11px] text-dim lg:block">
               Tip: press <kbd className="rounded border border-line-2 px-1.5 py-0.5 text-muted">/</kbd> for the terminal ·{" "}
-              <kbd className="rounded border border-line-2 px-1.5 py-0.5 text-muted">~</kbd> toggles Developer Mode
+              <kbd className="rounded border border-line-2 px-1.5 py-0.5 text-muted">~</kbd> toggles dark mode
             </p>
           </motion.div>
 

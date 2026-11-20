@@ -10,7 +10,7 @@ type Action = { id: string; label: string; hint: string; run: () => void; keywor
 type Line = { kind: "in" | "out"; text: string };
 
 export default function CommandPalette() {
-  const { paletteOpen, setPaletteOpen, mode, setMode } = useMode();
+  const { paletteOpen, setPaletteOpen, theme, setTheme } = useMode();
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
@@ -38,18 +38,17 @@ export default function CommandPalette() {
         keywords: p.title + " " + p.stack.join(" "),
         run: () => go(`/projects/${p.slug}`),
       })),
-      { id: "services", label: "cat services.md", hint: "Freelance services", run: () => go("/services") },
       { id: "about", label: "cat about.md", hint: "About", run: () => go("/about") },
       { id: "exp", label: "git log --experience", hint: "Experience & leadership", run: () => go("/experience") },
       { id: "certs", label: "ls ./certifications", hint: "14 certifications", run: () => go("/certifications") },
       { id: "resume", label: "open resume.pdf", hint: "Resume", run: () => go("/resume") },
-      { id: "contact", label: "./contact.sh", hint: "Start a project", run: () => go("/contact") },
+      { id: "contact", label: "./contact.sh", hint: "Get in touch", run: () => go("/contact") },
       {
-        id: "mode",
-        label: `mode ${mode === "dev" ? "creative" : "dev"}`,
-        hint: mode === "dev" ? "Switch to Creative Mode" : "Switch to Developer Mode",
+        id: "theme",
+        label: `theme ${theme === "dark" ? "light" : "dark"}`,
+        hint: theme === "dark" ? "Switch to light mode" : "Switch to dark mode",
         run: () => {
-          setMode(mode === "dev" ? "creative" : "dev");
+          setTheme(theme === "dark" ? "light" : "dark");
           close();
         },
       },
@@ -67,7 +66,7 @@ export default function CommandPalette() {
       { id: "linkedin", label: "open linkedin", hint: "LinkedIn profile", run: () => window.open(site.linkedin, "_blank") },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [mode]
+    [theme]
   );
 
   const filtered = useMemo(() => {
@@ -91,7 +90,7 @@ export default function CommandPalette() {
     const q = raw.trim().toLowerCase();
     const echo = (text: string) => setLog((l) => [...l, { kind: "in", text: raw }, { kind: "out", text }]);
     if (q === "help") {
-      echo("commands: whoami · stack · status · ls · open <project> · mode dev|creative · copy email · clear");
+      echo("commands: whoami · stack · status · ls · open <project> · theme light|dark · copy email · clear");
       setQuery("");
       return;
     }
@@ -106,7 +105,7 @@ export default function CommandPalette() {
       return;
     }
     if (q === "status") {
-      echo("● available — freelance projects, collaborations & opportunities");
+      echo("● open to full-time roles, internships & technical collaborations");
       setQuery("");
       return;
     }
@@ -115,8 +114,8 @@ export default function CommandPalette() {
       setQuery("");
       return;
     }
-    if (q === "mode dev" || q === "mode creative") {
-      setMode(q.endsWith("dev") ? "dev" : "creative");
+    if (q === "theme dark" || q === "theme light") {
+      setTheme(q.endsWith("dark") ? "dark" : "light");
       close();
       return;
     }
@@ -138,12 +137,12 @@ export default function CommandPalette() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.18 }}
         >
-          <button aria-label="Close command palette" className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={close} />
+          <button aria-label="Close command palette" className="absolute inset-0 bg-ink/30 backdrop-blur-sm" onClick={close} />
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-label="Command palette"
-            className="relative w-full max-w-[640px] overflow-hidden rounded-2xl border border-line-2 bg-surface shadow-[0_40px_120px_-20px_rgba(0,0,0,0.8)]"
+            className="relative w-full max-w-[640px] overflow-hidden rounded-2xl border border-line-2 bg-surface shadow-[0_40px_120px_-20px_rgba(18,20,16,0.35)]"
             initial={{ y: 16, scale: 0.98 }}
             animate={{ y: 0, scale: 1 }}
             exit={{ y: 8, scale: 0.98 }}
@@ -222,7 +221,7 @@ export default function CommandPalette() {
             <div className="mono flex items-center gap-4 border-t border-line px-4 py-2.5 text-[11px] text-dim">
               <span>↑↓ navigate</span>
               <span>↵ run</span>
-              <span className="ml-auto">~ toggles dev mode</span>
+              <span className="ml-auto">~ toggles dark mode</span>
             </div>
           </motion.div>
         </motion.div>

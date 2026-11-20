@@ -74,7 +74,7 @@ export default function ProjectIndex() {
         {hover !== null && (
           <motion.div
             key="preview"
-            className="pointer-events-none absolute left-0 top-0 z-20 hidden h-[300px] w-[420px] overflow-hidden rounded-2xl border border-line-2 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.9)] md:block"
+            className="pointer-events-none absolute left-0 top-0 z-20 hidden h-[300px] w-[420px] overflow-hidden rounded-2xl border border-line-2 shadow-[0_40px_100px_-20px_rgba(18,20,16,0.3)] md:block"
             style={{ x: sx, y: sy, translateX: "-50%", translateY: "-60%" }}
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}

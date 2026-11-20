@@ -3,6 +3,7 @@ import PageHero from "@/components/ui/PageHero";
 import SectionHead from "@/components/ui/SectionHead";
 import { Reveal } from "@/components/ui/Reveal";
 import Awards from "@/components/home/Awards";
+import Timeline from "@/components/experience/Timeline";
 import { internships, leadership, leadershipStats, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export default function ExperiencePage() {
       <PageHero
         eyebrow="Experience"
         title={["Leadership,", "internships & *impact.*"]}
-        lede="A multi-year progression from club lead to President of KL University's Student Activity Center, alongside internships in Java full-stack development and AI & cloud."
+        lede="A multi-year progression from club member to President of KL University's Student Activity Center, alongside internships in Java full-stack development and AI & cloud."
       />
 
       <section className="pb-24" data-component="Stats">
@@ -42,33 +43,7 @@ export default function ExperiencePage() {
       <section className="section border-t border-line" data-component="Leadership">
         <div className="wrap">
           <SectionHead index="01" label="Leadership" title={["Student Activity", "*Center*, KL University."]} />
-          <ol className="relative">
-            <span className="absolute bottom-2 left-[5px] top-2 w-px bg-line-2 md:left-[calc(25%+5px)]" aria-hidden />
-            {leadership.map((l, i) => (
-              <Reveal as="li" key={l.role} delay={i * 0.05} className="relative grid gap-4 pb-14 pl-8 md:grid-cols-4 md:gap-0 md:pl-0">
-                <div className="md:pr-10 md:text-right">
-                  <p className="mono text-[12px] text-dim">{l.period}</p>
-                  {l.current && <span className="mono mt-2 inline-block rounded-full bg-lime px-2 py-0.5 text-[10px] font-semibold text-lime-ink">Current</span>}
-                </div>
-                <span
-                  className={`absolute left-0 top-1 h-[11px] w-[11px] rounded-full border-2 border-bg md:left-[25%] ${l.current ? "bg-lime" : "bg-dim"}`}
-                  aria-hidden
-                />
-                <div className="md:col-span-3 md:pl-12">
-                  <h3 className="display display-sm">{l.role}</h3>
-                  <p className="mt-2 text-[15px] text-muted">{l.org}</p>
-                  <ul className="mt-6 space-y-3">
-                    {l.points.map((pt) => (
-                      <li key={pt} className="flex gap-3 text-[15px] leading-relaxed text-muted">
-                        <span className="mt-[0.7em] h-1 w-3 shrink-0 bg-lime/60" />
-                        {pt}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
-            ))}
-          </ol>
+          <Timeline items={leadership} />
         </div>
       </section>
 
@@ -114,10 +89,6 @@ export default function ExperiencePage() {
             <p className="mt-4 text-[17px] text-muted">
               {site.education.specialization} · {site.education.university}
             </p>
-          </div>
-          <div className="md:col-span-4 md:text-right">
-            <p className="display text-[clamp(3rem,6vw,5rem)] text-lime">{site.education.cgpa}</p>
-            <p className="mono text-[11px] uppercase tracking-[0.06em] text-dim">CGPA</p>
           </div>
         </div>
       </section>

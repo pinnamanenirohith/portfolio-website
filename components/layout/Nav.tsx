@@ -7,10 +7,11 @@ import { useEffect, useState } from "react";
 import { nav, site } from "@/lib/site";
 import { quickEmailHref } from "@/lib/email";
 import { useMode } from "@/components/mode/ModeProvider";
+import SignatureMark from "@/components/intro/SignatureMark";
 
 export default function Nav() {
   const pathname = usePathname();
-  const { mode, toggleMode, setPaletteOpen } = useMode();
+  const { theme, toggleTheme, setPaletteOpen } = useMode();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -36,13 +37,8 @@ export default function Nav() {
         }`}
       >
         <div className="wrap flex h-[68px] items-center justify-between gap-6">
-          <Link href="/" className="group flex items-center gap-2.5" aria-label="rohith.dev — home">
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-lime text-lime-ink">
-              <span className="mono text-[13px] font-bold">R</span>
-            </span>
-            <span className="mono text-[14px] text-ink">
-              rohith<span className="text-lime">.dev</span>
-            </span>
+          <Link href="/" className="group flex shrink-0 items-center" aria-label="Rohith Pinnamaneni — home">
+            <SignatureMark className="nav-sig h-[30px] w-auto text-ink transition-opacity duration-300 group-hover:opacity-80 md:h-[34px]" />
           </Link>
 
           <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
@@ -74,7 +70,7 @@ export default function Nav() {
             >
               <span>⌘K</span>
             </button>
-            <ModeToggle mode={mode} onToggle={toggleMode} />
+            <ThemeToggle theme={theme} onToggle={toggleTheme} />
             <Link
               href="/resume"
               aria-current={isActive("/resume") ? "page" : undefined}
@@ -159,26 +155,37 @@ export default function Nav() {
   );
 }
 
-function ModeToggle({ mode, onToggle }: { mode: string; onToggle: () => void }) {
-  const dev = mode === "dev";
+function ThemeToggle({ theme, onToggle }: { theme: string; onToggle: () => void }) {
+  const dark = theme === "dark";
   return (
     <button
       onClick={onToggle}
       className="mono flex h-9 items-center gap-2 rounded-full border border-line-2 pl-1 pr-3 text-[12px] text-muted transition-colors hover:border-ink hover:text-ink"
-      aria-pressed={dev}
-      aria-label={dev ? "Switch to Creative Mode" : "Switch to Developer Mode"}
-      title="Toggle Developer Mode (~)"
+      aria-pressed={dark}
+      aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+      title="Toggle light / dark (~)"
     >
-      <span className={`relative h-7 w-12 rounded-full transition-colors ${dev ? "bg-lime/20" : "bg-surface-2"}`}>
+      <span className={`relative h-7 w-12 rounded-full transition-colors ${dark ? "bg-lime/20" : "bg-surface-2"}`}>
         <motion.span
-          className={`absolute top-1 grid h-5 w-5 place-items-center rounded-full text-[10px] ${dev ? "bg-lime text-lime-ink" : "bg-ink text-bg"}`}
-          animate={{ left: dev ? 24 : 4 }}
+          className={`absolute top-1 grid h-5 w-5 place-items-center rounded-full ${dark ? "bg-lime text-lime-ink" : "bg-ink text-bg"}`}
+          animate={{ left: dark ? 24 : 4 }}
           transition={{ type: "spring", stiffness: 600, damping: 35 }}
         >
-          {dev ? "</>" : "✦"}
+          {dark ? (
+            /* moon */
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
+              <path d="M13.5 10.2A6 6 0 0 1 5.8 2.5a6 6 0 1 0 7.7 7.7Z" />
+            </svg>
+          ) : (
+            /* sun */
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden>
+              <circle cx="8" cy="8" r="2.8" fill="currentColor" stroke="none" />
+              <path d="M8 1.5v1.3M8 13.2v1.3M1.5 8h1.3M13.2 8h1.3M3.4 3.4l.9.9M11.7 11.7l.9.9M3.4 12.6l.9-.9M11.7 4.3l.9-.9" />
+            </svg>
+          )}
         </motion.span>
       </span>
-      <span className="hidden sm:inline">{dev ? "Dev" : "Creative"}</span>
+      <span className="hidden sm:inline">{dark ? "Dark" : "Light"}</span>
     </button>
   );
 }

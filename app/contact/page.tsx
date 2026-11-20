@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Start a project with Rohith Pinnamaneni — business websites, landing pages and full-stack web applications.",
+  description: "Get in touch with Rohith Pinnamaneni about full-time roles, internships and technical collaborations.",
 };
 
 export default function ContactPage() {
@@ -19,16 +19,15 @@ export default function ContactPage() {
         <div className="lg:col-span-5">
           <Reveal>
             <p className="eyebrow mb-8 flex items-center gap-3">
-              <span className="dot-live" /> Available for new projects
+              <span className="dot-live" /> Open to roles & internships
             </p>
           </Reveal>
           <h1 className="display display-lg">
-            <Lines animateOnMount lines={["Let's build", "something *great.*"]} />
+            <Lines animateOnMount lines={["Let's work", "*together.*"]} />
           </h1>
           <Reveal delay={0.2}>
             <p className="lede mt-8 max-w-[42ch]">
-              Tell me about your website, landing page or web application. I&apos;ll come back with questions, a plan and a
-              clear quote.
+              Tell me about the role, internship or collaboration you have in mind, and I&apos;ll get back to you.
             </p>
           </Reveal>
 

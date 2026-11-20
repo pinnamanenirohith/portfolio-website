@@ -32,10 +32,9 @@ On a visitor's first page load each session, "Rohith Pinnamaneni" is written in 
 
 | Route | Contents |
 |---|---|
-| `/` | Hero with live terminal · tech marquee · featured work · freelance services · expertise · leadership · awards |
+| `/` | Hero with live terminal · tech marquee · featured work · expertise · leadership · awards |
 | `/projects` | Editorial project index with hover previews + gallery |
 | `/projects/[slug]` | Case studies: problem · solution · architecture · technologies · contribution · outcomes |
-| `/services` | Business websites · landing pages · full-stack web apps · process · FAQ |
 | `/about` | Story · principles · education · skills |
 | `/experience` | SAC leadership timeline · internships · education · awards |
 | `/certifications` | 14 credentials, filterable |
@@ -46,7 +45,7 @@ Legacy URLs (`/work`, `/work/*`, `/leadership`, `/projects/sac-platform`, `/proj
 
 ## Editing content
 
-All content lives in **[`lib/site.ts`](lib/site.ts)** — profile, links, projects and case studies, services, experience, awards, certifications and skills. No component edits needed.
+All content lives in **[`lib/site.ts`](lib/site.ts)** — profile, links, projects and case studies, experience, awards, certifications and skills. No component edits needed.
 
 ## Resume PDF (always one page)
 

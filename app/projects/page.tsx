@@ -38,10 +38,10 @@ export default function ProjectsPage() {
           </div>
           <Reveal className="mt-24 flex flex-col items-start justify-between gap-6 border-t border-line pt-12 md:flex-row md:items-center">
             <p className="display display-sm max-w-[22ch]">
-              Want something like this for <span className="serif text-lime">your business?</span>
+              Like how I build? <span className="serif text-lime">Let&apos;s talk.</span>
             </p>
             <Link href="/contact" className="btn btn-primary">
-              Start a project <Arrow className="arrow" />
+              Get in touch <Arrow className="arrow" />
             </Link>
           </Reveal>
         </div>

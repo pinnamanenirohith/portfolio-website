@@ -12,22 +12,20 @@ function mailto(subject: string, lines: string[]) {
 
 /* For plain "email me" links: a short, guided template instead of a blank email. */
 export function quickEmailHref() {
-  return mailto("Project enquiry via rohith.dev", [
+  return mailto("Opportunity via rohith.dev", [
     "Hi Rohith,",
     "",
     "I came across your portfolio and I'd love to talk about working together.",
     "",
     "What I'm looking for (keep what applies):",
-    "• A business website",
-    "• A landing page",
-    "• A full-stack web application",
-    "• A collaboration or job opportunity",
+    "• A full-time role",
+    "• An internship",
+    "• A technical collaboration",
     "",
-    "About the project:",
-    "[A few lines about your business and what you'd like to build]",
+    "About the opportunity:",
+    "[A few lines about the role, team or project]",
     "",
-    "Timeline: [e.g. within a month]",
-    "Budget: [optional]",
+    "Start date: [e.g. June 2027]",
     "",
     "Thanks,",
     "[Your name]",
@@ -46,14 +44,14 @@ export type Enquiry = {
 /* For the contact form: the visitor's own message, followed by a tidy summary. */
 export function enquiryEmailHref(e: Enquiry) {
   const first = e.name.split(/\s+/)[0] || e.name;
-  const subject = `Project enquiry${e.type ? `: ${e.type}` : ""} — ${first}${e.company ? ` (${e.company})` : ""}`;
+  const subject = `Enquiry${e.type ? `: ${e.type}` : ""} — ${first}${e.company ? ` (${e.company})` : ""}`;
 
   const details = [
     `• Name: ${e.name}`,
     `• Email: ${e.email}`,
-    ...(e.company ? [`• Company / project: ${e.company}`] : []),
+    ...(e.company ? [`• Company / organisation: ${e.company}`] : []),
     ...(e.type ? [`• Looking for: ${e.type}`] : []),
-    ...(e.timeline ? [`• Timeline: ${e.timeline}`] : []),
+    ...(e.timeline ? [`• Start date: ${e.timeline}`] : []),
   ];
 
   // Don't double up if the visitor already opened with a greeting.

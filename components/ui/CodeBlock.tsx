@@ -35,7 +35,7 @@ export default function CodeBlock({
 }) {
   const lines = code.split("\n");
   return (
-    <div className={`overflow-hidden rounded-2xl border border-line-2 bg-[#0e0f0d] ${className}`}>
+    <div className={`theme-dark overflow-hidden rounded-2xl border border-line-2 bg-[#0e0f0d] ${className}`}>
       <div className="flex items-center gap-2 border-b border-line px-4 py-2.5">
         <span className="h-2 w-2 rounded-full bg-[#3a3d36]" />
         <span className="h-2 w-2 rounded-full bg-[#3a3d36]" />

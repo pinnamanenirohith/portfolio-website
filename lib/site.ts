@@ -22,18 +22,16 @@ export const site = {
   positioning:
     "I build scalable web platforms, intelligent applications and cloud-native digital products that solve real-world problems.",
   availability:
-    "Available for freelance projects, technical collaborations and professional opportunities.",
+    "Open to full-time roles, internships and technical collaborations.",
   education: {
     degree: "B.Tech, Computer Science & Engineering",
     specialization: "Cloud Native Engineering",
     university: "KL University",
-    cgpa: "8.29",
   },
 };
 
 export const nav = [
   { href: "/projects", label: "Work" },
-  { href: "/services", label: "Services" },
   { href: "/about", label: "About" },
   { href: "/experience", label: "Experience" },
   { href: "/contact", label: "Contact" },
@@ -258,76 +256,6 @@ export const projects: Project[] = [
   },
 ];
 
-/* ─── Services ────────────────────────────────────────────────── */
-
-export const services = [
-  {
-    id: "business-websites",
-    index: "01",
-    title: "Business websites",
-    lede: "A fast, credible home for your business — designed to turn visitors into enquiries.",
-    includes: [
-      "Custom design, not a template",
-      "Responsive on every screen",
-      "SEO foundations & performance",
-      "Content you can update",
-      "Domain, hosting & launch",
-    ],
-    stack: "Next.js · Tailwind CSS · Vercel / AWS",
-  },
-  {
-    id: "landing-pages",
-    index: "02",
-    title: "Landing pages",
-    lede: "One focused page for a launch, campaign or product — built to convert.",
-    includes: [
-      "Conversion-first layout & copy structure",
-      "Lead capture & contact flows",
-      "Motion and micro-interactions",
-      "Analytics-ready",
-      "Fast turnaround",
-    ],
-    stack: "Next.js · Framer Motion · Tailwind CSS",
-  },
-  {
-    id: "web-applications",
-    index: "03",
-    title: "Full-stack web applications",
-    lede: "Dashboards, portals and internal tools with real auth, roles and data.",
-    includes: [
-      "Role-based access control",
-      "Secure authentication (JWT, OTP)",
-      "REST APIs & database design",
-      "Admin panels & workflows",
-      "CI/CD and production deployment",
-    ],
-    stack: "Next.js · Node.js / Express · MongoDB / MySQL",
-  },
-];
-
-export const supportingServices = [
-  {
-    title: "Cloud deployment & DevOps",
-    body: "Linux servers, Nginx, PM2, GitHub Actions pipelines and AWS S3 — get your app into production properly.",
-  },
-  {
-    title: "Conversational AI",
-    body: "Assistants built on intents, entities and guided dialog flows, as in the Smart Farming Advisor.",
-  },
-  {
-    title: "Redesigns & rebuilds",
-    body: "Move an outdated site to a modern, fast stack without losing what already works.",
-  },
-];
-
-export const process = [
-  { step: "01", title: "Discover", body: "A call to understand your goals, users and constraints. You get a clear scope and plan." },
-  { step: "02", title: "Design", body: "Structure, layout and visual direction — reviewed with you before any build starts." },
-  { step: "03", title: "Build", body: "Development in short iterations with a live preview link you can check at any time." },
-  { step: "04", title: "Launch", body: "Deployment, domain, performance and SEO checks — then handover." },
-  { step: "05", title: "Support", body: "Fixes, updates and new features after launch when you need them." },
-];
-
 /* ─── Experience ──────────────────────────────────────────────── */
 
 export const leadership = [
@@ -370,6 +298,15 @@ export const leadership = [
       "Led healthcare awareness, wellness initiatives and student outreach programs across campus.",
       "Organised and led a CPR training session for approximately 1,500 students in partnership with AIIMS Mangalagiri.",
       "Coordinated a single-day health survey across 5 villages with Aster Ramesh Hospital, then organised a 2-day community health camp in those villages as a follow-up.",
+    ],
+  },
+  {
+    role: "Club Member",
+    org: "SafeLife Club, KL University",
+    period: "Dec 2023 — Jun 2024",
+    current: false,
+    points: [
+      "Took part in the club's healthcare awareness and wellness activities before stepping up as Club Lead in June 2024.",
     ],
   },
 ];
@@ -549,7 +486,6 @@ export const resume = {
     degree: "B.Tech, Computer Science & Engineering (Cloud Native Engineering)",
     school: "KL University",
     period: "2023 – 2027",
-    cgpa: "8.29/10",
   },
   skills: [
     { group: "Languages", items: "TypeScript, JavaScript, Python, Java, C, SQL" },

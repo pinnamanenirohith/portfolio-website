@@ -111,8 +111,6 @@ export default function ResumeSheet() {
             {resume.education.degree}
             <span className="font-normal text-[#4b4e46]">
               , {resume.education.school}
-              <Sep />
-              CGPA {resume.education.cgpa}
             </span>
           </>
         }

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter_Tight, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { ModeProvider, modeScript } from "@/components/mode/ModeProvider";
+import { ModeProvider, themeScript } from "@/components/mode/ModeProvider";
 import CommandPalette from "@/components/mode/CommandPalette";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
@@ -21,7 +21,7 @@ const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrai
 
 const title = "Rohith Pinnamaneni — Full-Stack Engineer & Cloud-Native Developer";
 const description =
-  "Full-stack engineer building scalable web platforms, intelligent applications and cloud-native products. Available for freelance websites, landing pages and full-stack web applications.";
+  "Full-stack engineer building scalable web platforms, intelligent applications and cloud-native products. Open to full-time roles, internships and technical collaborations.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -30,12 +30,11 @@ export const metadata: Metadata = {
   keywords: [
     "Full-Stack Engineer",
     "Cloud-Native Developer",
-    "Freelance Web Developer",
+    "Software Engineer",
     "Next.js Developer",
+    "Cloud Engineer",
+    "KL University",
     "Vijayawada",
-    "Business Website Development",
-    "Landing Page Development",
-    "Web Application Development",
   ],
   authors: [{ name: site.name, url: site.url }],
   creator: site.name,
@@ -53,8 +52,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0c0d0b",
-  colorScheme: "dark",
+  themeColor: "#fafaf7",
+  colorScheme: "light",
 };
 
 const personLd = {
@@ -73,12 +72,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      data-mode="creative"
       suppressHydrationWarning
       className={`${interTight.variable} ${instrument.variable} ${jetbrains.variable}`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: modeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: introScript }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }} />
       </head>

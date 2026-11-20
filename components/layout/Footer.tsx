@@ -10,15 +10,15 @@ export default function Footer() {
       <div className="wrap pt-20 pb-10 md:pt-28">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-7">
-            <p className="eyebrow mb-6">● Open for new projects</p>
+            <p className="eyebrow mb-6">● Open to roles & internships</p>
             <h2 className="display display-lg">
-              Have an idea?
+              Hiring?
               <br />
-              <span className="serif text-lime">Let&apos;s build it.</span>
+              <span className="serif text-lime">Let&apos;s talk.</span>
             </h2>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link href="/contact" className="btn btn-primary">
-                Start a project <Arrow className="arrow" />
+                Get in touch <Arrow className="arrow" />
               </Link>
               <a href={quickEmailHref()} className="btn btn-ghost">
                 {site.email}

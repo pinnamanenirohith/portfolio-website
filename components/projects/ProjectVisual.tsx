@@ -6,7 +6,7 @@ import type { Project } from "@/lib/site";
 export default function ProjectVisual({ project, large = false }: { project: Project; large?: boolean }) {
   return (
     <div
-      className={`relative h-full w-full overflow-hidden bg-[radial-gradient(120%_90%_at_80%_0%,#22281a_0%,#141613_45%,#0f100e_100%)] ${
+      className={`relative h-full w-full overflow-hidden bg-[radial-gradient(120%_90%_at_80%_0%,var(--visual-a)_0%,var(--visual-b)_45%,var(--visual-c)_100%)] ${
         large ? "min-h-[320px]" : ""
       }`}
       aria-hidden
@@ -51,7 +51,7 @@ function Website() {
                 <div
                   className="mb-2 aspect-[4/3] rounded"
                   style={{
-                    background: i % 3 === 0 ? "linear-gradient(135deg,#bfd96b33,#bfd96b0a)" : "#1c1f1b",
+                    background: i % 3 === 0 ? "linear-gradient(135deg,rgba(85,115,19,0.22),rgba(85,115,19,0.05))" : "var(--color-surface-2)",
                   }}
                 />
                 <div className="h-1.5 w-3/4 rounded bg-ink/40" />

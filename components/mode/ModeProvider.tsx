@@ -2,12 +2,14 @@
 
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
-export type Mode = "creative" | "dev";
+/* Light (default) or dark colour theme. Dark sets <html data-theme="dark">,
+   which swaps the design tokens in globals.css. */
+export type Theme = "light" | "dark";
 
 type Ctx = {
-  mode: Mode;
-  setMode: (m: Mode) => void;
-  toggleMode: () => void;
+  theme: Theme;
+  setTheme: (t: Theme) => void;
+  toggleTheme: () => void;
   paletteOpen: boolean;
   setPaletteOpen: (o: boolean) => void;
 };
@@ -15,25 +17,26 @@ type Ctx = {
 const ModeContext = createContext<Ctx | null>(null);
 
 export function ModeProvider({ children }: { children: React.ReactNode }) {
-  const [mode, setModeState] = useState<Mode>("creative");
+  const [theme, setThemeState] = useState<Theme>("light");
   const [paletteOpen, setPaletteOpen] = useState(false);
 
   useEffect(() => {
-    const current = document.documentElement.getAttribute("data-mode");
-    if (current === "dev") setModeState("dev");
+    if (document.documentElement.getAttribute("data-theme") === "dark") setThemeState("dark");
   }, []);
 
-  const setMode = useCallback((m: Mode) => {
-    setModeState(m);
-    document.documentElement.setAttribute("data-mode", m);
+  const setTheme = useCallback((t: Theme) => {
+    setThemeState(t);
+    const html = document.documentElement;
+    if (t === "dark") html.setAttribute("data-theme", "dark");
+    else html.removeAttribute("data-theme");
     try {
-      localStorage.setItem("rohith-mode", m);
+      localStorage.setItem("rohith-theme", t);
     } catch {}
   }, []);
 
-  const toggleMode = useCallback(() => {
-    setMode(document.documentElement.getAttribute("data-mode") === "dev" ? "creative" : "dev");
-  }, [setMode]);
+  const toggleTheme = useCallback(() => {
+    setTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
+  }, [setTheme]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -47,15 +50,15 @@ export function ModeProvider({ children }: { children: React.ReactNode }) {
         e.preventDefault();
         setPaletteOpen(true);
       } else if (!typing && e.key === "~") {
-        toggleMode();
+        toggleTheme();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [paletteOpen, toggleMode]);
+  }, [paletteOpen, toggleTheme]);
 
   return (
-    <ModeContext.Provider value={{ mode, setMode, toggleMode, paletteOpen, setPaletteOpen }}>
+    <ModeContext.Provider value={{ theme, setTheme, toggleTheme, paletteOpen, setPaletteOpen }}>
       {children}
     </ModeContext.Provider>
   );
@@ -67,5 +70,5 @@ export function useMode() {
   return ctx;
 }
 
-/* Runs before paint so Developer Mode does not flash. */
-export const modeScript = `(function(){try{var m=localStorage.getItem('rohith-mode');if(m==='dev')document.documentElement.setAttribute('data-mode','dev');else document.documentElement.setAttribute('data-mode','creative');}catch(e){document.documentElement.setAttribute('data-mode','creative');}})();`;
+/* Runs before paint so a saved dark theme does not flash white. */
+export const themeScript = `(function(){try{if(localStorage.getItem('rohith-theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();`;

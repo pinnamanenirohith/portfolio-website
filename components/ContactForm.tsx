@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { services, site } from "@/lib/site";
+import { site } from "@/lib/site";
 import { enquiryEmailHref } from "@/lib/email";
 import { Arrow, Check } from "@/components/ui/Icons";
 
@@ -12,17 +12,13 @@ import { Arrow, Check } from "@/components/ui/Icons";
 const ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
 
 /* `email` is the wording used in the email draft's subject and summary. */
-const emailWording: Record<string, string> = {
-  "business-websites": "Business website",
-  "landing-pages": "Landing page",
-  "web-applications": "Full-stack web application",
-};
 const types = [
-  ...services.map((s) => ({ id: s.id, label: s.title, email: emailWording[s.id] ?? s.title })),
-  { id: "collaboration", label: "Collaboration / role", email: "Collaboration / role" },
+  { id: "full-time", label: "Full-time role", email: "Full-time role" },
+  { id: "internship", label: "Internship", email: "Internship" },
+  { id: "collaboration", label: "Collaboration", email: "Technical collaboration" },
   { id: "other", label: "Something else", email: "" },
 ];
-const timelines = ["As soon as possible", "Within 1–2 months", "Flexible"];
+const timelines = ["As soon as possible", "Within 3 months", "Flexible"];
 
 export default function ContactForm() {
   const [type, setType] = useState<string>("");
@@ -74,7 +70,7 @@ export default function ContactForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-10" data-component="ContactForm">
       <fieldset>
-        <legend className="eyebrow mb-4">What do you need?</legend>
+        <legend className="eyebrow mb-4">What is it about?</legend>
         <div className="flex flex-wrap gap-2">
           {types.map((t) => (
             <button
@@ -109,12 +105,12 @@ export default function ContactForm() {
       <div className="relative">
         <input id="company" name="company" placeholder="Company" className={field} autoComplete="organization" />
         <label htmlFor="company" className={label}>
-          Company or project name
+          Company or organisation
         </label>
       </div>
 
       <fieldset>
-        <legend className="eyebrow mb-4">Timeline</legend>
+        <legend className="eyebrow mb-4">Start date</legend>
         <div className="flex flex-wrap gap-2">
           {timelines.map((t) => (
             <button
@@ -135,13 +131,13 @@ export default function ContactForm() {
       <div className="relative">
         <textarea id="message" name="message" required rows={4} placeholder="Message" className={`${field} resize-none`} />
         <label htmlFor="message" className={label}>
-          Tell me about the project *
+          Tell me about the opportunity *
         </label>
       </div>
 
       <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
         <button type="submit" disabled={status === "sending"} className="btn btn-primary !h-14 !px-8 !text-[16px] disabled:opacity-60">
-          {status === "sending" ? "Sending…" : "Send enquiry"} <Arrow className="arrow" />
+          {status === "sending" ? "Sending…" : "Send message"} <Arrow className="arrow" />
         </button>
         <p className="mono text-[11px] text-dim">
           {ENDPOINT ? "Sent securely. I reply within 1–2 days." : "Opens your email app with the details filled in."}
@@ -160,7 +156,7 @@ export default function ContactForm() {
             }`}
           >
             <Check className="mt-0.5 shrink-0" />
-            {status === "sent" && "Thanks — your enquiry was sent. I'll be in touch soon."}
+            {status === "sent" && "Thanks — your message was sent. I'll be in touch soon."}
             {status === "mailto" && `Your email app should open now. If it doesn't, write to ${site.email}.`}
             {status === "error" && `Something went wrong. Please email ${site.email} directly.`}
           </motion.p>
